@@ -3,7 +3,6 @@
 >  + React-Redux
 >  + Typescript
 >  + Webpack
-****
 ## Usage
 1. install dependencies
 ```
