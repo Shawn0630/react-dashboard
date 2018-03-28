@@ -1,0 +1,62 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-microsoft-contrib/recommended_ruleset"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "src/models/peptide.d.ts",
+            "src/styles/*.d.ts"
+        ]
+    },
+    "jsRules": {},
+    "rules": {
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "missing-jsdoc": false,
+        "no-relative-imports": false,
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "any",
+                "named-imports-order": "case-insensitive"
+            }
+        ],
+        "export-name": false,
+        "no-backbone-get-set-outside-model": false,
+        "react-tsx-curly-spacing": [
+            2,
+            {
+                "when": "never",
+                "allowMultiline": true
+            }
+        ],
+        "interface-name": false,
+        "prefer-type-cast": false,
+        "no-angle-bracket-type-assertion": true,
+        "no-reserved-keywords": false,
+        "object-literal-key-quotes": false,
+        "max-classes-per-file": [
+            true,
+            5
+        ],
+        "linebreak-style": false,
+        "mocha-no-side-effect-code": false,
+        "completed-docs": false,
+        "no-unsafe-any": false,
+        "cyclomatic-complexity": [
+            true,
+            40
+        ],
+        "no-submodule-imports": false,
+        "no-implicit-dependencies": [
+            true,
+            "dev"
+        ]
+    },
+    "rulesDirectory": [
+        "node_modules/tslint-microsoft-contrib"
+    ]
+}

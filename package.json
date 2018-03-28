@@ -1,0 +1,35 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.0",
+    "@types/react": "^16.1.0",
+    "@types/react-dom": "^16.0.4",
+    "typescript": "^2.8.1",
+    "tslint-microsoft-contrib": "^5.0.3",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3",
+    "webpack-merge": "^4.1.0",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "awesome-typescript-loader": "^4.0.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.5.3",
+    "html-webpack-plugin": "^3.1.0",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0",
+    "react-scripts-ts": "2.14.0"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json {src,__tests__}/**/*.{ts,tsx}"
+  }
+}
