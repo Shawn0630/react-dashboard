@@ -22,6 +22,7 @@ npm install
 webpack-dev-server
 ```
 Open your browser to http://localhost:8001. You should see the welcome web page.
+
 3. (Optional) Pack project
 ```
 webpack
