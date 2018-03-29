@@ -21,3 +21,7 @@ npm install
 ```
 webpack-dev-server
 ```
+3. (Optional) Pack project
+```
+webpack
+```
