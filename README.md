@@ -1,8 +1,11 @@
 # ts-react-redux-webpack-starter
 > Starter project for technology stacks
->  + React-Redux
->  + Typescript
->  + Webpack
+>  + **Framwork:** React-Redux
+>  + **Language:** Typescript
+>  + **Design:** Material-ui
+>  + **Style Management:** SCSS
+>  + **Deploy tool:** Webpack
+
 ## Usage
 1. install dependencies
 ```
