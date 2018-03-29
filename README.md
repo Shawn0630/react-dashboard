@@ -6,7 +6,7 @@
 >  + **Style Management:** SCSS
 >  + **Deploy tool:** Webpack
 
-## Usage
+## Getting started
 1. install dependencies
 ```
 npm install
