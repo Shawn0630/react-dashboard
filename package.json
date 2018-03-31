@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://shawn0630.github.io/ts-react-redux-webpack-starter",
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
@@ -25,6 +26,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "gh-pages": "^1.1.0",
     "material-ui": "^0.20.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
@@ -35,6 +37,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d target",
     "lint": "tslint -c ./tslint.json -p ./tsconfig.json {src,__tests__}/**/*.{ts,tsx}"
   }
 }

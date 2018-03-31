@@ -11,12 +11,12 @@ module.exports = merge(common, {
     plugins: [
         new ExtractTextPlugin("bundle.css"),
         new UglifyJSPlugin({
-            uglifyOPtions: {
+            uglifyOptions: {
                 output: {
                     ascii_only: true
                 }
             }
         }),
-        new webpack.DefinPlugin({'process.env.NODE_ENV': JSON.stringify('production')})
+        new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')})
     ]
 })
