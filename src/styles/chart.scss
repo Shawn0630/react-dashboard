@@ -1,5 +1,17 @@
-.chart {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.tooltip {
+  background: lightyellow;
+  border: 1px solid black;
+  padding: 3px;
+  font-size: 12px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 100000;
+}
+
+.scatter {
+  line {
+    stroke-opacity: 0.25;
+    stroke: black;
+    stroke-dasharray: 1, 1;
+  }
 }
