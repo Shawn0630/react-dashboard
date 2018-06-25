@@ -15,3 +15,21 @@
     stroke-dasharray: 1, 1;
   }
 }
+
+.valueLine {
+   stroke: "#51CB3F";
+   stroke-linecap: "round";
+   stroke-width: 6;
+}
+
+.emptyLine {
+   stroke: "#ECECEC";
+   stroke-linecap: "round";
+   stroke-width: 6;
+}
+
+.valueCircle {
+  stroke: "black";
+  stroke-width: 1.0;
+  fill: "white";
+}

@@ -1,18 +1,11 @@
 import * as React from "react";
+import * as ReactRedux from "react-redux";
 import * as styles from "../../styles/chart.scss";
 import * as d3 from "d3";
 
 const green: string = "rgb(0, 255, 0)";
 const red: string = "rgb(255, 0, 0)";
 const grey: string = "rgb(207, 211, 216)";
-
-interface ScatterChartProps {
-    height: number;
-    width: number;
-    xAxisTitle?: string;
-    yAxisTitle?: string;
-    graphId: string;
-}
 
 interface ScatterData {
     ratios: number[];
@@ -42,10 +35,7 @@ type Size = {
     height: number;
 };
 
-interface ScatterChartState {
-}
-
-class ScatterChart extends React.PureComponent<ScatterChartProps> {
+class ScatterChart extends React.Component<{}> {
 
     private datas: ScatterData[] = [];
     private margin: MarginType = {
@@ -75,9 +65,16 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
     private idleDelay: any; //tslint:disable-line
     private xLabel: string;
     private yLabel: string;
-    constructor(props: ScatterChartProps) {
-        super(props);
+    private graphId: string;
+    private graphHeight: number;
+    private graphWidth: number;
+    constructor() {
+        super({});
         this.datas.push(this.fillData());
+
+        this.graphId = "scatter";
+        this.graphHeight = 400;
+        this.graphWidth = 450;
 
         this.idleTimeout = null;
         this.xLabel = "Ratios";
@@ -89,10 +86,10 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
         const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = this.drawGraph();
     }
     public componentDidUpdate(): void {
-        //const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = this.drawGraph();
+        const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = this.drawGraph();
     }
     public render(): JSX.Element {
-        return <div id={this.props.graphId}>
+        return <div id={this.graphId}>
         </div>;
     }
 
@@ -115,22 +112,22 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
     private drawGraph(): d3.Selection<d3.BaseType, {}, HTMLElement, {}> {
         const svg: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = d3.select(this.referenceChartId())
             .append("svg")
-            .attr("width", this.props.width)
-            .attr("height", this.props.height);
+            .attr("width", this.graphWidth)
+            .attr("height", this.graphHeight);
 
         svg.select("*").remove();
         svg.attr("class", styles.scatter);
 
-        this.height = this.props.height - this.margin.top - this.margin.bottom;
-        this.width = this.props.width - this.margin.right - this.margin.left;
+        this.height = this.graphHeight - this.margin.top - this.margin.bottom;
+        this.width = this.graphWidth - this.margin.right - this.margin.left;
         this.ratio = this.height / this.width;
         const xAxisPos: Point = {
-            x: this.props.width / 2,
-            y: this.props.height - 15
+            x: this.graphWidth / 2,
+            y: this.graphHeight - 15
         };
         const yAxisPos: Point = {
             x: 20,
-            y: this.props.height / 2
+            y: this.graphHeight / 2
         };
 
         svg.append("text")
@@ -198,21 +195,21 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
             .attr("class", "main")
             .attr("clip-path", "url(#clip)");
 
-        const zoom: d3.ZoomBehavior<Element, {}> = d3.zoom()
-            .scaleExtent([1, 64])
-            .translateExtent([[0, this.margin.bottom + this.margin.top], [this.width, this.height]])
-            .on("zoom", () => {
-                const zoomTransform: d3.ZoomTransform = d3.event.transform;
-                const newXScale: d3.ScaleLinear<number, number> = this.xScale.copy()
-                    .domain([this.minX / zoomTransform.k, this.maxX / zoomTransform.k]);
-                const newYScale: d3.ScaleLinear<number, number> = this.yScale.copy()
-                    .domain([this.minY / zoomTransform.k, this.maxY / zoomTransform.k]);
-                this.xScale = newXScale;
-                this.yScale = newYScale;
-                this.zoom(g, main, yG);
-            });
+        // const zoom: d3.ZoomBehavior<Element, {}> = d3.zoom()
+        //     .scaleExtent([1, 64])
+        //     .translateExtent([[0, this.margin.bottom + this.margin.top], [this.width, this.height]])
+        //     .on("zoom", () => {
+        //         const zoomTransform: d3.ZoomTransform = d3.event.transform;
+        //         const newXScale: d3.ScaleLinear<number, number> = this.xScale.copy()
+        //             .domain([this.minX / zoomTransform.k, this.maxX / zoomTransform.k]);
+        //         const newYScale: d3.ScaleLinear<number, number> = this.yScale.copy()
+        //             .domain([this.minY / zoomTransform.k, this.maxY / zoomTransform.k]);
+        //         this.xScale = newXScale;
+        //         this.yScale = newYScale;
+        //         this.zoom(g, main, yG);
+        //     });
 
-        main.call(zoom);
+        // main.call(zoom);
 
         const brush: d3.BrushBehavior<{}> = d3.brush().on("end", (idleTimeout) => { //tslint:disable-line
             const s = d3.event.selection; //tslint:disable-line
@@ -272,7 +269,7 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
     }
 
     private referenceChartId(): string {
-        return "#".concat(this.props.graphId);
+        return "#".concat(this.graphId);
     }
     private zoom(g: d3.Selection<d3.BaseType, {}, HTMLElement, {}>,
                  main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>,
@@ -309,4 +306,5 @@ class ScatterChart extends React.PureComponent<ScatterChartProps> {
     }
 
 }
+
 export { ScatterChart };
