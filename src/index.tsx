@@ -1,11 +1,26 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import {App} from "./components/App";
-import {Root} from "./components/Root/Root";
-//import registerServiceWorker from "./actions/registerServiceWorker";
+import createBrowserHistory from "history/createBrowserHistory";
+import * as Redux from "redux";
+import dva, { DvaInstance } from "dva";
 
-ReactDOM.render(
-  <Root />,
-  document.getElementById("main")
-);
-//registerServiceWorker();
+import { globalModel } from "./models/global";
+import router from "./router";
+
+const app: DvaInstance = dva({
+  history: createBrowserHistory(),
+  onError: ((err, dispatch) => {
+    (err as any).preventDefault(); // tslint:disable-line:no-any
+    dispatch({
+      type: "global/addError",
+      payload: err
+    });
+    if (process.env.NODE_ENV === "development") {
+      console.log(err); //tslint:disable-line:no-console
+    }
+  })
+});
+
+app.model(globalModel);
+app.router(router);
+app.start("#main");
+
+export default (app as any)._store as Redux.Store<{}>; //tslint:disable-line:no-any

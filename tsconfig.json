@@ -1,26 +1,35 @@
 {
-  "compilerOptions": {
-    "outDir": "target",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es5",
-    "jsx": "react",
-    "removeComments": true,
-    "isolatedModules": false,
-    "noEmitOnError": false,
-    "lib": [
-      "dom",
-      "es2015.promise",
-      "es5"
+    "compilerOptions": {
+        "outDir": "target",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "jsx": "react",
+        "removeComments": true,
+        "isolatedModules": false,
+        "noEmitOnError": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "lib": ["dom", "es2015.promise", "es5", "es2015.iterable"],
+        "baseUrl": "src",
+        "paths": {
+            "~/*": ["./*"],
+            "~components/*": ["components/*"],
+            "~dva/*": ["dva/*"],
+            "~models/*": ["models/*"],
+            "~styles/*": ["styles/*"],
+            "~utilities/*": ["utilities/*"]
+        }
+    },
+    "include": [
+        "src/**/*",
+        "__tests__/**/*"
+    ],
+    "exclude": [
+        "node_modules/**/*"
     ]
-  },
-  "include": [
-    "src/**/*",
-    "__tests__/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
 }

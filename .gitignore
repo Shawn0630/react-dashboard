@@ -1,7 +1,6 @@
 node_modules
 target
 stats.json
-src/components/admin/manager-helpers.tsx
 *.scss.d.ts
 __tests__/**/*.js
 test_results/*.xml
@@ -9,3 +8,5 @@ test_results/coverage/*
 package-lock.json
 src/override.json
 src/_override.json
+
+**/*/.DS_Store

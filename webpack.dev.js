@@ -2,22 +2,24 @@
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const proxy = require("./proxy");
+const WriteFileWebpackPlugin = require("write-file-webpack-plugin");
 const outputFolder = "target";
 module.exports = merge(common, {
-    devtool: "inline-source-map",
-
+    devtool: "eval-source-map",
+    mode: "development",
     devServer: {
         contentBase: outputFolder,
         port: 8001,
         inline: true,
         hot: true,
-        historyApiFallback: true
+        compress: true,
+        historyApiFallback: true,
+        proxy: proxy
     },
 
     plugins: [
-        new ExtractTextPlugin("bundle.css"),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')})
+        new WriteFileWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 })

@@ -1,16 +1,26 @@
 const path = require("path");
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const scssPreprocessor = require('./scss-preprocessor');
 const sourceFolder = "src";
 const outputFolder = "target";
 
-module.exports = {
 
+function srcPath(subdir) {
+    return path.join(__dirname, sourceFolder, subdir);
+}
+
+module.exports = {
     context: path.join(__dirname, sourceFolder),
-    entry: ["babel-polyfill", "./index.tsx", "./index.html"],
+    entry: ["babel-polyfill", path.join(__dirname, sourceFolder, "./index.tsx")],
     output: {
-        filename: "bundle.js",
-        path: path.join(__dirname, outputFolder)
+        path: path.join(__dirname, outputFolder),
+        filename: "[name].[hash].js",
+        chunkFilename: "[id].[hash].js",
+        publicPath: "/"
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -22,43 +32,75 @@ module.exports = {
         modules: [
             path.join(__dirname, sourceFolder),
             "node_modules"
-        ]
+        ],
+        alias: {
+            "~models": srcPath("models"),
+            "~styles": srcPath("styles")
+        }
     },
-
+    stats: "minimal",
+    plugins: [
+        {
+            apply: (compiler) => {
+                compiler.hooks.afterEnvironment.tap("ScssTsPlugin", () => {
+                    scssPreprocessor.preprocess();
+                })
+            }
+        },
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, sourceFolder, "template.html"),
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].[hash].css"
+        }),
+        new CleanWebpackPlugin(path.join(__dirname, outputFolder)),
+        new CaseSensitivePathsPlugin(),
+        new webpack.WatchIgnorePlugin([
+            /scss\.d\.ts$/,
+            /css\/.d\.ts$/
+        ]),
+    ],
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { 
                 test: /\.tsx?$/,
-                loader: "awesome-typescript-loader" 
+                exclude: /(node_modules)/,
+                loader: "ts-loader",
+                options: {
+                    transpileOnly: true,
+                    experimentalWatchApi: true
+                }
             },
-
+            {
+                test: /global\.css$/,
+                use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /bootstrap\.min\.css$/,
+                use: "file-loader?name=styles/[name].[ext]"
+            },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { 
                 enforce: "pre",
                 test: /\.js$/,
                 loader: "source-map-loader"
             },
-
-            // All files with a ".css" extension will be handled by "css-loader"
-            { 
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-
             {
                 test: /\.scss$/,
-                exclude: /(node_modules)/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        "typings-for-css-modules-loader?modules&namedExport&camelCase&sass&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]",
-                        "sass-loader"
-                    ],
-                    fallback: "style-loader?sourceMap"
-                })
-
+                use: [
+                    {
+                        loader: process.env.NODE_ENV !== 'production' ? "style-loader" : MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: "css-loader?modules&namedExport&importLoaders-1&localIdentName=[name]__[local]__[hash:base64:5]"
+                    },
+                    {
+                        loader: "sass-loader"
+                    }
+                ]
             },
-
             {
                 test: /\.(ttf|woff|woff2|eot|svg)$/,
                 loader: "file-loader?name=/fonts/[name].[ext]"
@@ -67,11 +109,6 @@ module.exports = {
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
                 loader: "file-loader?name=/images/[name].[ext]"
-            },
-
-            {
-                test: /\.(htm|html)$/,
-                loader: "file-loader?name=[name].[ext]"
             },
         ]
     }
