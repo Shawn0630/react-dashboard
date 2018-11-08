@@ -1,11 +1,8 @@
 import * as React from "react";
-import * as ReactRedux from "react-redux";
 import * as styles from "../../styles/chart.scss";
 import * as d3 from "d3";
 
 const green: string = "rgb(0, 255, 0)";
-const red: string = "rgb(255, 0, 0)";
-const grey: string = "rgb(207, 211, 216)";
 
 interface ScatterData {
     ratios: number[];
@@ -18,11 +15,6 @@ interface Point {
     color?: string;
 }
 
-interface Axis {
-    xAxis: d3.Selection<d3.BaseType, {}, HTMLElement, {}>;
-    yAxis: d3.Selection<d3.BaseType, {}, HTMLElement, {}>;
-}
-
 type MarginType = {
     top: number;
     right: number;
@@ -30,12 +22,7 @@ type MarginType = {
     left: number;
 };
 
-type Size = {
-    width: number;
-    height: number;
-};
-
-class ScatterChart extends React.Component<{}> {
+class ScatterChart extends React.PureComponent<{}> {
 
     private datas: ScatterData[] = [];
     private margin: MarginType = {
@@ -43,10 +30,6 @@ class ScatterChart extends React.Component<{}> {
         right: 20,
         bottom: 50,
         left: 60
-    };
-    private boxSize: Size = {
-        width: 5,
-        height: 5
     };
     private height: number;
     private width: number;
@@ -62,7 +45,6 @@ class ScatterChart extends React.Component<{}> {
     private xAxis: any; //tslint:disable-line
     private yAxis: any; //tslint:disable-line
     private idleTimeout: any; //tslint:disable-line
-    private idleDelay: any; //tslint:disable-line
     private xLabel: string;
     private yLabel: string;
     private graphId: string;
@@ -83,10 +65,10 @@ class ScatterChart extends React.Component<{}> {
         this.idled = this.idled.bind(this);
     }
     public componentDidMount(): void {
-        const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = this.drawGraph();
+        this.drawGraph();
     }
     public componentDidUpdate(): void {
-        const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = this.drawGraph();
+        this.drawGraph();
     }
     public render(): JSX.Element {
         return <div id={this.graphId}>
@@ -174,7 +156,7 @@ class ScatterChart extends React.Component<{}> {
         this.xAxis = d3.axisBottom(this.xScale).tickValues(this.xScale.ticks(8)) as d3.Axis<number>;
         this.yAxis = d3.axisLeft(this.yScale).tickValues(this.yScale.ticks(8)).tickSizeInner(-this.width) as d3.Axis<number>;
 
-        const xG: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = g.append("g")
+        g.append("g")
             .attr("class", "xAxis")
             .attr("transform", `translate(0, ${this.height})`)
             .call(this.xAxis);
@@ -283,9 +265,6 @@ class ScatterChart extends React.Component<{}> {
             .attr("cx", (point: Point) => this.xScale(point.x))
             .attr("cy", (point: Point) => this.yScale(point.y));
     }
-    private remove(main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>, brush: d3.BrushBehavior<{}>): void {//tslint:disable-line
-        main.selectAll(".rect").selectAll(".selection").call(brush.move, null);
-    }
     private convertPointsArray(data: ScatterData, c: string): Point[] {
         const points: Point[] = [];
         for (let i: number = 0; i < data.ratios.length; i += 1) {
@@ -300,9 +279,6 @@ class ScatterChart extends React.Component<{}> {
     }
     private idled(): void {
         this.idleTimeout = null;
-    }
-    private generateTooltip(): string {
-        return "Protein";
     }
 
 }

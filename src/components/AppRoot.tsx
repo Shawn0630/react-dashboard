@@ -1,12 +1,13 @@
 import * as React from "react";
-import * as styles from "./AppRoot.scss";
 import { connect, SubscriptionAPI } from "dva";
 import { GlobalState } from "../models/global";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import {default as Routers } from "../routers";
 
 interface AppRootProps extends SubscriptionAPI {
     global: GlobalState;
@@ -28,6 +29,8 @@ export default class AppRoot extends React.PureComponent<AppRootProps> {
 
        return <div>
            <Dialog
+               maxWidth="md"
+               fullWidth={true}
                open={errors.length > 0}
                onClose={this.handleErrorClose}
                aria-labelledby="error-dialog-title"
@@ -37,9 +40,9 @@ export default class AppRoot extends React.PureComponent<AppRootProps> {
                <DialogContent id="error-dialog-description">
                     {
                         errors.length > 0 ?
-                        <div>
-                            <span className={styles.errorMessage}>{errors[0].toString()}</span>
-                        </div> : null
+                        <DialogContentText id="error-dialog-description">
+                               {errors[0].toString()}
+                        </DialogContentText> : null
                     }
                </DialogContent>
                <DialogActions>
@@ -48,6 +51,7 @@ export default class AppRoot extends React.PureComponent<AppRootProps> {
                     </Button>
                </DialogActions>
            </Dialog>
+           <Routers />
         </div>;
     }
 

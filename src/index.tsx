@@ -4,6 +4,7 @@ import dva, { DvaInstance } from "dva";
 
 import { globalModel } from "./models/global";
 import router from "./router";
+import "bootstrap/dist/css/bootstrap.min.css"; // tslint:disable-line
 
 const app: DvaInstance = dva({
   history: createBrowserHistory(),
