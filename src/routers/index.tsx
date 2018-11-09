@@ -30,7 +30,7 @@ export default class Routers extends React.PureComponent {
         return <Redirect to="/404" />;
     }
     private route(rc: RoutesConfig): JSX.Element {
-        const Component: any = Components[rc.component]; // tslint:disable-line
+        const Component: React.ComponentClass = Components[rc.component]; // tslint:disable-line
         return <Route key={rc.route || rc.key}
             exact path={rc.route || rc.key}
             render={(props: RouteProps) => <Component {...props} />} />; // tslint:disable-line
