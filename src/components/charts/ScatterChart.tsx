@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as styles from "../../styles/chart.scss";
+import * as styles from "./ScatterChart.scss";
 import * as d3 from "d3";
 
 const green: string = "rgb(0, 255, 0)";

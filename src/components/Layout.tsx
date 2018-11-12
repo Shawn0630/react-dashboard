@@ -15,7 +15,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
-import MenuItem from "@material-ui/core/MenuItem";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
