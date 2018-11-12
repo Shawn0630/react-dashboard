@@ -10,6 +10,7 @@ interface ErrorTextFieldProps {
     label?: string;
     helperText?: string;
     errorText?: string;
+    labelClassName?: string;
     className?: string;
     placeholder?: string;
     disabled?: boolean;
