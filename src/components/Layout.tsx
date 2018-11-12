@@ -15,7 +15,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -23,6 +22,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import MenuIcon from "@material-ui/icons/Menu"; // tslint:disable-line:import-name
 import classNames from "classnames"; // tslint:disable-line:import-name
+import { PositionableMenu } from "./shared/PositionableMenu";
+import { DefaultStylings } from "../Theme";
 
 interface LayoutProps extends StyledComponentProps {
     title?: string;
@@ -126,6 +127,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
         this.toggleSubDrawer = this.toggleSubDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
         this.openSubMenu = this.openSubMenu.bind(this);
+        this.closeSubMenu = this.closeSubMenu.bind(this);
     }
 
     public render(): JSX.Element {
@@ -165,7 +167,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                     {this.menulist()}
                 </List>
             </Drawer>
-            <main className={this.props.classes.content}>
+            <main className={this.props.classes.content} onMouseOver={this.closeSubMenu}>
                 <div className={this.props.classes.toolbar}>
                     {this.props.children}
                 </div>
@@ -204,12 +206,15 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     }
     private openSubMenu(): (event: React.SyntheticEvent<HTMLElement>) => void {
         return (event: React.SyntheticEvent<HTMLElement>): void => {
+            if (this.state.open) {
+                return;
+            }
             this.setState({
                 menuAnchorEl: event.currentTarget
             });
         };
     }
-    private closeSubMenu(): void {
+    private closeSubMenu(event: React.MouseEvent<HTMLElement>): void {
         this.setState({
             menuAnchorEl: null
         });
@@ -236,13 +241,22 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                 <ListItemText inset primary={r.title} />
                 {!(this.state.drawerAnchorEl.indexOf(r.key) < 0) ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Menu id={`${r.key}-menu`} anchorEl={this.state.menuAnchorEl}
+            <PositionableMenu id={`${r.key}-menu`} anchorEl={this.state.menuAnchorEl} placement={DefaultStylings.POPPER_ON_THE_RIGHT}
                   open={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
-                  onClose={this.closeDrawer}>
-                <MenuItem onClick={this.closeDrawer}>Profile</MenuItem>
-                <MenuItem onClick={this.closeDrawer}>My account</MenuItem>
-                <MenuItem onClick={this.closeDrawer}>Logout</MenuItem>
-            </Menu>
+                  onClose={this.closeSubMenu} style={{zIndex: 1200}}>
+                <List component="div" disablePadding>
+                    <ListItem button key={r.key} id={r.key}>
+                        <ListItemIcon>
+                            <Icon>
+                                {r.icon}
+                            </Icon>
+                        </ListItemIcon>
+                        <ListItemText inset primary={r.title} />
+                    </ListItem>
+                    <Divider />
+                    {r.subs.map((rc: RoutesConfig) => this.nestedMenuitem(rc))}
+                </List>
+            </PositionableMenu>
             {
                 r.subs &&
                 <React.Fragment>
@@ -271,6 +285,9 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     private toPage(route: string): (event: React.MouseEvent<HTMLElement>) => void {
         return (event: React.MouseEvent<HTMLElement>): void => {
             this.props.dispatch(routerRedux.push(route));
+            this.setState({
+                menuAnchorEl: null
+            });
         };
     }
 }

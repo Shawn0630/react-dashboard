@@ -13,6 +13,7 @@ const muiThemeCore: Theme = createMuiTheme({
 
 export namespace DefaultStylings {
     export const POPPER_ON_THE_LEFT: PopperPlacementType = "left";
+    export const POPPER_ON_THE_RIGHT: PopperPlacementType = "right-start";
     export const POPPER_AT_THE_BOTTOM: PopperPlacementType = "bottom";
 }
 

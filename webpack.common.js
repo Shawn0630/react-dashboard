@@ -35,7 +35,9 @@ module.exports = {
         ],
         alias: {
             "~models": srcPath("models"),
-            "~styles": srcPath("styles")
+            "~styles": srcPath("styles"),
+            "~components": srcPath("components"),
+            "~": srcPath("")
         }
     },
     stats: "minimal",
