@@ -15,6 +15,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -30,7 +32,8 @@ interface LayoutProps extends StyledComponentProps {
 
 interface LayoutStates {
     open: boolean;
-    menuAnchorEl: string[];
+    drawerAnchorEl: string[];
+    menuAnchorEl: HTMLElement;
 }
 
 const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-any
@@ -115,12 +118,14 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
 
         this.state = {
             open: false,
-            menuAnchorEl: []
+            drawerAnchorEl: [],
+            menuAnchorEl: null
         };
 
         this.toggleDrawer = this.toggleDrawer.bind(this);
         this.toggleSubDrawer = this.toggleSubDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+        this.openSubMenu = this.openSubMenu.bind(this);
     }
 
     public render(): JSX.Element {
@@ -170,7 +175,8 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
 
     private toggleDrawer(): void {
         this.setState({
-            open: !this.state.open
+            open: !this.state.open,
+            drawerAnchorEl: this.state.open ? [] : this.state.drawerAnchorEl
         });
     }
     private toggleSubDrawer(): (event: React.SyntheticEvent<HTMLElement>) => void {
@@ -178,14 +184,14 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
             if (this.state.open === false) {
                 return;
             }
-            const index: number = this.state.menuAnchorEl.indexOf(event.currentTarget.id);
+            const index: number = this.state.drawerAnchorEl.indexOf(event.currentTarget.id);
             if (index < 0) {
                 this.setState({
-                    menuAnchorEl: [...this.state.menuAnchorEl, event.currentTarget.id]
+                    drawerAnchorEl: [...this.state.drawerAnchorEl, event.currentTarget.id]
                 });
             } else {
                 this.setState({
-                    menuAnchorEl: this.state.menuAnchorEl.filter((id: string) => id !== event.currentTarget.id)
+                    drawerAnchorEl: this.state.drawerAnchorEl.filter((id: string) => id !== event.currentTarget.id)
                 });
             }
         };
@@ -194,6 +200,18 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     private closeDrawer(): void {
         this.setState({
             open: false
+        });
+    }
+    private openSubMenu(): (event: React.SyntheticEvent<HTMLElement>) => void {
+        return (event: React.SyntheticEvent<HTMLElement>): void => {
+            this.setState({
+                menuAnchorEl: event.currentTarget
+            });
+        };
+    }
+    private closeSubMenu(): void {
+        this.setState({
+            menuAnchorEl: null
         });
     }
 
@@ -209,19 +227,26 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
 
     private menuitem(r: RoutesConfig): JSX.Element {
         return <React.Fragment>
-            <ListItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key}>
+            <ListItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}>
                 <ListItemIcon>
                     <Icon>
                         {r.icon}
                     </Icon>
                 </ListItemIcon>
                 <ListItemText inset primary={r.title} />
-                {!(this.state.menuAnchorEl.indexOf(r.key) < 0) ? <ExpandLess /> : <ExpandMore />}
+                {!(this.state.drawerAnchorEl.indexOf(r.key) < 0) ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
+            <Menu id={`${r.key}-menu`} anchorEl={this.state.menuAnchorEl}
+                  open={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
+                  onClose={this.closeDrawer}>
+                <MenuItem onClick={this.closeDrawer}>Profile</MenuItem>
+                <MenuItem onClick={this.closeDrawer}>My account</MenuItem>
+                <MenuItem onClick={this.closeDrawer}>Logout</MenuItem>
+            </Menu>
             {
                 r.subs &&
                 <React.Fragment>
-                    <Collapse in={!(this.state.menuAnchorEl.indexOf(r.key) < 0)} timeout="auto" unmountOnExit>
+                    <Collapse in={!(this.state.drawerAnchorEl.indexOf(r.key) < 0)} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {r.subs.map((rc: RoutesConfig) => this.nestedMenuitem(rc))}
                         </List>

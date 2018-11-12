@@ -1,4 +1,5 @@
 import { createMuiTheme, Theme } from "@material-ui/core/styles";
+import { PopperPlacementType } from "@material-ui/core/Popper";
 
 const muiThemeCore: Theme = createMuiTheme({
     overrides: {
@@ -9,5 +10,10 @@ const muiThemeCore: Theme = createMuiTheme({
         }
     }
 });
+
+export namespace DefaultStylings {
+    export const POPPER_ON_THE_LEFT: PopperPlacementType = "left";
+    export const POPPER_AT_THE_BOTTOM: PopperPlacementType = "bottom";
+}
 
 export { muiThemeCore };
