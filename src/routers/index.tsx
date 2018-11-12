@@ -17,7 +17,10 @@ export default class Routers extends React.PureComponent {
             {
                 Object.keys(routesConfig).map((key: string) =>
                     routesConfig[key].map((r: RoutesConfig) => {
-                        return r.component ? this.route(r) : r.subs.map((rc: RoutesConfig) => this.route(rc));
+                        return <React.Fragment>
+                            {this.route(r)}
+                            {r.subs && r.subs.map((rc: RoutesConfig) => this.route(rc))}
+                        </React.Fragment>;
                     })
                 )
             }

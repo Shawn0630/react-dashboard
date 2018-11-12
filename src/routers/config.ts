@@ -9,8 +9,11 @@ interface RoutesConfig {
 
 const routesConfig: {[key: string]: RoutesConfig[]} = {
     menus: [
-        { key: "/app/charts/scatter", title: "ScatterPlot", icon: "mobile", component: "ScatterChart" },
+        { key: "/app/charts", title: "Charts", icon: "show_chart", component: "ScatterChart",
+          subs: [
+              {key: "/app/charts/scatter", title: "ScatterPlot", icon: "bubble_chart", component: "ScatterChart"}
+          ]},
     ]
 };
 
-export { RoutesConfig, routesConfig};
+export { RoutesConfig, routesConfig };
