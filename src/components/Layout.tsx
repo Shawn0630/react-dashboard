@@ -1,4 +1,7 @@
 import * as React from "react";
+import * as Redux from "redux";
+import { connect } from "dva";
+import { routerRedux, withRouter } from "dva/router";
 import { RoutesConfig, routesConfig } from "../routers/config";
 import { createStyles, StyledComponentProps, Theme, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,8 +15,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
-import InboxIcon from "@material-ui/icons/MoveToInbox"; // tslint:disable-line:import-name
-import MailIcon from "@material-ui/icons/Mail"; // tslint:disable-line:import-name
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -24,10 +25,12 @@ import classNames from "classnames"; // tslint:disable-line:import-name
 interface LayoutProps extends StyledComponentProps {
     title?: string;
     children: React.ComponentClass;
+    dispatch?: Redux.Dispatch<any>; //tslint:disable-line:no-any
 }
 
 interface LayoutStates {
     open: boolean;
+    menuAnchorEl: string[];
 }
 
 const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-any
@@ -103,16 +106,20 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
 });
 
 const drawerWidth: number = 240;
-export default withStyles(styles)(class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
+
+@connect()
+class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
 
     constructor(props: LayoutProps) {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
+            menuAnchorEl: []
         };
 
         this.toggleDrawer = this.toggleDrawer.bind(this);
+        this.toggleSubDrawer = this.toggleSubDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
     }
 
@@ -149,16 +156,11 @@ export default withStyles(styles)(class Layout extends React.PureComponent<Layou
                         <ListItemText primary="Close Menu" />
                         <Divider />
                     </ListItem>
-                    {/* {["All mail", "Trash", "Spam"].map((text, index) => (
-                        <ListItem button key={text} onClick={this.closeDrawer}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text}/>
-                        </ListItem>
-                    ))} */}
+                    <Divider />
                     {this.menulist()}
                 </List>
             </Drawer>
-            <main className={this.props.classes.content} onClick={this.closeDrawer}>
+            <main className={this.props.classes.content}>
                 <div className={this.props.classes.toolbar}>
                     {this.props.children}
                 </div>
@@ -170,6 +172,23 @@ export default withStyles(styles)(class Layout extends React.PureComponent<Layou
         this.setState({
             open: !this.state.open
         });
+    }
+    private toggleSubDrawer(): (event: React.SyntheticEvent<HTMLElement>) => void {
+        return (event: React.SyntheticEvent<HTMLElement>): void => {
+            if (this.state.open === false) {
+                return;
+            }
+            const index: number = this.state.menuAnchorEl.indexOf(event.currentTarget.id);
+            if (index < 0) {
+                this.setState({
+                    menuAnchorEl: [...this.state.menuAnchorEl, event.currentTarget.id]
+                });
+            } else {
+                this.setState({
+                    menuAnchorEl: this.state.menuAnchorEl.filter((id: string) => id !== event.currentTarget.id)
+                });
+            }
+        };
     }
 
     private closeDrawer(): void {
@@ -190,34 +209,45 @@ export default withStyles(styles)(class Layout extends React.PureComponent<Layou
 
     private menuitem(r: RoutesConfig): JSX.Element {
         return <React.Fragment>
-            <ListItem button onClick={this.toPage} key={r.key}>
+            <ListItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key}>
                 <ListItemIcon>
                     <Icon>
                         {r.icon}
                     </Icon>
                 </ListItemIcon>
                 <ListItemText inset primary={r.title} />
-                {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                {!(this.state.menuAnchorEl.indexOf(r.key) < 0) ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            {r.subs && r.subs.map((rc: RoutesConfig) => this.nestedMenuitem(rc))}
-            <Divider />
+            {
+                r.subs &&
+                <React.Fragment>
+                    <Collapse in={!(this.state.menuAnchorEl.indexOf(r.key) < 0)} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            {r.subs.map((rc: RoutesConfig) => this.nestedMenuitem(rc))}
+                        </List>
+                    </Collapse>
+                    <Divider />
+                </React.Fragment>
+            }
         </React.Fragment>;
     }
 
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
-        return <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-                <ListItem button className={this.props.classes.nested}>
-                    <ListItemIcon>
-                        <Icon>
-                            {r.icon}
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText inset primary={r.title} />
-                </ListItem>
-            </List>
-        </Collapse>;
+        return <ListItem button className={this.props.classes.nested} onClick={this.toPage(r.key)}>
+            <ListItemIcon>
+                <Icon>
+                    {r.icon}
+                </Icon>
+            </ListItemIcon>
+            <ListItemText inset primary={r.title} />
+        </ListItem>;
     }
 
-    private toPage(): void {}
-});
+    private toPage(route: string): (event: React.MouseEvent<HTMLElement>) => void {
+        return (event: React.MouseEvent<HTMLElement>): void => {
+            this.props.dispatch(routerRedux.push(route));
+        };
+    }
+}
+
+export default withStyles(styles)(withRouter(Layout));
