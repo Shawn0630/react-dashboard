@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.example.dto;
+
+option java_multiple_files = true;
+
+message ProteinFoldChange {
+    string accession = 1;
+    float significance = 2;
+    float largestFoldChange = 3;
+    bool isFiltered = 4;
+    uint32 cluster = 5;
+    bool top = 6;
+    string id= 7;
+}

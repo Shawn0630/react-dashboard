@@ -1,7 +1,7 @@
-import {ScatterChart} from "../components/charts/ScatterChart";
+import VolcanoPlotPage from "../components/charts/VolcanoPlotPage";
 
 const Components: { [key: string]: React.ComponentClass } = { // tslint:disable-line
-    ScatterChart
+    VolcanoPlotPage
 };
 
 export default Components;
