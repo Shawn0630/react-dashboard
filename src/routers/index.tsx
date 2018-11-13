@@ -1,14 +1,31 @@
 import * as React from "react";
-import { Redirect, Route, RouteProps, Switch } from "dva/router";
+import { Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter } from "dva/router";
 import { RoutesConfig, routesConfig } from "./config";
 import {default as Components} from "../components";
 
-export default class Routers extends React.PureComponent {
+interface RoutersProps extends RouteComponentProps<{}> {}
+interface RoutersStates {
+    pathName: string;
+}
 
-    constructor() {
-        super({});
+export default withRouter(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
+
+    constructor(props: RoutersProps) {
+        super(props);
         this.notFound = this.notFound.bind(this);
         this.route = this.route.bind(this);
+
+        this.state = {
+            pathName: props.history.location.pathname
+        };
+    }
+
+    public componentWillMount(): void {
+        this.props.history.listen((listen) => {
+            this.setState({
+                pathName: listen.pathname
+            });
+        });
     }
 
     public render(): JSX.Element {
@@ -38,4 +55,4 @@ export default class Routers extends React.PureComponent {
             exact path={rc.route || rc.key}
             render={(props: RouteProps) => <Component {...props} />} />; // tslint:disable-line
     }
-}
+});
