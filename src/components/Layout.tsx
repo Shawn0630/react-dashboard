@@ -5,6 +5,7 @@ import { routerRedux, withRouter } from "dva/router";
 import { RoutesConfig, routesConfig } from "../routers/config";
 import { createStyles, StyledComponentProps, Theme, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -38,12 +39,7 @@ interface LayoutStates {
 
 const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-any
     root: {
-        flexGrow: 1,
-        zIndex: 1,
-        overflow: "hidden",
-        position: "relative",
         display: "flex",
-        minHeight: "100vh"
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -67,29 +63,34 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     hide: {
         display: "none",
     },
-    drawerPaper: {
-        position: "relative",
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
         whiteSpace: "nowrap",
+    },
+    drawerOpen: {
         width: drawerWidth,
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
-    drawerPaperClose: {
-        overflowX: "hidden",
+    drawerClose: {
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        width: theme.spacing.unit * 7,
+        overflowX: "hidden",
+        width: theme.spacing.unit * 7 + 1,
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing.unit * 9,
+            width: theme.spacing.unit * 9 + 1,
         },
     },
     toolbar: {
         display: "flex",
         alignItems: "center",
+        justifyContent: "flex-end",
+        padding: "0 8px",
         ...theme.mixins.toolbar,
     },
     menuList: {
@@ -103,8 +104,7 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     },
     content: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        marginTop: theme.spacing.unit * 9,
+        padding: theme.spacing.unit * 3,
     },
 });
 
@@ -131,8 +131,9 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
 
     public render(): JSX.Element {
         return <div className={this.props.classes.root}>
+            <CssBaseline />
             <AppBar
-                position="absolute"
+                position="fixed"
                 className={classNames(this.props.classes.appBar, this.state.open && this.props.classes.appBarShift)}
             >
                 <Toolbar disableGutters={!this.state.open}>
@@ -151,9 +152,15 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
             </AppBar>
             <Drawer
                 variant="permanent"
+                className={classNames(this.props.classes.drawer, {
+                    [this.props.classes.drawerOpen]: this.state.open,
+                    [this.props.classes.drawerClose]: !this.state.open,
+                })}
                 classes={{
-                    paper: classNames(this.props.classes.drawerPaper, !this.state.open && this.props.classes.drawerPaperClose),
-                }}
+                    paper: classNames(this.props.classes.drawerPaper, {
+                        [this.props.classes.drawerOpen]: this.state.open,
+                        [this.props.classes.drawerClose]: !this.state.open,
+                    })}}
                 open={this.state.open}
             >
                 <List className={this.props.classes.menuList}>
@@ -168,7 +175,9 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
             </Drawer>
             <main className={this.props.classes.content} onMouseOver={this.closeSubMenu}>
                 <div className={this.props.classes.toolbar}>
-                    {this.props.children}
+                    <Typography noWrap>
+                        {this.props.children}
+                    </Typography>
                 </div>
             </main>
         </div>;
