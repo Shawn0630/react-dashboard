@@ -1,33 +1,32 @@
 import * as d3 from "d3";
 import * as React from "react";
 
-import { config } from "../../../../../config";
-import { Color } from "../../../../../models/Color";
-import { Group } from "../../../../../models/Group";
-import { com, peaksonline } from "../../../../../models/peptide";
-import * as styles from "../../../../../styles/summary-charts.scss";
-import { LFQHelpers } from "../../../../../utilities/lfq-helpers";
+import { Color } from "../../../models/Color";
+import { com } from "../../../models/example";
+import * as styles from "./Heatmap.scss";
+import { HeatmapHelper } from "./heatmap-helper";
 
-import ILfqHeatMapDendrogram = com.bsi.peaks.model.dto.peptide.ILfqHeatMapDendrogram;
-import ILfqHeatMapRow = com.bsi.peaks.model.dto.peptide.ILfqHeatMapRow;
-import Sample = peaksonline.dto.Sample;
+import ISample = com.example.dto.ISample;
+import IGroup = com.example.dto.IGroup;
+import IDendrogram = com.example.dto.IDendrogram;
+import IHeatMapRow = com.example.dto.IHeatMapRow;
 
 //tslint:disable-next-line
 interface HeatmapProps {
     graphId: string;
     width: number;
     height: number;
-    data: ILfqHeatMapDendrogram;
+    data: IDendrogram;
     maxProteinsReachedBackend: boolean;
-    groups: Group[];
-    samples: Sample[];
+    groups: IGroup[];
+    samples: ISample[];
 }
 //tslint:disable-next-line
 interface HeatmapState {
 }
 
 interface Node {
-    row: ILfqHeatMapRow;
+    row: IHeatMapRow;
     children: Node[];
 }
 
@@ -76,19 +75,12 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             </span>;
         } else if (this.props.data != null) {
             const graphSize: Size = this.calculateGraphSize();
-
-            if (this.alignedTreeData.leaves().length <= config.heatmapMaxProteins) {
-                return <div id={this.props.graphId} >
-                    <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
+            return <div id={this.props.graphId} >
+                <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
                             minSize.width : graphSize.height + this.margin.left + this.margin.right}
                     height={graphSize.width + this.margin.top + this.margin.bottom < minSize.height ?
                             minSize.height : graphSize.width + this.margin.top + this.margin.bottom} />
-                </div>;
-            } else {
-                return <span>
-                {`Exceed the protein number limit(${config.heatmapMaxProteins}), protein heatmap is hidden.`}
-            </span>;
-            }
+            </div>;
         } else {
             return <span>No proteins available under the filter.</span>;
         }
@@ -96,7 +88,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
     }
 
     public componentDidMount(): void {
-        if (this.props.data != null && this.alignedTreeData.leaves().length <= config.heatmapMaxProteins) {
+        if (this.props.data != null && !this.props.maxProteinsReachedBackend) {
             this.drawChart();
         }
     }
@@ -175,7 +167,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                     if (n.data.row == null) {
                         return null;
                     }
-                    const color: Color = LFQHelpers.getColorFromLevel(1 / 16, n.data.row.colour[i], 16);
+                    const color: Color = HeatmapHelper.getColorFromLevel(1 / 16, n.data.row.colour[i], 16);
 
                     return `fill:${color}`;
                 });
@@ -256,7 +248,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         }
     }
 
-    private constructTree(root: ILfqHeatMapDendrogram): Node {
+    private constructTree(root: IDendrogram): Node {
         const treeRoot: Node = {
             row : null,
             children: []
@@ -267,10 +259,10 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         return treeRoot;
     }
 
-    private constructTreeDFS(root: ILfqHeatMapDendrogram, tree: Node, depth: number, maxTreeHeight: number): void {
+    private constructTreeDFS(root: IDendrogram, tree: Node, depth: number, maxTreeHeight: number): void {
 
         if (depth > maxTreeHeight) {
-            const rows: ILfqHeatMapRow[] = this.getTreeRows(root);
+            const rows: IHeatMapRow[] = this.getTreeRows(root);
             for (const r of rows) {
                 tree.children.push({
                     row: r,
@@ -309,15 +301,15 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         return;
     }
 
-    private getTreeRows(root: ILfqHeatMapDendrogram): ILfqHeatMapRow[] {
-        const rows: ILfqHeatMapRow[] = [];
+    private getTreeRows(root: IDendrogram): IHeatMapRow[] {
+        const rows: IHeatMapRow[] = [];
 
         this.getTreeRowsDFS(root, rows);
 
         return rows;
     }
 
-    private getTreeRowsDFS(root: ILfqHeatMapDendrogram, rows: ILfqHeatMapRow[]): void {
+    private getTreeRowsDFS(root: IDendrogram, rows: IHeatMapRow[]): void {
         if (root.row != null) {
             rows.push(root.row);
 
@@ -328,7 +320,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         this.getTreeRowsDFS(root.right, rows);
     }
 
-    private getSampleColor(sampleId: string, groups: Group[]): string {
+    private getSampleColor(sampleId: string, groups: IGroup[]): string {
         for (const group of groups) {
             const color: string = group.hexColour;
             for (const id of group.sampleIds) {
