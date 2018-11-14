@@ -1,0 +1,24 @@
+[
+    {
+        "id":"7863dd2a-09e5-4a2d-bc98-024c57e4722f",
+        "name":"Sample 1",
+        "instrument":"Orbitrap (Orbi-Trap)",
+        "enzyme":"Trypsin",
+        "activationMethod":"CID",
+        "fractions":[{
+            "id":"e8245dcc-75cc-4494-8fab-2bd23baa6873",
+            "sourceFile":"Severe_SMA_1.raw"
+        }]
+    },
+    {
+        "id":"2bb56666-458e-4ddc-8f28-9bb253913a9e",
+        "name":"Sample 2",
+        "instrument":"Orbitrap (Orbi-Trap)",
+        "enzyme":"Trypsin",
+        "activationMethod":"CID",
+        "fractions":[{
+            "id":"1719e4ae-6e93-453e-9383-1b6bc9372536",
+            "sourceFile":"Wild_Type_1.raw"
+        }]
+    }
+]
