@@ -13,3 +13,52 @@ message ProteinFoldChange {
     bool top = 6;
     string id= 7;
 }
+
+message Group {
+    string groupName = 1;
+    repeated string sampleIds = 2;
+    repeated string sampleNames = 3;
+    string hexColour = 4;
+}
+
+message Sample {
+    string id = 1;
+    string name = 2;
+    string instrument = 3;
+    string enzyme = 4;
+    ActivationMethod activationMethod = 5;
+    repeated Fraction fractions = 6;
+
+    message Fraction {
+        string id = 1;
+        string sourceFile = 2;
+    }
+}
+
+enum ActivationMethod {
+    UNDEFINED = 0;
+    CID = 1;
+    HCD = 2;
+    ECD = 3;
+    MIX = 4;
+    PQD = 5;
+    IRMPD = 6;
+}
+
+message Dendrogram {
+    Dendrogram left = 1;
+    Dendrogram right = 2;
+    HeatMapRow row = 3;
+}
+
+message HeatMapRow {
+    string accession = 1;
+    repeated float sampleAreas = 2;
+    repeated OptionalFloat sampleRatios = 3;
+    repeated float colour = 4;
+}
+
+message OptionalFloat {
+    bool isPresent = 1;
+    float value = 2;
+}
