@@ -3,7 +3,7 @@
     "extends": ["tslint-microsoft-contrib/recommended_ruleset"],
     "linterOptions": {
         "exclude": [
-            "src/models/peptide.d.ts",
+            "src/models/example.d.ts",
             "src/styles/*.d.ts"
         ]
     },

@@ -71,6 +71,7 @@
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^2.0.1",
     "@types/d3-hierarchy": "^1.1.0",
+    "@types/react-swipeable-views": "^0.12.2",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.6",
@@ -92,6 +93,7 @@
     "react-dom": "^16.5.2",
     "react-dropzone": "^4.2.3",
     "react-grid-layout": "^0.16.0",
+    "react-swipeable-views": "^0.13.0",
     "react-tooltip": "^3.8.1",
     "react-virtualized": "^9.20.1",
     "redux": "^4.0.0",
@@ -111,5 +113,49 @@
     "proto-js": "node_modules/.bin/pbjs -t static-module -w commonjs -o src/models/example.js  proto/**/*.proto",
     "proto-ts": "node_modules/.bin/pbts -o src/models/example.d.ts src/models/example.js",
     "proto": "npm run-script proto-js && npm run-script proto-ts"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/shim.js",
+      "<rootDir>/setupTests.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.(ts|tsx|js)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy",
+      "~(.*)$": "<rootDir>/src/$1"
+    },
+    "testResultsProcessor": "jest-junit",
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "cobertura"
+    ],
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "**/src/**/*.{ts,tsx,js,jsx}",
+      "!**/node_modules/**",
+      "!**/debug/**",
+      "!**/src/**/*.d.ts"
+    ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true",
+    "output": "test_results/jest.xml"
   }
 }
