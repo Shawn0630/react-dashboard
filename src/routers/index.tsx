@@ -3,7 +3,7 @@ import { Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter } 
 import { RoutesConfig, routesConfig } from "./config";
 import {default as Components} from "../components";
 
-interface RoutersProps extends RouteComponentProps<{}> {}
+interface RoutersProps extends RouteComponentProps<null> {}
 interface RoutersStates {
     pathName: string;
 }
@@ -34,10 +34,10 @@ export default withRouter(class Routers extends React.PureComponent<RoutersProps
             {
                 Object.keys(routesConfig).map((key: string) =>
                     routesConfig[key].map((r: RoutesConfig) => {
-                        return <React.Fragment>
-                            {this.route(r)}
-                            {r.subs && r.subs.map((rc: RoutesConfig) => this.route(rc))}
-                        </React.Fragment>;
+                        return [
+                            this.route(r),
+                            r.subs != null ? r.subs.map((rc: RoutesConfig) => this.route(rc)) : null
+                        ];
                     })
                 )
             }
@@ -51,8 +51,8 @@ export default withRouter(class Routers extends React.PureComponent<RoutersProps
     }
     private route(rc: RoutesConfig): JSX.Element {
         const Component: React.ComponentClass = Components[rc.component]; // tslint:disable-line
-        return <Route key={rc.route || rc.key}
-            exact path={rc.route || rc.key}
+        return <Route key={rc.route != null ? rc.route : rc.key}
+            exact path={rc.route != null ? rc.route : rc.key}
             render={(props: RouteProps) => <Component {...props} />} />; // tslint:disable-line
     }
 });

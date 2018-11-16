@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Redux from "redux";
 import { connect } from "dva";
-import { routerRedux, withRouter } from "dva/router";
+import { routerRedux } from "dva/router";
 import { RoutesConfig, routesConfig } from "../routers/config";
 import { createStyles, StyledComponentProps, Theme, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -27,7 +27,7 @@ import { DefaultStylings } from "../Theme";
 
 interface LayoutProps extends StyledComponentProps {
     title?: string;
-    children: React.ComponentClass;
+    children: React.ReactNode;
     dispatch?: Redux.Dispatch<any>; //tslint:disable-line:no-any
 }
 
@@ -36,6 +36,8 @@ interface LayoutStates {
     drawerAnchorEl: string[];
     menuAnchorEl: HTMLElement;
 }
+
+const drawerWidth: number = 240;
 
 const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-any
     root: {
@@ -89,7 +91,6 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     toolbar: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "flex-end",
         padding: "0 8px",
         ...theme.mixins.toolbar,
     },
@@ -104,11 +105,9 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        paddingTop: theme.spacing.unit * 8,
     },
 });
-
-const drawerWidth: number = 240;
 
 @connect()
 class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
@@ -134,14 +133,14 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
             <CssBaseline />
             <AppBar
                 position="fixed"
-                className={classNames(this.props.classes.appBar, this.state.open && this.props.classes.appBarShift)}
+                className={classNames(this.props.classes.appBar, {[this.props.classes.appBarShift]: this.state.open})}
             >
                 <Toolbar disableGutters={!this.state.open}>
                     <IconButton
                         color="inherit"
                         aria-label="Open drawer"
                         onClick={this.toggleDrawer}
-                        className={classNames(this.props.classes.menuButton, this.state.open && this.props.classes.hide)}
+                        className={classNames(this.props.classes.menuButton, {[this.props.classes.hide]: this.state.open})}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -164,7 +163,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                 open={this.state.open}
             >
                 <List className={this.props.classes.menuList}>
-                    <ListItem button onClick={this.toggleDrawer} className={this.props.classes.toolbar}>
+                    <ListItem key="close menu" button onClick={this.toggleDrawer} className={this.props.classes.toolbar}>
                         <ListItemIcon><ChevronLeft /></ListItemIcon>
                         <ListItemText primary="Close Menu" />
                         <Divider />
@@ -175,9 +174,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
             </Drawer>
             <main className={this.props.classes.content} onMouseOver={this.closeSubMenu}>
                 <div className={this.props.classes.toolbar}>
-                    <Typography noWrap>
-                        {this.props.children}
-                    </Typography>
+                    {this.props.children}
                 </div>
             </main>
         </div>;
@@ -239,7 +236,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 
     private menuitem(r: RoutesConfig): JSX.Element {
-        return <React.Fragment>
+        return <React.Fragment key={r.key}>
             <ListItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}>
                 <ListItemIcon>
                     <Icon>
@@ -266,7 +263,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                 </List>
             </PositionableMenu>
             {
-                r.subs &&
+                r.subs != null ?
                 <React.Fragment>
                     <Collapse in={!(this.state.drawerAnchorEl.indexOf(r.key) < 0)} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
@@ -274,13 +271,13 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                         </List>
                     </Collapse>
                     <Divider />
-                </React.Fragment>
+                </React.Fragment> : null
             }
         </React.Fragment>;
     }
 
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
-        return <ListItem button className={this.props.classes.nested} onClick={this.toPage(r.key)}>
+        return <ListItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r.key)}>
             <ListItemIcon>
                 <Icon>
                     {r.icon}
@@ -300,4 +297,4 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 }
 
-export default withStyles(styles)(withRouter(Layout));
+export default withStyles(styles)(Layout);
