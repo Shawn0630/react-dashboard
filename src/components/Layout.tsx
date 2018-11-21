@@ -1,7 +1,6 @@
 import * as React from "react";
-import * as Redux from "redux";
-import { connect } from "dva";
-import { routerRedux } from "dva/router";
+import { connect, SubscriptionAPI } from "dva";
+import { routerRedux, withRouter } from "dva/router";
 import { RoutesConfig, routesConfig } from "../routers/config";
 import { createStyles, StyledComponentProps, Theme, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,11 +23,11 @@ import MenuIcon from "@material-ui/icons/Menu"; // tslint:disable-line:import-na
 import classNames from "classnames"; // tslint:disable-line:import-name
 import { PositionableMenu } from "./shared/PositionableMenu";
 import { DefaultStylings } from "../Theme";
+import { GlobalState } from "~models/global";
 
-interface LayoutProps extends StyledComponentProps {
-    title?: string;
+interface LayoutProps extends StyledComponentProps, SubscriptionAPI {
+    global: GlobalState;
     children: React.ReactNode;
-    dispatch?: Redux.Dispatch<any>; //tslint:disable-line:no-any
 }
 
 interface LayoutStates {
@@ -109,8 +108,10 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     },
 });
 
-@connect()
-class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
+export default withStyles(styles)(withRouter(connect(({ global }: { global: GlobalState}) => ({
+    global
+}))(
+class extends React.PureComponent<LayoutProps, LayoutStates> {
 
     constructor(props: LayoutProps) {
         super(props);
@@ -145,7 +146,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="title" color="inherit" noWrap>
-                        {this.props.title}
+                        {this.props.global.title}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -277,7 +278,7 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
-        return <ListItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r.key)}>
+        return <ListItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r)}>
             <ListItemIcon>
                 <Icon>
                     {r.icon}
@@ -287,14 +288,16 @@ class Layout extends React.PureComponent<LayoutProps, LayoutStates> {
         </ListItem>;
     }
 
-    private toPage(route: string): (event: React.MouseEvent<HTMLElement>) => void {
+    private toPage(route: RoutesConfig): (event: React.MouseEvent<HTMLElement>) => void {
         return (event: React.MouseEvent<HTMLElement>): void => {
-            this.props.dispatch(routerRedux.push(route));
+            this.props.dispatch(routerRedux.push(route.key));
+            this.props.dispatch({
+                type: "global/setTitle",
+                payload: route.title
+            });
             this.setState({
                 menuAnchorEl: null
             });
         };
     }
-}
-
-export default withStyles(styles)(Layout);
+})));

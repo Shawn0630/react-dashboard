@@ -8,7 +8,7 @@ interface RoutersStates {
     pathName: string;
 }
 
-export default withRouter(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
+export default withRouter<null>(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
 
     constructor(props: RoutersProps) {
         super(props);

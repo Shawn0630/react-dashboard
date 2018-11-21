@@ -2,12 +2,14 @@ import { DvaAction, DvaModel } from "./DvaModel";
 
 interface GlobalState {
     errors: Error[];
+    title: string;
 }
 
 const globalModel: DvaModel<GlobalState> = {
     namespace: "global",
     state: {
-        errors: []
+        errors: [],
+        title: null
     },
     reducers: {
         addError: (state: GlobalState, action: DvaAction<Error>): GlobalState => {
@@ -20,6 +22,12 @@ const globalModel: DvaModel<GlobalState> = {
             return {
                 ...state,
                 errors: state.errors.filter((error: Error) => error.message !== action.payload.message)
+            };
+        },
+        setTitle: (state: GlobalState, action: DvaAction<string>): GlobalState => {
+            return {
+                ...state,
+                title: action.payload
             };
         }
     }

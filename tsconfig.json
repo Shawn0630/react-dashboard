@@ -19,7 +19,6 @@
         "paths": {
             "~/*": ["./*"],
             "~components/*": ["components/*"],
-            "~dva/*": ["dva/*"],
             "~models/*": ["models/*"],
             "~styles/*": ["styles/*"],
             "~utilities/*": ["utilities/*"]
