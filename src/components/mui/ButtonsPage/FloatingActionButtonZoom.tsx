@@ -61,9 +61,10 @@ interface FloatingActionButtonZoomProps extends StyledComponentProps {
     theme?: Theme;
 }
 
-class FloatingActionButtonZoom extends React.PureComponent<FloatingActionButtonZoomProps, FloatingActionButtonZoomStates> {
+export default withStyles(styles, { withTheme: true })
+(class FloatingActionButtonZoom extends React.PureComponent<FloatingActionButtonZoomProps, FloatingActionButtonZoomStates> {
 
-    constructor(props: StyledComponentProps) {
+    constructor(props: FloatingActionButtonZoomProps) {
         super(props);
 
         this.state = {
@@ -76,7 +77,7 @@ class FloatingActionButtonZoom extends React.PureComponent<FloatingActionButtonZ
 
     public render(): JSX.Element {
         const { classes, theme } = this.props;
-        const transitionDuration = {
+        const transitionDuration: {} = {
             enter: theme.transitions.duration.enteringScreen,
             exit: theme.transitions.duration.leavingScreen,
         };
@@ -148,6 +149,4 @@ class FloatingActionButtonZoom extends React.PureComponent<FloatingActionButtonZ
     private handleChangeIndex(value: number): void {
         this.setState({ value: value});
     }
-}
-
-export default withStyles(styles, { withTheme: true })(FloatingActionButtonZoom);
+});

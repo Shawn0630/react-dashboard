@@ -3,12 +3,12 @@ import { Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter } 
 import { RoutesConfig, routesConfig } from "./config";
 import {default as Components} from "../components";
 
-interface RoutersProps extends RouteComponentProps<null> {}
+interface RoutersProps extends RouteComponentProps<{}> {}
 interface RoutersStates {
     pathName: string;
 }
 
-export default withRouter<null>(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
+export default withRouter<RouteComponentProps<{}>>(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
 
     constructor(props: RoutersProps) {
         super(props);
