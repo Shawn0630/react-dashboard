@@ -14,6 +14,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
 import Icon from "@material-ui/core/Icon";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -96,6 +97,14 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     menuList: {
         padding: 0
     },
+    selected: {
+        backgroundColor: theme.palette.primary.main,
+        "& $primary, & $icon": {
+            color: theme.palette.common.white
+        }
+    },
+    primary: {},
+    icon: {},
     drawerMenu: {
         padding: "8px 0",
     },
@@ -119,7 +128,7 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
         this.state = {
             open: false,
             drawerAnchorEl: [],
-            menuAnchorEl: null
+            menuAnchorEl: null,
         };
 
         this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -127,6 +136,27 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
         this.closeDrawer = this.closeDrawer.bind(this);
         this.openSubMenu = this.openSubMenu.bind(this);
         this.closeSubMenu = this.closeSubMenu.bind(this);
+    }
+
+    public componentDidMount(): void {
+        const routes: RoutesConfig[] = [];
+        Object.keys(routesConfig).map((key: string) => {
+           routesConfig[key].map((rc: RoutesConfig) => {
+               if (rc.subs != null) {
+                   routes.push(...rc.subs);
+               } else {
+                   routes.push(rc);
+               }
+           });
+        });
+        for (const rc of routes) {
+            if (rc.route != null ? rc.route : rc.key === this.props.history.location.pathname) {
+                this.props.dispatch({
+                    type: "global/setTitle",
+                    payload: rc.title
+                });
+            }
+        }
     }
 
     public render(): JSX.Element {
@@ -238,15 +268,20 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
 
     private menuitem(r: RoutesConfig): JSX.Element {
         return <React.Fragment key={r.key}>
-            <ListItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}>
+            <MenuItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}
+                      selected={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
+                      className={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}` ?
+                                 this.props.classes.menuListItem : null}>
                 <ListItemIcon>
-                    <Icon>
+                    <Icon className={this.props.classes.icon}>
                         {r.icon}
                     </Icon>
                 </ListItemIcon>
-                <ListItemText inset primary={r.title} />
-                {!(this.state.drawerAnchorEl.indexOf(r.key) < 0) ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
+                <ListItemText inset primary={r.title}
+                              classes={{primary: this.props.classes.primary}}/>
+                {!(this.state.drawerAnchorEl.indexOf(r.key) < 0) ?
+                    <ExpandLess className={this.props.classes.icon} /> : <ExpandMore className={this.props.classes.icon}/>}
+            </MenuItem>
             <PositionableMenu id={`${r.key}-menu`} anchorEl={this.state.menuAnchorEl} placement={DefaultStylings.POPPER_ON_THE_RIGHT}
                   open={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
                   onClose={this.closeSubMenu} style={{zIndex: 1200}}>
@@ -278,14 +313,15 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
-        return <ListItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r)}>
+        return <MenuItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r)}
+                         selected={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}>
             <ListItemIcon>
                 <Icon>
                     {r.icon}
                 </Icon>
             </ListItemIcon>
             <ListItemText inset primary={r.title} />
-        </ListItem>;
+        </MenuItem>;
     }
 
     private toPage(route: RoutesConfig): (event: React.MouseEvent<HTMLElement>) => void {
