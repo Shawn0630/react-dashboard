@@ -77,7 +77,7 @@ export default withStyles(styles, { withTheme: true })
 
     public render(): JSX.Element {
         const { classes, theme } = this.props;
-        const transitionDuration: {} = {
+        const transitionDuration: any = { //tslint:disable-line:no-any
             enter: theme.transitions.duration.enteringScreen,
             exit: theme.transitions.duration.leavingScreen,
         };

@@ -150,7 +150,7 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
            });
         });
         for (const rc of routes) {
-            if (rc.route != null ? rc.route : rc.key === this.props.history.location.pathname) {
+            if ((rc.route != null ? rc.route : rc.key) === this.props.history.location.pathname) {
                 this.props.dispatch({
                     type: "global/setTitle",
                     payload: rc.title
@@ -175,7 +175,7 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="title" color="inherit" noWrap>
+                    <Typography variant="h4"  color="inherit" noWrap>
                         {this.props.global.title}
                     </Typography>
                 </Toolbar>
@@ -269,9 +269,8 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
     private menuitem(r: RoutesConfig): JSX.Element {
         return <React.Fragment key={r.key}>
             <MenuItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}
-                      selected={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
-                      className={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}` ?
-                                 this.props.classes.menuListItem : null}>
+                      className={this.props.history.location.pathname === `${r.key}` ?
+                                 this.props.classes.selected : null}>
                 <ListItemIcon>
                     <Icon className={this.props.classes.icon}>
                         {r.icon}
@@ -313,14 +312,16 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
-        return <MenuItem button key={r.key} className={this.props.classes.nested} onClick={this.toPage(r)}
-                         selected={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}>
+        return <MenuItem button key={r.key}
+                         className={classNames(this.props.classes.nested,
+                                               {[this.props.classes.selected]: this.props.history.location.pathname === r.key})}
+                         onClick={this.toPage(r)}>
             <ListItemIcon>
-                <Icon>
+                <Icon className={this.props.classes.icon}>
                     {r.icon}
                 </Icon>
             </ListItemIcon>
-            <ListItemText inset primary={r.title} />
+            <ListItemText inset primary={r.title} classes={{ primary: this.props.classes.primary }}/>
         </MenuItem>;
     }
 

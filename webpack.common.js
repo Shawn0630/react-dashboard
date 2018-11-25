@@ -20,7 +20,7 @@ module.exports = {
         path: path.join(__dirname, outputFolder),
         filename: "[name].[hash].js",
         chunkFilename: "[id].[hash].js",
-        publicPath: "/"
+        publicPath: "/ts-react-redux-webpack-starter/"
     },
 
     // Enable sourcemaps for debugging webpack's output.

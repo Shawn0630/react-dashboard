@@ -13,10 +13,10 @@ module.exports = merge(common, {
     mode: "production",
     watch: false,
     plugins: [
-        new ForkTsCheckerWebpackPlugin({
-            tsconfig: path.join(__dirname, "tsconfig.json"),
-            workers: 2
-        }),
+        // new ForkTsCheckerWebpackPlugin({
+        //     tsconfig: path.join(__dirname, "tsconfig.json"),
+        //     workers: 2
+        // }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             openAnalyzer: false

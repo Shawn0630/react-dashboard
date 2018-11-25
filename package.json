@@ -37,6 +37,7 @@
     "enzyme-adapter-react-16": "^1.6.0",
     "file-loader": "^2.0.0",
     "fork-ts-checker-webpack-plugin": "^0.4.10",
+    "gh-pages": "^2.0.1",
     "glob": "^7.1.3",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
@@ -112,7 +113,8 @@
     "lint": "node_modules/.bin/tslint -c ./tslint.json -p ./tsconfig.json {src,__tests__}/**/*.{ts,tsx}",
     "proto-js": "node_modules/.bin/pbjs -t static-module -w commonjs -o src/models/example.js  proto/**/*.proto",
     "proto-ts": "node_modules/.bin/pbts -o src/models/example.d.ts src/models/example.js",
-    "proto": "npm run-script proto-js && npm run-script proto-ts"
+    "proto": "npm run-script proto-js && npm run-script proto-ts",
+    "deploy": "npm run-script build && gh-pages -d target"
   },
   "jest": {
     "setupFiles": [
