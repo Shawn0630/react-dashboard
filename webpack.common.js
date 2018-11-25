@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const scssPreprocessor = require('./scss-preprocessor');
 const sourceFolder = "src";
 const outputFolder = "target";
+const projectName = "ts-react-redux-webpack-starter";
 
 
 function srcPath(subdir) {
@@ -20,7 +21,7 @@ module.exports = {
         path: path.join(__dirname, outputFolder),
         filename: "[name].[hash].js",
         chunkFilename: "[id].[hash].js",
-        publicPath: "/ts-react-redux-webpack-starter/"
+        publicPath: path.join("/", projectName)
     },
 
     // Enable sourcemaps for debugging webpack's output.
