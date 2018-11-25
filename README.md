@@ -6,6 +6,7 @@
 >  + **Style Management:** SCSS
 >  + **Deploy tool:** Webpack
 
+[Demo](https://shawn0630.github.io/ts-react-redux-webpack-starter)
 ## Getting started
 1. Clone project to your directory
 ```
