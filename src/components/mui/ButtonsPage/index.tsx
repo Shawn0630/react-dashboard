@@ -8,6 +8,7 @@ import FloatingActionButtonZoom from "~components/mui/ButtonsPage/FloatingAction
 import SizeButtons from "~components/mui/ButtonsPage/SizeButtons";
 import IconLabelButtons from "~components/mui/ButtonsPage//IconLabelButtons";
 import CustomizedButtons from "~components/mui/ButtonsPage/CustomizedButtons";
+import ButtonBases from "~components/mui/ButtonsPage//ButtonBases";
 import IconButtons from "~components/mui/ButtonsPage/IconButtons";
 
 export default class ButtonsPage extends React.PureComponent<{}> {
@@ -40,6 +41,9 @@ export default class ButtonsPage extends React.PureComponent<{}> {
                 </Grid>
                 <Grid item xs={6}>
                     <CustomizedButtons />
+                </Grid>
+                <Grid item xs={6}>
+                    <ButtonBases />
                 </Grid>
             </Grid>
         </React.Fragment>;
