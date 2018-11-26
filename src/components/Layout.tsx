@@ -110,7 +110,8 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
         "& $header": {
             color: theme.palette.primary.main,
             fontWeight: "bold"
-        }
+        },
+        backgroundColor: "rgba(0, 0, 0, 0.08) !important"
     },
     primary: {},
     icon: {},
