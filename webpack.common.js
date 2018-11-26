@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const scssPreprocessor = require('./scss-preprocessor');
 const sourceFolder = "src";
 const outputFolder = "target";
-const projectName = "ts-react-redux-webpack-starter";
+const projectName = "react-dashboard";
 
 
 function srcPath(subdir) {
