@@ -97,14 +97,24 @@ const styles: any = (theme: Theme) => createStyles({ // tslint:disable-line:no-a
     menuList: {
         padding: 0
     },
-    selected: {
-        backgroundColor: theme.palette.primary.main,
+    selectedItem: {
+        backgroundColor: `${theme.palette.primary.main} !important`,
         "& $primary, & $icon": {
             color: theme.palette.common.white
+        },
+        "& :hover": {
+            backgroundColor: `${theme.palette.primary.main} !important`
+        }
+    },
+    selectedHeader: {
+        "& $header": {
+            color: theme.palette.primary.main,
+            fontWeight: "bold"
         }
     },
     primary: {},
     icon: {},
+    header: {},
     drawerMenu: {
         padding: "8px 0",
     },
@@ -267,19 +277,20 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
     }
 
     private menuitem(r: RoutesConfig): JSX.Element {
+        const subRoutes: string[] = r.subs.map((rc: RoutesConfig) => rc.route != null ? rc.route : rc.key);
         return <React.Fragment key={r.key}>
             <MenuItem button onClick={this.toggleSubDrawer()} key={r.key} id={r.key} onMouseOver={this.openSubMenu()}
-                      className={this.props.history.location.pathname === `${r.key}` ?
-                                 this.props.classes.selected : null}>
+                      className={subRoutes.indexOf(this.props.history.location.pathname) >= 0 ?
+                                 this.props.classes.selectedHeader : null}>
                 <ListItemIcon>
-                    <Icon className={this.props.classes.icon}>
+                    <Icon className={this.props.classes.header}>
                         {r.icon}
                     </Icon>
                 </ListItemIcon>
                 <ListItemText inset primary={r.title}
-                              classes={{primary: this.props.classes.primary}}/>
+                               classes={{ primary: this.props.classes.header}}/>
                 {!(this.state.drawerAnchorEl.indexOf(r.key) < 0) ?
-                    <ExpandLess className={this.props.classes.icon} /> : <ExpandMore className={this.props.classes.icon}/>}
+                    <ExpandLess /> : <ExpandMore />}
             </MenuItem>
             <PositionableMenu id={`${r.key}-menu`} anchorEl={this.state.menuAnchorEl} placement={DefaultStylings.POPPER_ON_THE_RIGHT}
                   open={this.state.menuAnchorEl != null && this.state.menuAnchorEl.id === `${r.key}`}
@@ -314,7 +325,7 @@ class extends React.PureComponent<LayoutProps, LayoutStates> {
     private nestedMenuitem(r: RoutesConfig): JSX.Element {
         return <MenuItem button key={r.key}
                          className={classNames(this.props.classes.nested,
-                                               {[this.props.classes.selected]: this.props.history.location.pathname === r.key})}
+                                               {[this.props.classes.selectedItem]: this.props.history.location.pathname === r.key})}
                          onClick={this.toPage(r)}>
             <ListItemIcon>
                 <Icon className={this.props.classes.icon}>
