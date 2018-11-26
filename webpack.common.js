@@ -21,7 +21,7 @@ module.exports = {
         path: path.join(__dirname, outputFolder),
         filename: "[name].[hash].js",
         chunkFilename: "[id].[hash].js",
-        publicPath: path.join("/", projectName)
+        publicPath: process.env.NODE_ENV !== 'production' ? "/" : path.join("/", projectName, "/")
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -66,7 +66,6 @@ module.exports = {
     ],
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { 
                 test: /\.tsx?$/,
                 exclude: /(node_modules)/,
@@ -84,7 +83,6 @@ module.exports = {
                 test: /bootstrap\.min\.css$/,
                 use: "file-loader?name=styles/[name].[ext]"
             },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { 
                 enforce: "pre",
                 test: /\.js$/,
@@ -106,12 +104,11 @@ module.exports = {
             },
             {
                 test: /\.(ttf|woff|woff2|eot|svg)$/,
-                loader: "file-loader?name=/fonts/[name].[ext]"
+                use: "file-loader?name=fonts/[name].[ext]"
             },
-
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
-                loader: "file-loader?name=/images/[name].[ext]"
+                use: "file-loader?name=images/[name].[ext]"
             },
         ]
     }
