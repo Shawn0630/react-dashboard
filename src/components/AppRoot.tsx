@@ -7,7 +7,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Layout from "./Layout";
 import {default as Routers } from "../routers";
 
 interface AppRootProps extends SubscriptionAPI {
@@ -52,9 +51,7 @@ export default class AppRoot extends React.PureComponent<AppRootProps> {
                     </Button>
                </DialogActions>
            </Dialog>
-           <Layout >
-                <Routers />
-           </Layout>
+            <Routers />
         </div>;
     }
 
