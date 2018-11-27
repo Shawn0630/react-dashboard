@@ -22,7 +22,8 @@ const routesConfig: {[key: string]: RoutesConfig[]} = {
             ]}
     ],
     others: [
-        { key: "/login", title: "Login", component: "Login"}
+        { key: "/login", title: "Login", component: "Login"},
+        { key: "/404", title: "Not Found", component: "NotFound"}
     ]
 };
 
