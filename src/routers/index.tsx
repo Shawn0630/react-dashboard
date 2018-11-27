@@ -39,6 +39,7 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
     public render(): JSX.Element {
         return <div>
             <Switch>
+            <Layout>
             {
                 routesConfig.menus.map((r: RoutesConfig) => {
                     return [
@@ -47,6 +48,7 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
                     ];
                 })
             }
+            </Layout>
             {
                 routesConfig.others.map((r: RoutesConfig) => {
                     return this.route(r);
@@ -65,8 +67,8 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
         return <Route key={rc.route != null ? rc.route : rc.key}
             exact path={rc.route != null ? rc.route : rc.key}
             render={(props: RouteProps) => rc.auth != null && rc.auth === true ?
-                this.requireLogin(<Layout><Component {...props} /> </Layout>, rc.route != null ? rc.route : rc.key) :
-                <Layout><Component {...props} /> </Layout>} /> // tslint:disable-line
+                this.requireLogin(<Component {...props} />, rc.route != null ? rc.route : rc.key) :
+                <Component {...props} />} /> // tslint:disable-line
     }
     private route(rc: RoutesConfig): JSX.Element {
         const Component: React.ComponentClass = Components[rc.component]; // tslint:disable-line
