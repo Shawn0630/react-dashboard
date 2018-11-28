@@ -7,7 +7,7 @@ export default class Notfound extends React.PureComponent {
         return <Layout>
             <div className={styles.app}>
                 <div className={styles.appHeader}>
-                    <img className={styles.appLogo} alt="logo"/>
+                    <div className={styles.appLogo} />
                     <h2>Welcome to React-Dashboard</h2>
                 </div>
             </div>
