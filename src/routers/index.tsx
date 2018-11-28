@@ -2,9 +2,9 @@ import * as React from "react";
 import { connect, SubscriptionAPI } from "dva";
 import { Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter } from "dva/router";
 import { RoutesConfig, routesConfig } from "./config";
-import Layout from "~components/Layout";
 import {default as Components} from "../components";
 import { UserState } from "~models/user";
+import MenuRoutes from "./MenuRoutes";
 
 interface RoutersProps extends RouteComponentProps<{}>, SubscriptionAPI {
     user: UserState;
@@ -22,6 +22,7 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
         this.notFound = this.notFound.bind(this);
         this.route = this.route.bind(this);
         this.requireLogin = this.requireLogin.bind(this);
+        this.renderMenuRoutes = this.renderMenuRoutes.bind(this);
 
         this.state = {
             pathName: props.history.location.pathname
@@ -39,16 +40,8 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
     public render(): JSX.Element {
         return <div>
             <Switch>
-            <Layout>
-            {
-                routesConfig.menus.map((r: RoutesConfig) => {
-                    return [
-                        this.menuroute(r),
-                        r.subs != null ? r.subs.map((rc: RoutesConfig) => this.menuroute(rc)) : null
-                    ];
-                })
-            }
-            </Layout>
+            <Route key={"/app"} path={"/app"}
+                    render={this.renderMenuRoutes} />
             {
                 routesConfig.others.map((r: RoutesConfig) => {
                     return this.route(r);
@@ -62,13 +55,8 @@ export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: Us
     private notFound(): JSX.Element {
         return <Redirect to="/404" />;
     }
-    private menuroute(rc: RoutesConfig): JSX.Element {
-        const Component: React.ComponentClass = Components[rc.component]; // tslint:disable-line
-        return <Route key={rc.route != null ? rc.route : rc.key}
-            exact path={rc.route != null ? rc.route : rc.key}
-            render={(props: RouteProps) => rc.auth != null && rc.auth === true ?
-                this.requireLogin(<Component {...props} />, rc.route != null ? rc.route : rc.key) :
-                <Component {...props} />} /> // tslint:disable-line
+    private renderMenuRoutes(props: RouteComponentProps<null>): React.ReactNode {
+        return <MenuRoutes {...props} user={this.props.user} />;
     }
     private route(rc: RoutesConfig): JSX.Element {
         const Component: React.ComponentClass = Components[rc.component]; // tslint:disable-line
