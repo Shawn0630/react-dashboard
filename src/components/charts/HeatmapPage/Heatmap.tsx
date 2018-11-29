@@ -78,7 +78,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             </span>;
         } else if (this.props.data != null) {
             const graphSize: Size = this.calculateGraphSize();
-            return <div id={this.props.graphId} >
+            return <div id={this.props.graphId} style={{position: "relative"}}>
                 <canvas id={this.canvasId} />
                 <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
                             minSize.width : graphSize.height + this.margin.left + this.margin.right}
@@ -164,6 +164,15 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 ctx.fillStyle = HeatmapHelper.getColorFromLevel(1 / 16, leaf.data.row.colour[index], 16).toString();
                 ctx.fillRect(leaf.y + xPos + index * ceilWidth, leaf.x - 10, ceilWidth, this.childrenWidth);
             });
+            svg.append("text")
+                .attr("transform",
+                      `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth + 30}, 60) rotate(-45)`)
+                .text(`${sample.name}`);
+            svg.append("rect")
+                .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth},65)`)
+                .attr("width", ceilWidth)
+                .attr("height", 20)
+                .attr("style", `fill:${this.getSampleColor(sample.id, this.props.groups)}`);
         });
 
         // const leaf: d3.Selection<d3.BaseType, d3.HierarchyPointNode<Node>, d3.BaseType, {}> = graph.selectAll("leaf");
@@ -223,7 +232,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
 
         const legend: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
         .attr("transform",
-              `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + this.props.samples.length * ceilWidth}, 300)`);
+              `translate(${leaves[0].depth * this.depthWidth + this.margin.left * 2 + xPos + this.props.samples.length * ceilWidth}, 300)`);
 
         this.drawLengend(legend);
 
