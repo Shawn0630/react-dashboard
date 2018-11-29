@@ -56,6 +56,9 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
     private childrenWidth: number = 15;
     private alignedTreeData: d3.HierarchyNode<Node>;
 
+    private canvasId: string = "heatmap-canvas";
+    private canvas: HTMLCanvasElement;
+
     constructor(props: HeatmapProps) {
         super(props);
 
@@ -76,10 +79,12 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         } else if (this.props.data != null) {
             const graphSize: Size = this.calculateGraphSize();
             return <div id={this.props.graphId} >
+                <canvas id={this.canvasId} />
                 <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
                             minSize.width : graphSize.height + this.margin.left + this.margin.right}
                     height={graphSize.width + this.margin.top + this.margin.bottom < minSize.height ?
-                            minSize.height : graphSize.width + this.margin.top + this.margin.bottom} />
+                            minSize.height : graphSize.width + this.margin.top + this.margin.bottom}
+                    style={{position: "absolute", left: 0, right: 0}}        />
             </div>;
         } else {
             return <span>No proteins available under the filter.</span>;
@@ -106,7 +111,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             height: this.alignedTreeData.depth * this.depthWidth + this.margin.left + xPos + this.props.samples.length * ceilWidth + 800
         };
     }
-
+    //tslint:disable-next-line
     private drawChart(): void {
         const xPos: number = 140;
         const ceilWidth: number = 65;
@@ -123,6 +128,11 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         const leaves: d3.HierarchyPointNode<Node>[] = nodes.leaves();
 
         const svg: d3.Selection<SVGElement, {}, HTMLElement, {}> = d3.select(this.referenceChartId()).select("svg");
+        this.canvas = d3.select("#".concat(this.canvasId))
+                .attr("width", graphSize.height)
+                .attr("height", graphSize.width)
+                .attr("style", `position: relative; top: ${this.margin.top}px; left: ${this.margin.left}px`)
+                .node() as HTMLCanvasElement;
         svg.selectAll("*").remove();
 
         const graph: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
@@ -132,54 +142,78 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             n.y = n.depth * this.depthWidth;
         });
 
-        const leaf: d3.Selection<d3.BaseType, d3.HierarchyPointNode<Node>, d3.BaseType, {}> = graph.selectAll("leaf");
-        leaf.data(leaves).enter().append("circle")
-            .attr("cx", (n: d3.HierarchyPointNode<Node>) => n.y)
-            .attr("cy", (n: d3.HierarchyPointNode<Node>) => n.x)
-            .attr("r", 2);
-        leaf.data(leaves).enter().append("text")
-            .attr("dy", ".25em")
-            .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + 10)
-            .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x)
-            .attr("text-anchor", "start")
-            .attr("font-size", "10px")
-            .text((n: d3.HierarchyPointNode<Node>) => {
-                return n.data.row == null ? "" : n.data.row.accession;
+        const ctx: CanvasRenderingContext2D = this.canvas.getContext("2d");
+        leaves.forEach((leaf: d3.HierarchyPointNode<Node>) => {
+            ctx.beginPath();
+            ctx.arc(leaf.y, leaf.x, 2, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.font = "10px";
+            ctx.fillText(leaf.data.row == null ? "" : leaf.data.row.accession, leaf.y + 10, leaf.x);
+        });
+        links.forEach((link: d3.HierarchyPointLink<Node>) => {
+            ctx.beginPath();
+            ctx.moveTo(link.source.y, link.source.x);
+            ctx.lineTo(link.source.y, link.target.x);
+            ctx.lineTo(link.target.y, link.target.x);
+            ctx.stroke();
+        });
+        this.props.samples.forEach((sample: ISample, index: number) => {
+            ctx.beginPath();
+            ctx.fillText(sample.name, leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth + 30, 0);
+            leaves.forEach((leaf: d3.HierarchyPointNode<Node>) => {
+                ctx.fillStyle = HeatmapHelper.getColorFromLevel(1 / 16, leaf.data.row.colour[index], 16).toString();
+                ctx.fillRect(leaf.y + xPos + index * ceilWidth, leaf.x - 10, ceilWidth, this.childrenWidth);
             });
-        for (let i: number = 0; i < this.props.samples.length; i += 1) {
-            svg.append("text")
-                .attr("transform",
-                      `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth + 30},60) rotate(-45)`)
-                .text(`${this.props.samples[i].name}`);
-            svg.append("rect")
-                .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth},65)`)
-                .attr("width", ceilWidth)
-                .attr("height", 20)
-                .attr("style", `fill:${this.getSampleColor(this.props.samples[i].id, this.props.groups)}`);
+        });
 
-            leaf.data(leaves).enter().append("rect")
-                .attr("dy", ".25em")
-                .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + xPos + i * ceilWidth)
-                .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x - 10)
-                .attr("width", ceilWidth)
-                .attr("height", this.childrenWidth)
-                .attr("style", (n: d3.HierarchyPointNode<Node>) => {
-                    if (n.data.row == null) {
-                        return null;
-                    }
-                    const color: Color = HeatmapHelper.getColorFromLevel(1 / 16, n.data.row.colour[i], 16);
+        // const leaf: d3.Selection<d3.BaseType, d3.HierarchyPointNode<Node>, d3.BaseType, {}> = graph.selectAll("leaf");
+        // leaf.data(leaves).enter().append("circle")
+        //     .attr("cx", (n: d3.HierarchyPointNode<Node>) => n.y)
+        //     .attr("cy", (n: d3.HierarchyPointNode<Node>) => n.x)
+        //     .attr("r", 2);
+        // leaf.data(leaves).enter().append("text")
+        //     .attr("dy", ".25em")
+        //     .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + 10)
+        //     .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x)
+        //     .attr("text-anchor", "start")
+        //     .attr("font-size", "10px")
+        //     .text((n: d3.HierarchyPointNode<Node>) => {
+        //         return n.data.row == null ? "" : n.data.row.accession;
+        //     });
+        // for (let i: number = 0; i < this.props.samples.length; i += 1) {
+        //     svg.append("text")
+        //         .attr("transform",
+        //               `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth + 30},60) rotate(-45)`)
+        //         .text(`${this.props.samples[i].name}`);
+        //     svg.append("rect")
+        //         .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth},65)`)
+        //         .attr("width", ceilWidth)
+        //         .attr("height", 20)
+        //         .attr("style", `fill:${this.getSampleColor(this.props.samples[i].id, this.props.groups)}`);
 
-                    return `fill:${color}`;
-                });
-        }
-        // Update the links...
-        graph.selectAll("path.link")
-            .data(links).enter()
-            .insert("path", "g")
-            .attr("class", styles.treeLine)
-            .attr("d", (d: d3.HierarchyPointLink<{}>) => {
-                return this.diagonal(d);
-            });
+        //     leaf.data(leaves).enter().append("rect")
+        //         .attr("dy", ".25em")
+        //         .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + xPos + i * ceilWidth)
+        //         .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x - 10)
+        //         .attr("width", ceilWidth)
+        //         .attr("height", this.childrenWidth)
+        //         .attr("style", (n: d3.HierarchyPointNode<Node>) => {
+        //             if (n.data.row == null) {
+        //                 return null;
+        //             }
+        //             const color: Color = HeatmapHelper.getColorFromLevel(1 / 16, n.data.row.colour[i], 16);
+
+        //             return `fill:${color}`;
+        //         });
+        // }
+        // // Update the links...
+        // graph.selectAll("path.link")
+        //     .data(links).enter()
+        //     .insert("path", "g")
+        //     .attr("class", styles.treeLine)
+        //     .attr("d", (d: d3.HierarchyPointLink<{}>) => {
+        //         return this.diagonal(d);
+        //     });
 
         const colorbar: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
             .attr("transform",
