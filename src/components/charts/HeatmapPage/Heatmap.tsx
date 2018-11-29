@@ -175,6 +175,9 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 .attr("style", `fill:${this.getSampleColor(sample.id, this.props.groups)}`);
         });
 
+        /**
+         * Legacy, slow rendering issues, keep it for comparison
+         */
         // const leaf: d3.Selection<d3.BaseType, d3.HierarchyPointNode<Node>, d3.BaseType, {}> = graph.selectAll("leaf");
         // leaf.data(leaves).enter().append("circle")
         //     .attr("cx", (n: d3.HierarchyPointNode<Node>) => n.y)
@@ -243,11 +246,6 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
     }
 
     private diagonal(link: d3.HierarchyPointLink<{}>): string {
-
-        // return `M ${link.source.y} ${link.source.x}C ${(link.source.y + link.target.y) / 2} ${link.source.x},
-        //       ${(link.source.y + link.target.y) / 2} ${link.target.x},
-        //       ${link.target.y} ${link.target.x}`;
-
         return `M ${link.source.y} ${link.source.x} L ${link.source.y} ${link.target.x} L ${link.target.y} ${link.target.x}`;
     }
 
