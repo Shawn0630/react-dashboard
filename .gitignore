@@ -9,4 +9,4 @@ package-lock.json
 src/override.json
 src/_override.json
 
-**/*/.DS_Store
+**/.DS_Store
