@@ -62,3 +62,42 @@ message OptionalFloat {
     bool isPresent = 1;
     float value = 2;
 }
+
+message ScanDenovoCandidate {
+    string fractionId = 6;
+    uint32 scannum = 1;
+    float mz = 2;
+    uint32 z = 3;
+    uint64 retentionTime = 4; // milliseconds
+    repeated DenovoCandidate denovoCandidate = 5;
+    ActivationMethod activationMethod = 7;
+}
+
+message DenovoCandidate {
+    string sequence = 1;
+    float mass = 2;
+    uint32 length = 3;
+    float area = 4;
+    float ppm = 5;
+    float alc = 6; // Average positional confidence.
+    repeated float positionConfidence = 7;
+    repeated AbbreviateModification modifications = 8;
+    float maxIntensity = 9;
+}
+
+
+message AbbreviateModification {
+    string name = 1;
+    string abbreviation = 2;
+    float monoMass = 3;
+    ModificationType type = 4;
+    string anywhereResidues = 5;
+}
+
+enum ModificationType {
+    PTM = 0;
+    MUTATION = 1;
+    INSERTION = 2;
+    DELETION = 3;
+}
+

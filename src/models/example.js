@@ -2017,6 +2017,1128 @@ $root.com = (function() {
                 return OptionalFloat;
             })();
 
+            dto.ScanDenovoCandidate = (function() {
+
+                /**
+                 * Properties of a ScanDenovoCandidate.
+                 * @memberof com.example.dto
+                 * @interface IScanDenovoCandidate
+                 * @property {string|null} [fractionId] ScanDenovoCandidate fractionId
+                 * @property {number|null} [scannum] ScanDenovoCandidate scannum
+                 * @property {number|null} [mz] ScanDenovoCandidate mz
+                 * @property {number|null} [z] ScanDenovoCandidate z
+                 * @property {number|Long|null} [retentionTime] ScanDenovoCandidate retentionTime
+                 * @property {Array.<com.example.dto.IDenovoCandidate>|null} [denovoCandidate] ScanDenovoCandidate denovoCandidate
+                 * @property {com.example.dto.ActivationMethod|null} [activationMethod] ScanDenovoCandidate activationMethod
+                 */
+
+                /**
+                 * Constructs a new ScanDenovoCandidate.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a ScanDenovoCandidate.
+                 * @implements IScanDenovoCandidate
+                 * @constructor
+                 * @param {com.example.dto.IScanDenovoCandidate=} [properties] Properties to set
+                 */
+                function ScanDenovoCandidate(properties) {
+                    this.denovoCandidate = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ScanDenovoCandidate fractionId.
+                 * @member {string} fractionId
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.fractionId = "";
+
+                /**
+                 * ScanDenovoCandidate scannum.
+                 * @member {number} scannum
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.scannum = 0;
+
+                /**
+                 * ScanDenovoCandidate mz.
+                 * @member {number} mz
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.mz = 0;
+
+                /**
+                 * ScanDenovoCandidate z.
+                 * @member {number} z
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.z = 0;
+
+                /**
+                 * ScanDenovoCandidate retentionTime.
+                 * @member {number|Long} retentionTime
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.retentionTime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * ScanDenovoCandidate denovoCandidate.
+                 * @member {Array.<com.example.dto.IDenovoCandidate>} denovoCandidate
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.denovoCandidate = $util.emptyArray;
+
+                /**
+                 * ScanDenovoCandidate activationMethod.
+                 * @member {com.example.dto.ActivationMethod} activationMethod
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 */
+                ScanDenovoCandidate.prototype.activationMethod = 0;
+
+                /**
+                 * Creates a new ScanDenovoCandidate instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IScanDenovoCandidate=} [properties] Properties to set
+                 * @returns {com.example.dto.ScanDenovoCandidate} ScanDenovoCandidate instance
+                 */
+                ScanDenovoCandidate.create = function create(properties) {
+                    return new ScanDenovoCandidate(properties);
+                };
+
+                /**
+                 * Encodes the specified ScanDenovoCandidate message. Does not implicitly {@link com.example.dto.ScanDenovoCandidate.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IScanDenovoCandidate} message ScanDenovoCandidate message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ScanDenovoCandidate.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.scannum);
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.mz);
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.z);
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.retentionTime);
+                    if (message.denovoCandidate != null && message.denovoCandidate.length)
+                        for (var i = 0; i < message.denovoCandidate.length; ++i)
+                            $root.com.example.dto.DenovoCandidate.encode(message.denovoCandidate[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.fractionId != null && message.hasOwnProperty("fractionId"))
+                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.fractionId);
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int32(message.activationMethod);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ScanDenovoCandidate message, length delimited. Does not implicitly {@link com.example.dto.ScanDenovoCandidate.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IScanDenovoCandidate} message ScanDenovoCandidate message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ScanDenovoCandidate.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ScanDenovoCandidate message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.ScanDenovoCandidate} ScanDenovoCandidate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ScanDenovoCandidate.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.ScanDenovoCandidate();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 6:
+                            message.fractionId = reader.string();
+                            break;
+                        case 1:
+                            message.scannum = reader.uint32();
+                            break;
+                        case 2:
+                            message.mz = reader.float();
+                            break;
+                        case 3:
+                            message.z = reader.uint32();
+                            break;
+                        case 4:
+                            message.retentionTime = reader.uint64();
+                            break;
+                        case 5:
+                            if (!(message.denovoCandidate && message.denovoCandidate.length))
+                                message.denovoCandidate = [];
+                            message.denovoCandidate.push($root.com.example.dto.DenovoCandidate.decode(reader, reader.uint32()));
+                            break;
+                        case 7:
+                            message.activationMethod = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ScanDenovoCandidate message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.ScanDenovoCandidate} ScanDenovoCandidate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ScanDenovoCandidate.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ScanDenovoCandidate message.
+                 * @function verify
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ScanDenovoCandidate.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.fractionId != null && message.hasOwnProperty("fractionId"))
+                        if (!$util.isString(message.fractionId))
+                            return "fractionId: string expected";
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        if (!$util.isInteger(message.scannum))
+                            return "scannum: integer expected";
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        if (typeof message.mz !== "number")
+                            return "mz: number expected";
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        if (!$util.isInteger(message.z))
+                            return "z: integer expected";
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (!$util.isInteger(message.retentionTime) && !(message.retentionTime && $util.isInteger(message.retentionTime.low) && $util.isInteger(message.retentionTime.high)))
+                            return "retentionTime: integer|Long expected";
+                    if (message.denovoCandidate != null && message.hasOwnProperty("denovoCandidate")) {
+                        if (!Array.isArray(message.denovoCandidate))
+                            return "denovoCandidate: array expected";
+                        for (var i = 0; i < message.denovoCandidate.length; ++i) {
+                            var error = $root.com.example.dto.DenovoCandidate.verify(message.denovoCandidate[i]);
+                            if (error)
+                                return "denovoCandidate." + error;
+                        }
+                    }
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        switch (message.activationMethod) {
+                        default:
+                            return "activationMethod: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a ScanDenovoCandidate message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.ScanDenovoCandidate} ScanDenovoCandidate
+                 */
+                ScanDenovoCandidate.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.ScanDenovoCandidate)
+                        return object;
+                    var message = new $root.com.example.dto.ScanDenovoCandidate();
+                    if (object.fractionId != null)
+                        message.fractionId = String(object.fractionId);
+                    if (object.scannum != null)
+                        message.scannum = object.scannum >>> 0;
+                    if (object.mz != null)
+                        message.mz = Number(object.mz);
+                    if (object.z != null)
+                        message.z = object.z >>> 0;
+                    if (object.retentionTime != null)
+                        if ($util.Long)
+                            (message.retentionTime = $util.Long.fromValue(object.retentionTime)).unsigned = true;
+                        else if (typeof object.retentionTime === "string")
+                            message.retentionTime = parseInt(object.retentionTime, 10);
+                        else if (typeof object.retentionTime === "number")
+                            message.retentionTime = object.retentionTime;
+                        else if (typeof object.retentionTime === "object")
+                            message.retentionTime = new $util.LongBits(object.retentionTime.low >>> 0, object.retentionTime.high >>> 0).toNumber(true);
+                    if (object.denovoCandidate) {
+                        if (!Array.isArray(object.denovoCandidate))
+                            throw TypeError(".com.example.dto.ScanDenovoCandidate.denovoCandidate: array expected");
+                        message.denovoCandidate = [];
+                        for (var i = 0; i < object.denovoCandidate.length; ++i) {
+                            if (typeof object.denovoCandidate[i] !== "object")
+                                throw TypeError(".com.example.dto.ScanDenovoCandidate.denovoCandidate: object expected");
+                            message.denovoCandidate[i] = $root.com.example.dto.DenovoCandidate.fromObject(object.denovoCandidate[i]);
+                        }
+                    }
+                    switch (object.activationMethod) {
+                    case "UNDEFINED":
+                    case 0:
+                        message.activationMethod = 0;
+                        break;
+                    case "CID":
+                    case 1:
+                        message.activationMethod = 1;
+                        break;
+                    case "HCD":
+                    case 2:
+                        message.activationMethod = 2;
+                        break;
+                    case "ECD":
+                    case 3:
+                        message.activationMethod = 3;
+                        break;
+                    case "MIX":
+                    case 4:
+                        message.activationMethod = 4;
+                        break;
+                    case "PQD":
+                    case 5:
+                        message.activationMethod = 5;
+                        break;
+                    case "IRMPD":
+                    case 6:
+                        message.activationMethod = 6;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ScanDenovoCandidate message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @static
+                 * @param {com.example.dto.ScanDenovoCandidate} message ScanDenovoCandidate
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ScanDenovoCandidate.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.denovoCandidate = [];
+                    if (options.defaults) {
+                        object.scannum = 0;
+                        object.mz = 0;
+                        object.z = 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, true);
+                            object.retentionTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.retentionTime = options.longs === String ? "0" : 0;
+                        object.fractionId = "";
+                        object.activationMethod = options.enums === String ? "UNDEFINED" : 0;
+                    }
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        object.scannum = message.scannum;
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        object.mz = options.json && !isFinite(message.mz) ? String(message.mz) : message.mz;
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        object.z = message.z;
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (typeof message.retentionTime === "number")
+                            object.retentionTime = options.longs === String ? String(message.retentionTime) : message.retentionTime;
+                        else
+                            object.retentionTime = options.longs === String ? $util.Long.prototype.toString.call(message.retentionTime) : options.longs === Number ? new $util.LongBits(message.retentionTime.low >>> 0, message.retentionTime.high >>> 0).toNumber(true) : message.retentionTime;
+                    if (message.denovoCandidate && message.denovoCandidate.length) {
+                        object.denovoCandidate = [];
+                        for (var j = 0; j < message.denovoCandidate.length; ++j)
+                            object.denovoCandidate[j] = $root.com.example.dto.DenovoCandidate.toObject(message.denovoCandidate[j], options);
+                    }
+                    if (message.fractionId != null && message.hasOwnProperty("fractionId"))
+                        object.fractionId = message.fractionId;
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        object.activationMethod = options.enums === String ? $root.com.example.dto.ActivationMethod[message.activationMethod] : message.activationMethod;
+                    return object;
+                };
+
+                /**
+                 * Converts this ScanDenovoCandidate to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.ScanDenovoCandidate
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ScanDenovoCandidate.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ScanDenovoCandidate;
+            })();
+
+            dto.DenovoCandidate = (function() {
+
+                /**
+                 * Properties of a DenovoCandidate.
+                 * @memberof com.example.dto
+                 * @interface IDenovoCandidate
+                 * @property {string|null} [sequence] DenovoCandidate sequence
+                 * @property {number|null} [mass] DenovoCandidate mass
+                 * @property {number|null} [length] DenovoCandidate length
+                 * @property {number|null} [area] DenovoCandidate area
+                 * @property {number|null} [ppm] DenovoCandidate ppm
+                 * @property {number|null} [alc] DenovoCandidate alc
+                 * @property {Array.<number>|null} [positionConfidence] DenovoCandidate positionConfidence
+                 * @property {Array.<com.example.dto.IAbbreviateModification>|null} [modifications] DenovoCandidate modifications
+                 * @property {number|null} [maxIntensity] DenovoCandidate maxIntensity
+                 */
+
+                /**
+                 * Constructs a new DenovoCandidate.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a DenovoCandidate.
+                 * @implements IDenovoCandidate
+                 * @constructor
+                 * @param {com.example.dto.IDenovoCandidate=} [properties] Properties to set
+                 */
+                function DenovoCandidate(properties) {
+                    this.positionConfidence = [];
+                    this.modifications = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * DenovoCandidate sequence.
+                 * @member {string} sequence
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.sequence = "";
+
+                /**
+                 * DenovoCandidate mass.
+                 * @member {number} mass
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.mass = 0;
+
+                /**
+                 * DenovoCandidate length.
+                 * @member {number} length
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.length = 0;
+
+                /**
+                 * DenovoCandidate area.
+                 * @member {number} area
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.area = 0;
+
+                /**
+                 * DenovoCandidate ppm.
+                 * @member {number} ppm
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.ppm = 0;
+
+                /**
+                 * DenovoCandidate alc.
+                 * @member {number} alc
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.alc = 0;
+
+                /**
+                 * DenovoCandidate positionConfidence.
+                 * @member {Array.<number>} positionConfidence
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.positionConfidence = $util.emptyArray;
+
+                /**
+                 * DenovoCandidate modifications.
+                 * @member {Array.<com.example.dto.IAbbreviateModification>} modifications
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.modifications = $util.emptyArray;
+
+                /**
+                 * DenovoCandidate maxIntensity.
+                 * @member {number} maxIntensity
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 */
+                DenovoCandidate.prototype.maxIntensity = 0;
+
+                /**
+                 * Creates a new DenovoCandidate instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IDenovoCandidate=} [properties] Properties to set
+                 * @returns {com.example.dto.DenovoCandidate} DenovoCandidate instance
+                 */
+                DenovoCandidate.create = function create(properties) {
+                    return new DenovoCandidate(properties);
+                };
+
+                /**
+                 * Encodes the specified DenovoCandidate message. Does not implicitly {@link com.example.dto.DenovoCandidate.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IDenovoCandidate} message DenovoCandidate message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DenovoCandidate.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.sequence);
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.mass);
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.length);
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        writer.uint32(/* id 4, wireType 5 =*/37).float(message.area);
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        writer.uint32(/* id 5, wireType 5 =*/45).float(message.ppm);
+                    if (message.alc != null && message.hasOwnProperty("alc"))
+                        writer.uint32(/* id 6, wireType 5 =*/53).float(message.alc);
+                    if (message.positionConfidence != null && message.positionConfidence.length) {
+                        writer.uint32(/* id 7, wireType 2 =*/58).fork();
+                        for (var i = 0; i < message.positionConfidence.length; ++i)
+                            writer.float(message.positionConfidence[i]);
+                        writer.ldelim();
+                    }
+                    if (message.modifications != null && message.modifications.length)
+                        for (var i = 0; i < message.modifications.length; ++i)
+                            $root.com.example.dto.AbbreviateModification.encode(message.modifications[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        writer.uint32(/* id 9, wireType 5 =*/77).float(message.maxIntensity);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified DenovoCandidate message, length delimited. Does not implicitly {@link com.example.dto.DenovoCandidate.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {com.example.dto.IDenovoCandidate} message DenovoCandidate message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DenovoCandidate.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a DenovoCandidate message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.DenovoCandidate} DenovoCandidate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DenovoCandidate.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.DenovoCandidate();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sequence = reader.string();
+                            break;
+                        case 2:
+                            message.mass = reader.float();
+                            break;
+                        case 3:
+                            message.length = reader.uint32();
+                            break;
+                        case 4:
+                            message.area = reader.float();
+                            break;
+                        case 5:
+                            message.ppm = reader.float();
+                            break;
+                        case 6:
+                            message.alc = reader.float();
+                            break;
+                        case 7:
+                            if (!(message.positionConfidence && message.positionConfidence.length))
+                                message.positionConfidence = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.positionConfidence.push(reader.float());
+                            } else
+                                message.positionConfidence.push(reader.float());
+                            break;
+                        case 8:
+                            if (!(message.modifications && message.modifications.length))
+                                message.modifications = [];
+                            message.modifications.push($root.com.example.dto.AbbreviateModification.decode(reader, reader.uint32()));
+                            break;
+                        case 9:
+                            message.maxIntensity = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a DenovoCandidate message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.DenovoCandidate} DenovoCandidate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DenovoCandidate.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a DenovoCandidate message.
+                 * @function verify
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DenovoCandidate.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        if (!$util.isString(message.sequence))
+                            return "sequence: string expected";
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        if (typeof message.mass !== "number")
+                            return "mass: number expected";
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        if (!$util.isInteger(message.length))
+                            return "length: integer expected";
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        if (typeof message.area !== "number")
+                            return "area: number expected";
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        if (typeof message.ppm !== "number")
+                            return "ppm: number expected";
+                    if (message.alc != null && message.hasOwnProperty("alc"))
+                        if (typeof message.alc !== "number")
+                            return "alc: number expected";
+                    if (message.positionConfidence != null && message.hasOwnProperty("positionConfidence")) {
+                        if (!Array.isArray(message.positionConfidence))
+                            return "positionConfidence: array expected";
+                        for (var i = 0; i < message.positionConfidence.length; ++i)
+                            if (typeof message.positionConfidence[i] !== "number")
+                                return "positionConfidence: number[] expected";
+                    }
+                    if (message.modifications != null && message.hasOwnProperty("modifications")) {
+                        if (!Array.isArray(message.modifications))
+                            return "modifications: array expected";
+                        for (var i = 0; i < message.modifications.length; ++i) {
+                            var error = $root.com.example.dto.AbbreviateModification.verify(message.modifications[i]);
+                            if (error)
+                                return "modifications." + error;
+                        }
+                    }
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        if (typeof message.maxIntensity !== "number")
+                            return "maxIntensity: number expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a DenovoCandidate message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.DenovoCandidate} DenovoCandidate
+                 */
+                DenovoCandidate.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.DenovoCandidate)
+                        return object;
+                    var message = new $root.com.example.dto.DenovoCandidate();
+                    if (object.sequence != null)
+                        message.sequence = String(object.sequence);
+                    if (object.mass != null)
+                        message.mass = Number(object.mass);
+                    if (object.length != null)
+                        message.length = object.length >>> 0;
+                    if (object.area != null)
+                        message.area = Number(object.area);
+                    if (object.ppm != null)
+                        message.ppm = Number(object.ppm);
+                    if (object.alc != null)
+                        message.alc = Number(object.alc);
+                    if (object.positionConfidence) {
+                        if (!Array.isArray(object.positionConfidence))
+                            throw TypeError(".com.example.dto.DenovoCandidate.positionConfidence: array expected");
+                        message.positionConfidence = [];
+                        for (var i = 0; i < object.positionConfidence.length; ++i)
+                            message.positionConfidence[i] = Number(object.positionConfidence[i]);
+                    }
+                    if (object.modifications) {
+                        if (!Array.isArray(object.modifications))
+                            throw TypeError(".com.example.dto.DenovoCandidate.modifications: array expected");
+                        message.modifications = [];
+                        for (var i = 0; i < object.modifications.length; ++i) {
+                            if (typeof object.modifications[i] !== "object")
+                                throw TypeError(".com.example.dto.DenovoCandidate.modifications: object expected");
+                            message.modifications[i] = $root.com.example.dto.AbbreviateModification.fromObject(object.modifications[i]);
+                        }
+                    }
+                    if (object.maxIntensity != null)
+                        message.maxIntensity = Number(object.maxIntensity);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a DenovoCandidate message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @static
+                 * @param {com.example.dto.DenovoCandidate} message DenovoCandidate
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DenovoCandidate.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.positionConfidence = [];
+                        object.modifications = [];
+                    }
+                    if (options.defaults) {
+                        object.sequence = "";
+                        object.mass = 0;
+                        object.length = 0;
+                        object.area = 0;
+                        object.ppm = 0;
+                        object.alc = 0;
+                        object.maxIntensity = 0;
+                    }
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        object.sequence = message.sequence;
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        object.mass = options.json && !isFinite(message.mass) ? String(message.mass) : message.mass;
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        object.length = message.length;
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        object.area = options.json && !isFinite(message.area) ? String(message.area) : message.area;
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        object.ppm = options.json && !isFinite(message.ppm) ? String(message.ppm) : message.ppm;
+                    if (message.alc != null && message.hasOwnProperty("alc"))
+                        object.alc = options.json && !isFinite(message.alc) ? String(message.alc) : message.alc;
+                    if (message.positionConfidence && message.positionConfidence.length) {
+                        object.positionConfidence = [];
+                        for (var j = 0; j < message.positionConfidence.length; ++j)
+                            object.positionConfidence[j] = options.json && !isFinite(message.positionConfidence[j]) ? String(message.positionConfidence[j]) : message.positionConfidence[j];
+                    }
+                    if (message.modifications && message.modifications.length) {
+                        object.modifications = [];
+                        for (var j = 0; j < message.modifications.length; ++j)
+                            object.modifications[j] = $root.com.example.dto.AbbreviateModification.toObject(message.modifications[j], options);
+                    }
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        object.maxIntensity = options.json && !isFinite(message.maxIntensity) ? String(message.maxIntensity) : message.maxIntensity;
+                    return object;
+                };
+
+                /**
+                 * Converts this DenovoCandidate to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.DenovoCandidate
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DenovoCandidate.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return DenovoCandidate;
+            })();
+
+            dto.AbbreviateModification = (function() {
+
+                /**
+                 * Properties of an AbbreviateModification.
+                 * @memberof com.example.dto
+                 * @interface IAbbreviateModification
+                 * @property {string|null} [name] AbbreviateModification name
+                 * @property {string|null} [abbreviation] AbbreviateModification abbreviation
+                 * @property {number|null} [monoMass] AbbreviateModification monoMass
+                 * @property {com.example.dto.ModificationType|null} [type] AbbreviateModification type
+                 * @property {string|null} [anywhereResidues] AbbreviateModification anywhereResidues
+                 */
+
+                /**
+                 * Constructs a new AbbreviateModification.
+                 * @memberof com.example.dto
+                 * @classdesc Represents an AbbreviateModification.
+                 * @implements IAbbreviateModification
+                 * @constructor
+                 * @param {com.example.dto.IAbbreviateModification=} [properties] Properties to set
+                 */
+                function AbbreviateModification(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * AbbreviateModification name.
+                 * @member {string} name
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 */
+                AbbreviateModification.prototype.name = "";
+
+                /**
+                 * AbbreviateModification abbreviation.
+                 * @member {string} abbreviation
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 */
+                AbbreviateModification.prototype.abbreviation = "";
+
+                /**
+                 * AbbreviateModification monoMass.
+                 * @member {number} monoMass
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 */
+                AbbreviateModification.prototype.monoMass = 0;
+
+                /**
+                 * AbbreviateModification type.
+                 * @member {com.example.dto.ModificationType} type
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 */
+                AbbreviateModification.prototype.type = 0;
+
+                /**
+                 * AbbreviateModification anywhereResidues.
+                 * @member {string} anywhereResidues
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 */
+                AbbreviateModification.prototype.anywhereResidues = "";
+
+                /**
+                 * Creates a new AbbreviateModification instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviateModification=} [properties] Properties to set
+                 * @returns {com.example.dto.AbbreviateModification} AbbreviateModification instance
+                 */
+                AbbreviateModification.create = function create(properties) {
+                    return new AbbreviateModification(properties);
+                };
+
+                /**
+                 * Encodes the specified AbbreviateModification message. Does not implicitly {@link com.example.dto.AbbreviateModification.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviateModification} message AbbreviateModification message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AbbreviateModification.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.abbreviation);
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        writer.uint32(/* id 3, wireType 5 =*/29).float(message.monoMass);
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.type);
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        writer.uint32(/* id 5, wireType 2 =*/42).string(message.anywhereResidues);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified AbbreviateModification message, length delimited. Does not implicitly {@link com.example.dto.AbbreviateModification.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviateModification} message AbbreviateModification message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AbbreviateModification.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an AbbreviateModification message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.AbbreviateModification} AbbreviateModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AbbreviateModification.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.AbbreviateModification();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.name = reader.string();
+                            break;
+                        case 2:
+                            message.abbreviation = reader.string();
+                            break;
+                        case 3:
+                            message.monoMass = reader.float();
+                            break;
+                        case 4:
+                            message.type = reader.int32();
+                            break;
+                        case 5:
+                            message.anywhereResidues = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an AbbreviateModification message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.AbbreviateModification} AbbreviateModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AbbreviateModification.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an AbbreviateModification message.
+                 * @function verify
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                AbbreviateModification.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        if (!$util.isString(message.abbreviation))
+                            return "abbreviation: string expected";
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        if (typeof message.monoMass !== "number")
+                            return "monoMass: number expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            break;
+                        }
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        if (!$util.isString(message.anywhereResidues))
+                            return "anywhereResidues: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an AbbreviateModification message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.AbbreviateModification} AbbreviateModification
+                 */
+                AbbreviateModification.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.AbbreviateModification)
+                        return object;
+                    var message = new $root.com.example.dto.AbbreviateModification();
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    if (object.abbreviation != null)
+                        message.abbreviation = String(object.abbreviation);
+                    if (object.monoMass != null)
+                        message.monoMass = Number(object.monoMass);
+                    switch (object.type) {
+                    case "PTM":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "MUTATION":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    case "INSERTION":
+                    case 2:
+                        message.type = 2;
+                        break;
+                    case "DELETION":
+                    case 3:
+                        message.type = 3;
+                        break;
+                    }
+                    if (object.anywhereResidues != null)
+                        message.anywhereResidues = String(object.anywhereResidues);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an AbbreviateModification message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @static
+                 * @param {com.example.dto.AbbreviateModification} message AbbreviateModification
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                AbbreviateModification.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.name = "";
+                        object.abbreviation = "";
+                        object.monoMass = 0;
+                        object.type = options.enums === String ? "PTM" : 0;
+                        object.anywhereResidues = "";
+                    }
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        object.abbreviation = message.abbreviation;
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        object.monoMass = options.json && !isFinite(message.monoMass) ? String(message.monoMass) : message.monoMass;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.ModificationType[message.type] : message.type;
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        object.anywhereResidues = message.anywhereResidues;
+                    return object;
+                };
+
+                /**
+                 * Converts this AbbreviateModification to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.AbbreviateModification
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                AbbreviateModification.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return AbbreviateModification;
+            })();
+
+            /**
+             * ModificationType enum.
+             * @name com.example.dto.ModificationType
+             * @enum {string}
+             * @property {number} PTM=0 PTM value
+             * @property {number} MUTATION=1 MUTATION value
+             * @property {number} INSERTION=2 INSERTION value
+             * @property {number} DELETION=3 DELETION value
+             */
+            dto.ModificationType = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "PTM"] = 0;
+                values[valuesById[1] = "MUTATION"] = 1;
+                values[valuesById[2] = "INSERTION"] = 2;
+                values[valuesById[3] = "DELETION"] = 3;
+                return values;
+            })();
+
             return dto;
         })();
 
