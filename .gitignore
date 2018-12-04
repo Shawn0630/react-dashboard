@@ -10,3 +10,4 @@ src/override.json
 src/_override.json
 
 **/.DS_Store
+.vscode
