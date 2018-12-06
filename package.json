@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://shawn0630.github.io/ts-react-redux-webpack-starter",
   "devDependencies": {
+    "@types/antd": "^1.0.0",
     "@types/classnames": "^2.2.6",
     "@types/d3": "^4.12.0",
     "@types/enzyme": "^3.1.1",
@@ -26,6 +27,7 @@
     "@types/react-virtualized": "^9.18.7",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/showdown": "^1.7.4",
+    "@types/styled-components": "^4.1.3",
     "@types/superagent": "^2.0.36",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "clean-webpack-plugin": "^0.1.19",
@@ -73,6 +75,7 @@
     "@material-ui/icons": "^2.0.1",
     "@types/d3-hierarchy": "^1.1.0",
     "@types/react-swipeable-views": "^0.12.2",
+    "antd": "^3.11.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.6",
@@ -99,6 +102,7 @@
     "react-virtualized": "^9.20.1",
     "redux": "^4.0.0",
     "showdown": "^1.8.6",
+    "styled-components": "^4.1.2",
     "superagent": "^3.8.3"
   },
   "scripts": {
