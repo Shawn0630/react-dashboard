@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "./type"; //tslint:disable-line
 
-import FileListItem from "./FileListItem";
+import FileListItem, { Item } from "./FileListItem";
 
 const Wrapper = styled.div // tslint:disable-line
 `
@@ -25,59 +25,45 @@ const ScrollContainer = styled.div // tslint:disable-line
   max-height: 100%;
 `;
 
-interface FileListProps {}
+interface FileListProps {
+    internalScroll: boolean;
+    autoFocusId: string;
+    selectedId: string;
+    items: Item[];
+    style: React.CSSProperties;
+
+    onClickItem(item: Item, index: number): (event: React.SyntheticEvent<HTMLElement>) => void;
+    renderItem(item: Item, index: number): JSX.Element;
+}
 
 export default class FileList extends React.PureComponent<FileListProps> {
 
     public render(): JSX.Element {
-        const {
-            ignoreContainerClipping,
-            internalScroll,
-            isDropDisabled,
-            listId,
-            listType,
-            dropBackgroundColor,
-            style,
-        } = this.props;
-
-        return <Wrapper style={style}>
-            {internalScroll ? (
+        return <Wrapper style={this.props.style}>
+            {this.props.internalScroll ? (
                 <ScrollContainer>
-                    {this.renderList(dropProvided)}
+                    {this.renderList()}
                 </ScrollContainer>
                 ) : (
-                    this.renderList(dropProvided)
+                    this.renderList()
                 )}
         </Wrapper>;
     }
 
-    private renderList(dropProvided): JSX.Element {
-        const {
-            listId,
-            listType,
-            data,
-            selectedId,
-            onClickItem,
-            itemSelectedColor,
-            renderItem,
-            onOutsideDrop,
-            dropzoneConfig,
-        } = this.props
-
-        return <div>
-            <FileListItem
-                key={item.id}
-                index={index}
-                item={item}
-                isDragging={dragSnapshot.isDragging}
-                provided={dragProvided}
-                autoFocus={this.props.autoFocusId === item.id}
-                selected={selectedId && selectedId === item.id}
-                onClick={() => onClickItem(item, index)}
-                itemSelectedColor={itemSelectedColor}
-                renderItem={renderItem}
-            />
-                {dragProvided.placeholder}
-        </div>;
+    private renderList(): JSX.Element {
+        return <React.Fragment>
+            {
+                this.props.items.map((item: Item, index: number) =>
+                    <FileListItem
+                        key={item.id}
+                        index={index}
+                        item={item}
+                        autoFocus={this.props.autoFocusId === item.id}
+                        selected={this.props.selectedId && this.props.selectedId === item.id}
+                        onClick={this.props.onClickItem(item, index)}
+                        renderItem={this.props.renderItem}
+                    />)
+            }
+        </React.Fragment>;
     }
 }

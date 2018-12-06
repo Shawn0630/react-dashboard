@@ -2,14 +2,37 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled from "./type"; //tslint:disable-line
 
+interface Item {
+    id: string;
+    children: string[];
+    parent: string;
+    title: string;
+    type: ItemType;
+}
+
+enum ItemType {
+    FILE = "FILE",
+    DIR = "DIR"
+}
+
+interface FileListItemProps {
+    autoFocus: boolean;
+    selected: boolean;
+    index: number;
+    item: Item;
+
+    renderItem(item: Item, index: number): React.ReactElement<{}>;
+    onClick(event: React.SyntheticEvent<HTMLElement>): void;
+}
+
 const Container = styled.div // tslint:disable-line
 `
 border-radius: 3px;
 border: 1px solid grey;
-background-color: white
+background-color: white;
 /* cursor: grabbing is handled by app */
 cursor: grab;
-box-shadow: none
+box-shadow: none;
 padding: 6px;
 min-height: 40px;
 margin-bottom: 6px;
@@ -27,10 +50,6 @@ color: black;
 }
 `;
 
-interface FileListItemProps {
-    autoFocus: boolean;
-}
-
 export default class FileListItem extends React.PureComponent<FileListItemProps> {
     public componentDidMount(): void {
         if (!this.props.autoFocus) {
@@ -42,20 +61,14 @@ export default class FileListItem extends React.PureComponent<FileListItemProps>
     }
 
     public render(): JSX.Element {
-        const { item, index, renderItem, provided, selected, onClick, itemSelectedColor } = this.props;
-
         return (
-            <div onClick={onClick}>
-                <Container
-                    innerRef={provided.innerRef}
-                    style={provided.draggableStyle}
-                    selected={selected}
-                    itemSelectedColor={itemSelectedColor}
-                    {...provided.dragHandleProps}
-                >
-                    {renderItem(item, index)}
-                </Container>
-            </div>
+            <div onClick={this.props.onClick} role={"button"}>
+            <Container>
+                {this.props.renderItem(this.props.item, this.props.index)}
+            </Container>
+        </div>
         );
     }
 }
+
+export { Item, ItemType };

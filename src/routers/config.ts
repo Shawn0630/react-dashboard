@@ -20,7 +20,13 @@ const routesConfig: {[key: string]: RoutesConfig[]} = {
             subs: [
                 { key: "/app/material/buttons", title: "Buttons", icon: "B", component: "ButtonsPage"},
                 { key: "/app/material/customize", title: "Customizations", icon: "C", component: "CustomizePage"}
-            ]}
+            ]},
+        {
+            key: "/app/antd", title: "Ant Design", icon: "A", component: "FileManagerPage",
+            subs: [
+                { key: "/app/antd/files", title: "File Browser", icon: "F", component: "FileManagerPage"}
+            ]
+        }
     ],
     others: [
         { key: "/login", title: "Login", component: "Login"},
