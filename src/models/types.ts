@@ -4,6 +4,7 @@ import IScanDenovoCandidate = com.example.dto.IScanDenovoCandidate;
 namespace SharedType {
     export interface Information {
         dbKey: string;
+        numDenovos?: number;
         lastUpdated?: number;
     }
 
@@ -11,6 +12,10 @@ namespace SharedType {
         DENOVOS = "denovos"
     }
 
+    export interface FetchedResult<T> {
+        items: T[];
+        totalItems: number;
+    }
     export interface DenovoCandidateWithALC extends IScanDenovoCandidate {
         alc?: number;
     }
