@@ -21,7 +21,7 @@ export default class ResultDatabase extends dexie {
         };
 
         this.infoDB = infoDB;
-        this.initialize();
+        this.initialize().catch(err => {throw new Error(err); });
     }
 
     public async saveAll<T extends DataType>(type: ResultType, items: T[]): Promise<Information> {

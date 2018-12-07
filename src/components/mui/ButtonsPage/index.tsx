@@ -11,7 +11,7 @@ import CustomizedButtons from "~components/mui/ButtonsPage/CustomizedButtons";
 import ButtonBases from "~components/mui/ButtonsPage//ButtonBases";
 import IconButtons from "~components/mui/ButtonsPage/IconButtons";
 
-export default class ButtonsPage extends React.PureComponent<{}> {
+export default class ButtonsPage extends React.PureComponent<null> {
     public render(): JSX.Element {
         return <React.Fragment>
             <Grid container spacing={24}>
