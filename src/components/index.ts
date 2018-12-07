@@ -5,6 +5,7 @@ import Login from "~components/Login";
 import NotFound from "~components/NotFound";
 import CustomizePage from "~components/mui/CustomizePage";
 import FileManagerPage from "~components/antd/FileManagerPage";
+import FileBrowserPage from "~components/mui/FileBrowserPage";
 
 const Components: { [key: string]: React.ComponentClass } = { // tslint:disable-line
     VolcanoPlotPage,
@@ -13,7 +14,8 @@ const Components: { [key: string]: React.ComponentClass } = { // tslint:disable-
     Login,
     NotFound,
     CustomizePage,
-    FileManagerPage
+    FileManagerPage,
+    FileBrowserPage
 };
 
 export default Components;

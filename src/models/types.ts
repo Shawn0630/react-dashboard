@@ -20,6 +20,7 @@ namespace SharedType {
         alc?: number;
     }
     export type DataType = DenovoCandidateWithALC;
+
 }
 
 export { SharedType };
