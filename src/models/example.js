@@ -3139,6 +3139,287 @@ $root.com = (function() {
                 return values;
             })();
 
+            dto.FileNode = (function() {
+
+                /**
+                 * Properties of a FileNode.
+                 * @memberof com.example.dto
+                 * @interface IFileNode
+                 * @property {string|null} [filename] FileNode filename
+                 * @property {com.example.dto.FileNode.Type|null} [type] FileNode type
+                 * @property {Array.<com.example.dto.IFileNode>|null} [children] FileNode children
+                 */
+
+                /**
+                 * Constructs a new FileNode.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a FileNode.
+                 * @implements IFileNode
+                 * @constructor
+                 * @param {com.example.dto.IFileNode=} [properties] Properties to set
+                 */
+                function FileNode(properties) {
+                    this.children = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * FileNode filename.
+                 * @member {string} filename
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.filename = "";
+
+                /**
+                 * FileNode type.
+                 * @member {com.example.dto.FileNode.Type} type
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.type = 0;
+
+                /**
+                 * FileNode children.
+                 * @member {Array.<com.example.dto.IFileNode>} children
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.children = $util.emptyArray;
+
+                /**
+                 * Creates a new FileNode instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode=} [properties] Properties to set
+                 * @returns {com.example.dto.FileNode} FileNode instance
+                 */
+                FileNode.create = function create(properties) {
+                    return new FileNode(properties);
+                };
+
+                /**
+                 * Encodes the specified FileNode message. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode} message FileNode message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FileNode.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.filename);
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
+                    if (message.children != null && message.children.length)
+                        for (var i = 0; i < message.children.length; ++i)
+                            $root.com.example.dto.FileNode.encode(message.children[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified FileNode message, length delimited. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode} message FileNode message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FileNode.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.FileNode} FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FileNode.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.FileNode();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.filename = reader.string();
+                            break;
+                        case 2:
+                            message.type = reader.int32();
+                            break;
+                        case 3:
+                            if (!(message.children && message.children.length))
+                                message.children = [];
+                            message.children.push($root.com.example.dto.FileNode.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.FileNode} FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FileNode.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a FileNode message.
+                 * @function verify
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                FileNode.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        if (!$util.isString(message.filename))
+                            return "filename: string expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                            break;
+                        }
+                    if (message.children != null && message.hasOwnProperty("children")) {
+                        if (!Array.isArray(message.children))
+                            return "children: array expected";
+                        for (var i = 0; i < message.children.length; ++i) {
+                            var error = $root.com.example.dto.FileNode.verify(message.children[i]);
+                            if (error)
+                                return "children." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a FileNode message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.FileNode} FileNode
+                 */
+                FileNode.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.FileNode)
+                        return object;
+                    var message = new $root.com.example.dto.FileNode();
+                    if (object.filename != null)
+                        message.filename = String(object.filename);
+                    switch (object.type) {
+                    case "FILE":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "DIR":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    }
+                    if (object.children) {
+                        if (!Array.isArray(object.children))
+                            throw TypeError(".com.example.dto.FileNode.children: array expected");
+                        message.children = [];
+                        for (var i = 0; i < object.children.length; ++i) {
+                            if (typeof object.children[i] !== "object")
+                                throw TypeError(".com.example.dto.FileNode.children: object expected");
+                            message.children[i] = $root.com.example.dto.FileNode.fromObject(object.children[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a FileNode message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.FileNode} message FileNode
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                FileNode.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.children = [];
+                    if (options.defaults) {
+                        object.filename = "";
+                        object.type = options.enums === String ? "FILE" : 0;
+                    }
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        object.filename = message.filename;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.FileNode.Type[message.type] : message.type;
+                    if (message.children && message.children.length) {
+                        object.children = [];
+                        for (var j = 0; j < message.children.length; ++j)
+                            object.children[j] = $root.com.example.dto.FileNode.toObject(message.children[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this FileNode to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                FileNode.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Type enum.
+                 * @name com.example.dto.FileNode.Type
+                 * @enum {string}
+                 * @property {number} FILE=0 FILE value
+                 * @property {number} DIR=1 DIR value
+                 */
+                FileNode.Type = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "FILE"] = 0;
+                    values[valuesById[1] = "DIR"] = 1;
+                    return values;
+                })();
+
+                return FileNode;
+            })();
+
             return dto;
         })();
 

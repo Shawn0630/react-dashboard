@@ -101,3 +101,14 @@ enum ModificationType {
     DELETION = 3;
 }
 
+
+message FileNode {
+    string filename = 1;
+    Type type = 2;
+    repeated FileNode children = 3;
+
+    enum Type {
+        FILE = 0;
+        DIR = 1;
+    }
+}
