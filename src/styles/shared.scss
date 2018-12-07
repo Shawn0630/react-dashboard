@@ -7,3 +7,95 @@
 .camera {
     background-image: url("./images/camera.jpg");
 }
+
+$theme-colors: (
+  'base': (
+    'background': lightblue,
+    'foreground': white
+  ),
+  'primary': (
+    'background': #50abe4,
+    'foreground': white,
+  ),
+  'secondary': (
+    'background': darkblue,
+    'foreground': white
+  ),
+  'error' : (
+    'background': #ef72b6,
+    'foreground': white
+  ),
+  'disable' : (
+    'background': grey,
+    'foreground': black
+  ),
+  'failure' : (
+      'background': #d9534f,
+      'foreground': white
+  )
+);
+
+@function theme-color($key: 'base', $variant: 'background') {
+  $map: map-get($theme-colors, $key);
+  @return map-get($map, $variant);
+}
+
+.tree {
+    ul {
+        margin-left: 20px;
+    }
+
+    li {
+        list-style-type: none;
+        margin:10px;
+        position: relative;
+
+        span {
+            margin-left: 5px
+        }
+    }
+
+    li::before {
+        content: "";
+        position: absolute;
+        top:-6px;
+        left:-20px;
+        border-left: 1px solid #ccc;
+        border-bottom:1px solid #ccc;
+        border-radius:0 0 0 0px;
+        width:20px;
+        height:15px;
+    }
+
+    li::after {
+        position:absolute;
+        content:"";
+        top:8px;
+        left:-20px;
+        border-left: 1px solid #ccc;
+        border-top:1px solid #ccc;
+        border-radius:0px 0 0 0;
+        width:20px;
+        height:30px;
+    }
+
+    li:last-child::after  {
+        display:none;
+    }
+
+    li:last-child:before{
+        border-radius: 0 0 0 5px;
+    }
+
+    ul.tree>li:first-child::before {
+        display:none;
+    }
+
+    ul.tree>li:first-child::after {
+        border-radius:5px 0 0 0;
+    }
+}
+
+.disabled {
+     color: theme-color("disable", "background");
+}

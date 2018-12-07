@@ -21,7 +21,7 @@ interface MenuSelectDropDownProps {
     errorStyle?: object;
     children?: any; //tslint:disable-line
     multiple?: boolean;
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+    onChange?(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
 function MenuSelectDropDown(props: MenuSelectDropDownProps): JSX.Element { //tslint:disable-line
