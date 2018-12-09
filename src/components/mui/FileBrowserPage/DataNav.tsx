@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Breadcrumb, Button } from "react-bootstrap";
 import { com } from "~models/example";
+import * as styles from "./FileBrowser.scss";
 import IFileNode = com.example.dto.IFileNode;
 
 interface DataNavProps {
@@ -10,7 +11,7 @@ interface DataNavProps {
 }
 
 export default function DataNav(props: DataNavProps): JSX.Element { // tslint:disable-line
-    return <Breadcrumb>
+    return <Breadcrumb className={styles.dataNav}>
         {
             props.path.map((item: IFileNode, index: number) =>
                 <Breadcrumb.Item active={index === props.path.length - 1}>

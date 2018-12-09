@@ -26,8 +26,11 @@ import { withDragDropContext } from "~utilities/dnd-helper";
 import { MenuSelectDropDown } from "../../shared/MenuSelectDropDown";
 import { DroppableFileList } from "./DraggableFileContainer";
 import * as sharedStyles from "~styles/shared.scss";
+import FileBrowserWrapper from "./FileBrowserWrapper";
+import * as root from "../../../data/FileNode.json";
 import ISample = com.example.dto.ISample;
 import IFraction = com.example.dto.Sample.IFraction;
+import FileNode = com.example.dto.FileNode;
 
 interface SampleSubmissionPanelProps {
     enzymeOptions: string[];
@@ -152,7 +155,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         return <div>
                 <Grid container spacing={0}>
                     <Grid item xs={3}>
-                        <input id="add-file-button" type="file" accept={".raw,.mzxml,.zip"} multiple={true} onChange={this.changeFiles}
+                        {/* <input id="add-file-button" type="file" accept={".raw,.mzxml,.zip"} multiple={true} onChange={this.changeFiles}
                                 style={{display: "none"}} />
                         <label htmlFor="add-file-button">
                             <Button variant="outlined" component="span"
@@ -170,7 +173,8 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                         <DroppableFileList moveFile={this.moveFile} fileList={this.state.sampleList[0].files}
                             onCheck={this.onCheck} onRemove={this.onRemove} searchPattern={this.state.searchPattern}
                             removeFile={this.removeFile} pushFile={this.pushFile} listIndex={0} />
-                    </Paper>
+                    </Paper> */}
+                    <FileBrowserWrapper root={FileNode.fromObject(root)}/>
                     </Grid>
                     <Grid item xs={1} className={styles.iconButtons}>
                         <IconButton onClick={this.newSample} className={styles.iconButton}>
@@ -190,7 +194,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                         {this.renderSampleListHeader()}
                         <Paper id={"samplePanel"}
                             style={{
-                                height: 550, overflow: "auto", width: 880,
+                                height: 500, overflow: "auto", width: 880,
                                 borderStyle: this.state.hasSampleNameError ? "solid" : null,
                                 borderColor: this.state.hasSampleNameError ? "red" : null
                             }}>

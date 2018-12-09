@@ -8,7 +8,6 @@ import * as root from "../../../data/FileNode.json";
 export default class FileBrowserPage extends React.PureComponent<{}> {
     public render(): JSX.Element {
         return <React.Fragment>
-            <FileBrowserWrapper root={FileNode.fromObject(root)} />
             <SampleDialogWrapper />
         </React.Fragment>;
     }

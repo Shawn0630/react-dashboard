@@ -1,3 +1,4 @@
+import { StyledComponentProps, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -6,13 +7,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Map, OrderedMap } from "immutable";
 import * as React from "react";
 import { com } from "~models/example";
+import { convertStringToActionMehtod } from "~models/FractionInfo";
+
+import { DraggableSampleSubmissionPanel, SampleSubmissionPanel } from "./SampleSubmissionPanel";
+
 import ISample = com.example.dto.ISample;
 import IFraction = com.example.dto.Sample.IFraction;
-import { convertStringToActionMehtod } from "~models/FractionInfo";
-import { DraggableSampleSubmissionPanel, SampleSubmissionPanel } from "./SampleSubmissionPanel";
-import { withStyles } from "@material-ui/core";
-
-interface SampleDialogProps {
+interface SampleDialogProps extends StyledComponentProps {
     open: boolean;
     files: Map<string, File>;
     enzymeOptions: string[];
@@ -31,8 +32,7 @@ export default withStyles({
     paperWidthMd: {
         maxWidth: 1280
     }
-})(
-    class SampleDialog extends React.PureComponent<SampleDialogProps> {
+})(class SampleDialog extends React.PureComponent<SampleDialogProps> {
     private submissionPanel: SampleSubmissionPanel = null;
     constructor(props: SampleDialogProps) {
         super(props);
@@ -43,7 +43,9 @@ export default withStyles({
     }
 
     public render(): JSX.Element {
-        return <Dialog fullWidth={true} maxWidth="md"
+        return <Dialog fullWidth={true} maxWidth="md" classes={{
+                paperWidthMd: this.props.classes.paperWidthMd}
+            }
             open={this.props.open} disableBackdropClick disableEscapeKeyDown scroll="paper">
             <DialogTitle> Samples </DialogTitle>
             <DialogContent>

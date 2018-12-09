@@ -1,7 +1,25 @@
 .root {
-    width: 300px !important;
+    width: 100% !important;
 }
 
 .nested {
-    padding-left: 50px !important;
+    padding-left: 35px !important;
+}
+
+.dataNav {
+    width: 100% !important;
+    margin-bottom: 0;
+}
+
+.selectAll {
+    width: 30%;
+}
+
+.searchLegend {
+    margin-top: 10px !important;
+    width: 69%;
+}
+
+.filePanel {
+    height: 500px;
 }
