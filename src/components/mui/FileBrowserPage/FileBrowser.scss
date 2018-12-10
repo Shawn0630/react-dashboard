@@ -2,13 +2,34 @@
     width: 100% !important;
 }
 
+.top {
+    padding-left: 5px !important;
+}
+
 .nested {
-    padding-left: 35px !important;
+    padding-left: 10px !important;
+}
+
+.addData {
+    width: 100%;
+}
+
+.itemText {
+    display: block;
+    max-width: 230px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 10px !important;
 }
 
 .dataNav {
     width: 100% !important;
     margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .selectAll {

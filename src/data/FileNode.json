@@ -1,19 +1,46 @@
 {
-    "filename": "root",
+    "filename": "Sources",
     "type": "DIR",
     "children": [
         {
-            "filename": "file 1",
-            "type": "FILE",
+            "filename": "Remote Data 1",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "File 1",
+                    "type": "FILE",
+                    "children": []
+                },
+                {
+                    "filename": "File 2",
+                    "type": "FILE",
+                    "children": []
+                },
+                {
+                    "filename": "DIR 1",
+                    "type": "DIR",
+                    "children": [
+                        {
+                            "filename": "File 1",
+                            "type": "FILE",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "filename": "File 3",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "filename": "Remote Data 2",
+            "type": "DIR",
             "children": []
         },
         {
-            "filename": "file 2",
-            "type": "FILE",
-            "children": []
-        },
-        {
-            "filename": "dir 1",
+            "filename": "Remote Data 3",
             "type": "DIR",
             "children": [
                 {

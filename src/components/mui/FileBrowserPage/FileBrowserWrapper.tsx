@@ -13,20 +13,26 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search"; // tslint:disable-line:import-name
+import { lastN } from "~/utilities/array-helper";
 
 interface FileBrowserWrapperProps {
     root: IFileNode;
 }
-
-interface FileBrowserWrapperStates {
-    cur: IFileNode;
-    path: IFileNode[];
-    selected: IFileNode[];
-    disabled: IFileNode[];
-    searchPattern: string;
-    selectAll: boolean;
+interface Node extends IFileNode {
+    source?: Source;
 }
 
+interface FileBrowserWrapperStates {
+    cur: Node;
+    path: Node[];
+    selected: Node[];
+    disabled: Node[];
+    searchPattern: string;
+    selectAll: boolean;
+    existingFiles: File[];
+}
+
+const BROWSER_UPLOAD: string = "Browser Upload";
 export default class FileBrowserPage extends React.PureComponent<FileBrowserWrapperProps, FileBrowserWrapperStates> {
     constructor(props: FileBrowserWrapperProps) {
         super(props);
@@ -37,12 +43,15 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
             selected: [],
             disabled: [],
             searchPattern: "",
-            selectAll: false
+            selectAll: false,
+            existingFiles: []
         };
 
         this.openDir = this.openDir.bind(this);
         this.selectItem = this.selectItem.bind(this);
         this.toNode = this.toNode.bind(this);
+        this.addData = this.addData.bind(this);
+        this.toParent = this.toParent.bind(this);
         this.changeSearchPattern = this.changeSearchPattern.bind(this);
         this.checkHeader = this.checkHeader.bind(this);
     }
@@ -69,13 +78,14 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
                     </FormControl>
                 </div>
             <Paper className={styles.filePanel}>
-                <DataList root={this.state.cur} source={Source.LOCAL} openDir={this.openDir} selectItem={this.selectItem}
-                    selected={this.state.selected} disabled={this.state.disabled}/>
+                <DataList root={this.state.cur} openDir={this.openDir} selectItem={this.selectItem} toParent={this.toParent}
+                    selected={this.state.selected} disabled={this.state.disabled} addData={this.addData}
+                    acceptLocal={this.state.cur === this.props.root || this.state.cur.source === Source.LOCAL}/>
             </Paper>
         </React.Fragment>;
     }
 
-    private openDir(item: IFileNode): void {
+    private openDir(item: Node): void {
        this.setState({
            cur: item,
            path: this.state.path.concat(item),
@@ -84,7 +94,7 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
        });
     }
 
-    private selectItem(item: IFileNode): void {
+    private selectItem(item: Node): void {
         let fileCount: number = 0;
         this.state.cur.children.map((node: IFileNode) => node.type === Type.FILE ? fileCount = fileCount + 1 : null);
         const selected: IFileNode[] = this.state.selected.indexOf(item) < 0 ?
@@ -95,23 +105,62 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
         });
     }
 
-    private toNode(item: IFileNode): void {
+    private toNode(item: Node): void {
         this.setState({
             cur: item,
             path: this.state.path.slice(0, this.state.path.indexOf(item) + 1)
         });
     }
 
+    private addData(items: FileList): void {
+        const children: Node[] = this.state.existingFiles.map((file: File) => {
+            return {
+                filename: file.name,
+                type: Type.FILE,
+                source: Source.LOCAL,
+                children: []
+            };
+        });
+        const existingFiles: File[] = this.state.existingFiles;
+        const existingFileNames: string[] = this.state.existingFiles.map((file: File) => file.name);
+        for (let i: number = 0; i < items.length; i = i + 1) {
+            if (existingFileNames.indexOf(items.item(i).name) < 0) {
+                children.push({
+                    filename: items.item(i).name,
+                    type: Type.FILE,
+                    source: Source.LOCAL,
+                    children: []
+                });
+                existingFiles.push(items.item(i));
+            }
+        }
+        const cur: Node = {
+            filename: BROWSER_UPLOAD,
+            type: Type.DIR,
+            source: Source.LOCAL,
+            children: children
+        };
+        this.setState({
+            cur: cur,
+            path: lastN(this.state.path, 1)[0].filename === BROWSER_UPLOAD ? this.state.path : this.state.path.concat(cur),
+            existingFiles: existingFiles
+        });
+    }
+
+    private toParent(item: Node): void {
+        this.toNode(lastN(this.state.path, 2)[0]);
+    }
+
     private changeSearchPattern(event: React.ChangeEvent<HTMLInputElement>): void {
-        const disabled: IFileNode[] = [];
+        const disabled: Node[] = [];
         for (const node of this.state.cur.children) {
             if (node.filename.toUpperCase().indexOf(event.target.value.toUpperCase()) === -1) {
                 disabled.push(node);
             }
         }
         let fileCount: number = 0;
-        this.state.cur.children.map((node: IFileNode) => node.type === Type.FILE ? fileCount = fileCount + 1 : null);
-        const selected: IFileNode[] = this.state.selected.filter((node: IFileNode) => disabled.indexOf(node) < 0);
+        this.state.cur.children.map((node: Node) => node.type === Type.FILE ? fileCount = fileCount + 1 : null);
+        const selected: Node[] = this.state.selected.filter((node: Node) => disabled.indexOf(node) < 0);
         this.setState({
             searchPattern: event.target.value,
             disabled: disabled,
@@ -124,7 +173,7 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
         this.setState({
             selectAll: checked
         });
-        const selected: IFileNode[] = [];
+        const selected: Node[] = [];
         if (checked) {
             for (const node of this.state.cur.children) {
                 if (this.state.disabled.indexOf(node) < 0 && node.type === Type.FILE) {
@@ -138,3 +187,5 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
         });
     }
 }
+
+export { Node };
