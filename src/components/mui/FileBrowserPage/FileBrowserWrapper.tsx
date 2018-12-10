@@ -97,8 +97,9 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
     private selectItem(item: Node): void {
         let fileCount: number = 0;
         this.state.cur.children.map((node: IFileNode) => node.type === Type.FILE ? fileCount = fileCount + 1 : null);
-        const selected: IFileNode[] = this.state.selected.indexOf(item) < 0 ?
-            this.state.selected.concat(item) : this.state.selected.filter((node: IFileNode) => node !== item);
+        const selected: IFileNode[] = JSON.stringify(this.state.selected).indexOf(JSON.stringify(item)) < 0 ?
+            this.state.selected.concat(item) : this.state.selected.filter((node: IFileNode) =>
+                JSON.stringify(node) !== JSON.stringify(item));
         this.setState({
             selected: selected,
             selectAll: selected.length === fileCount
@@ -108,7 +109,8 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
     private toNode(item: Node): void {
         this.setState({
             cur: item,
-            path: this.state.path.slice(0, this.state.path.indexOf(item) + 1)
+            path: this.state.path.slice(0, this.state.path.indexOf(item) + 1),
+            selectAll: false
         });
     }
 
@@ -121,16 +123,19 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
                 children: []
             };
         });
+        const selected: Node[] = this.state.selected;
         const existingFiles: File[] = this.state.existingFiles;
         const existingFileNames: string[] = this.state.existingFiles.map((file: File) => file.name);
         for (let i: number = 0; i < items.length; i = i + 1) {
             if (existingFileNames.indexOf(items.item(i).name) < 0) {
-                children.push({
+                const node: Node = {
                     filename: items.item(i).name,
                     type: Type.FILE,
                     source: Source.LOCAL,
                     children: []
-                });
+                };
+                children.push(node);
+                selected.push(node);
                 existingFiles.push(items.item(i));
             }
         }
@@ -143,7 +148,8 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
         this.setState({
             cur: cur,
             path: lastN(this.state.path, 1)[0].filename === BROWSER_UPLOAD ? this.state.path : this.state.path.concat(cur),
-            existingFiles: existingFiles
+            existingFiles: existingFiles,
+            selected: selected
         });
     }
 

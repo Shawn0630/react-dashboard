@@ -99,3 +99,8 @@ $theme-colors: (
 .disabled {
      color: theme-color("disable", "background");
 }
+
+.textToolTip {
+    white-space: pre-line !important;
+    text-align: left
+}

@@ -1,4 +1,4 @@
-import { StyledComponentProps, withStyles } from "@material-ui/core";
+import { createStyles, withStyles, WithStyles  } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,7 +13,7 @@ import { DraggableSampleSubmissionPanel, SampleSubmissionPanel } from "./SampleS
 
 import ISample = com.example.dto.ISample;
 import IFraction = com.example.dto.Sample.IFraction;
-interface SampleDialogProps extends StyledComponentProps {
+interface SampleDialogProps extends WithStyles<typeof style> {
     open: boolean;
     files: Map<string, File>;
     enzymeOptions: string[];
@@ -28,11 +28,12 @@ interface SelectableSample extends ISample {
     loadSuccess?: boolean;
 }
 
-export default withStyles({
+const style: any = createStyles({ //tslint:disable-line
     paperWidthMd: {
         maxWidth: 1280
     }
-})(class SampleDialog extends React.PureComponent<SampleDialogProps> {
+});
+export default withStyles(style)(class SampleDialog extends React.PureComponent<SampleDialogProps> {
     private submissionPanel: SampleSubmissionPanel = null;
     constructor(props: SampleDialogProps) {
         super(props);

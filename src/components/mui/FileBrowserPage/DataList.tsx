@@ -25,13 +25,14 @@ interface DataListProps {
 export default function DataList(props: DataListProps): JSX.Element { // tslint:disable-line
     return <List dense={props.dense} className={styles.root}>
         <DataItem item={props.root} source={props.root.source} onClick={props.toParent} root={true}/>
-        <List component="div">
         { props.acceptLocal != null && props.acceptLocal === true ? <AddData onChange={props.addData} /> : null}
+        <List component="div" className={styles.dataList}>
         { props.root.children.map((item: IFileNode) =>
             <DataItem item={item} source={props.root.source} nested={true}
                       onClick={item.type === Type.DIR ? props.openDir : props.selectItem}
-                      selected={props.selected.indexOf(item) >= 0}
-                      disabled={props.disabled.indexOf(item) >= 0} />)}
+                      selected={JSON.stringify(props.selected).indexOf(JSON.stringify(item)) >= 0}
+                      disabled={JSON.stringify(props.disabled).indexOf(JSON.stringify(item)) >= 0}
+                      showTooltip={item.type === Type.FILE}/>)}
         </List>
     </List>;
 }
