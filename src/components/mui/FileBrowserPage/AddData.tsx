@@ -2,9 +2,6 @@ import * as React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import * as styles from "./FileBrowser.scss";
-import { com } from "~models/example";
-import IFileNode = com.example.dto.IFileNode;
-import Type = com.example.dto.FileNode.Type;
 
 interface AddDataProps {
     onChange(files: FileList): void;

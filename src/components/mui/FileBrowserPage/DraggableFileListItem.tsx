@@ -1,7 +1,9 @@
 import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RemoveCircle from "@material-ui/icons/RemoveCircle";
-import Grid from "@material-ui/core/Grid";
+import DeleteIcon from "@material-ui/icons/Delete"; //tslint:disable-line
+import IconButton from "@material-ui/core/IconButton";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import * as React from "react";
 import * as dnd from "react-dnd";
 import { findDOMNode } from "react-dom";
@@ -10,23 +12,22 @@ import * as styles from "./SampleDialog.scss";
 import { DropProps } from "./DraggableFileContainer";
 
 interface DragDropProps {
-    file: File;
+    filename: string;
     index: number;
     listIndex: number;
 }
 
 interface FileListItemProps {
-    file: File;
+    filename: string;
     index: number;
     listIndex: number;
     checked: boolean;
-    filtered: boolean;
     isDragging?: boolean;
     connectDragSource?: dnd.ConnectDragSource;
     connectDropTarget?: dnd.ConnectDropTarget;
-    onCheck(file: File, listIndex: number, index: number, checked: boolean): void;
-    onRemove(file: File, listIndex: number): void;
-    removeFile(file: File, listIndex: number): void;
+    onCheck(filename: string, listIndex: number, index: number, checked: boolean): void;
+    onRemove(filename: string, listIndex: number): void;
+    removeFile(filename: string, listIndex: number): void;
     moveFile(sourceIndex: number, targetIndex: number, listIndex: number): void;
 }
 
@@ -37,7 +38,7 @@ interface FileListItemStates {
 const itemDragSource: dnd.DragSourceSpec<FileListItemProps> = {
     beginDrag(props: FileListItemProps): DragDropProps {
         return {
-            file: props.file,
+            filename: props.filename,
             index: props.index,
             listIndex: props.listIndex
         };
@@ -47,7 +48,7 @@ const itemDragSource: dnd.DragSourceSpec<FileListItemProps> = {
         const dropResult:  DropProps = monitor.getDropResult() as DropProps;
 
         if (dropResult != null && dropResult.listIndex !== item.listIndex) {
-            props.removeFile(item.file, item.listIndex);
+            props.removeFile(item.filename, item.listIndex);
         }
     }
 };
@@ -126,40 +127,34 @@ class FileListItem extends React.PureComponent<FileListItemProps, FileListItemSt
     }
 
     public render(): JSX.Element {
-        const opacity: number = this.props.isDragging ? 0 :
-                                this.props.listIndex === 0 ? this.props.filtered ? 0.5 : 1 : 1;
-        const width: number = this.props.listIndex === 0 ? 140 : 600;
-        const labelWidth: number = this.props.listIndex === 0 ? 120 : 560;
+        const opacity: number = this.props.isDragging ? 0 : 1;
 
         return this.props.connectDragSource(
             this.props.connectDropTarget(
-                <div className={styles.draggableFile} style={{opacity: opacity, minWidth: width, width: "90%"}}
-                     data-index={this.props.index} data-name={this.props.file.name}>
-                    <Grid container spacing={8}>
-                        <Grid item xs={11}>
-                            <FormControlLabel
-                                label={<div className={styles.checkBoxLabel} style={{ minWidth: labelWidth }}>{this.props.file.name}</div>}
-                                control={
-                                    <Checkbox color="primary" onChange={this.handleCheckboxClick} checked={this.state.checked}
-                                        disabled={this.props.listIndex === 0 ? this.props.filtered : false} />
-                                } />
-                        </Grid>
-                        <Grid item xs={1} className={styles.fileRemoveButton}>
-                            <RemoveCircle onClick={this.handleRemoveClick} className={styles.fileRemoveButton} />
-                        </Grid>
-                    </Grid>
+                <div>
+                    <ListItem className={styles.draggableFile}
+                              style={{opacity: opacity}}
+                              data-index={this.props.index} data-name={this.props.filename}>
+                        <Checkbox color="primary" onChange={this.handleCheckboxClick} checked={this.state.checked} />
+                        <ListItemText primary={this.props.filename} />
+                        <ListItemSecondaryAction>
+                            <IconButton aria-label="Delete" onClick={this.handleRemoveClick}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
                 </div>
             )
         );
     }
     private handleRemoveClick(): void {
-        this.props.onRemove(this.props.file, this.props.listIndex);
+        this.props.onRemove(this.props.filename, this.props.listIndex);
     }
     private handleCheckboxClick(event: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             checked: event.target.checked
         });
-        this.props.onCheck(this.props.file, this.props.listIndex, this.props.index, event.target.checked);
+        this.props.onCheck(this.props.filename, this.props.listIndex, this.props.index, event.target.checked);
     }
 }
 

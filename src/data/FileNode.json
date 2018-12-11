@@ -49,6 +49,28 @@
                     "children": []
                 }
             ]
+        },
+        {
+            "filename": "Remote Data 4",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "file 4",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "filename": "Remote Data 5",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "file 5",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
         }
     ]
 }

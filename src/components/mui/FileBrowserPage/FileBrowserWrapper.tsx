@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as styles from "./FileBrowser.scss";
+import { Map } from "immutable";
 import { com } from "~models/example";
 import IFileNode = com.example.dto.IFileNode;
 import Type = com.example.dto.FileNode.Type;
@@ -17,6 +18,7 @@ import { lastN } from "~/utilities/array-helper";
 
 interface FileBrowserWrapperProps {
     root: IFileNode;
+    existingFiles: Map<string, File>;
 }
 interface Node extends IFileNode {
     source?: Source;
@@ -54,6 +56,25 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
         this.toParent = this.toParent.bind(this);
         this.changeSearchPattern = this.changeSearchPattern.bind(this);
         this.checkHeader = this.checkHeader.bind(this);
+        this.getSelectedFiles = this.getSelectedFiles.bind(this);
+        this.removeSelectedFiles = this.removeSelectedFiles.bind(this);
+    }
+    public getSelectedFiles(): string[] {
+        return this.state.selected.map((file: Node) => file.filename);
+    }
+    public removeSelectedFiles(): void {
+        const children: IFileNode[] = this.state.cur.children.filter((node: IFileNode) =>
+            JSON.stringify(this.state.selected).indexOf(JSON.stringify(node)) < 0);
+        const selectedFileNames: string[] = this.state.selected.map((node: Node) => node.filename);
+        const existingFiles: File[] = this.state.existingFiles.filter((file: File) => selectedFileNames.indexOf(file.name) < 0);
+        this.setState({
+            cur: {
+                ...this.state.cur,
+                children: children
+            },
+            existingFiles: existingFiles,
+            selected: []
+        });
     }
 
     public render(): JSX.Element {
@@ -80,7 +101,7 @@ export default class FileBrowserPage extends React.PureComponent<FileBrowserWrap
             <Paper className={styles.filePanel}>
                 <DataList root={this.state.cur} openDir={this.openDir} selectItem={this.selectItem} toParent={this.toParent}
                     selected={this.state.selected} disabled={this.state.disabled} addData={this.addData}
-                    acceptLocal={this.state.cur === this.props.root || this.state.cur.source === Source.LOCAL}/>
+                    acceptLocal={this.state.path.length === 1 || this.state.cur.source === Source.LOCAL}/>
             </Paper>
         </React.Fragment>;
     }

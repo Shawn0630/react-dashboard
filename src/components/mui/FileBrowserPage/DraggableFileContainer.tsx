@@ -1,5 +1,8 @@
 import * as React from "react";
 import * as dnd from "react-dnd";
+import * as styles from "./FileBrowser.scss";
+
+import List from "@material-ui/core/List";
 
 import { DragDropProps, DraggableFileListItem } from "./DraggableFileListItem";
 import { SelectableFile } from "./SampleSubmissionPanel";
@@ -11,11 +14,11 @@ interface FileContainerProps {
     isOver?: boolean;
     canDrop?: boolean;
     searchPattern: string;
-    onRemove(file: File, listIndex: number): void;
-    onCheck(file: File, listIndex: number, index: number, checked: boolean): void;
-    removeFile(file: File, listIndex: number): void;
+    onRemove(filename: string, listIndex: number): void;
+    onCheck(filename: string, listIndex: number, index: number, checked: boolean): void;
+    removeFile(filename: string, listIndex: number): void;
     moveFile(sourceIndex: number, targetIndex: number, listIndex: number): void;
-    pushFile(file: File, targetIndex: number): void;
+    pushFile(filename: string, targetIndex: number): void;
 }
 
 interface FileContainerStats {
@@ -45,25 +48,20 @@ class FileContainer extends React.PureComponent<FileContainerProps, FileContaine
     public render(): JSX.Element {
         const isActive: boolean = this.props.canDrop && this.props.isOver;
         const backgroundColor: string = isActive ? "lightgreen" : "#FFF";
-        const minHeight: number = this.props.listIndex === 0 ? 540 : 80;
+        const minHeight: number = 80;
 
         return this.props.connectDropTarget(
             <div style={{backgroundColor: backgroundColor, minHeight: minHeight}}>
+            <List className={styles.root}>
                 {this.state.fileList.map((file: SelectableFile, index: number) => {
-                return <DraggableFileListItem key={file.file.name} file={file.file} checked={file.selected} filtered={this.isFiltered(file)}
-                    onRemove={this.props.onRemove} onCheck={this.props.onCheck}
-                    removeFile={this.props.removeFile} moveFile={this.props.moveFile} index={index} listIndex={this.props.listIndex}/>;
-            })}
+                    return <DraggableFileListItem key={file.name} filename={file.name} checked={file.selected}
+                        onRemove={this.props.onRemove} onCheck={this.props.onCheck}
+                        removeFile={this.props.removeFile} moveFile={this.props.moveFile} index={index} listIndex={this.props.listIndex}/>;
+
+                })}
+            </List>
             </div>
         );
-    }
-
-    private isFiltered(file: SelectableFile): boolean {
-        if (file.file.name.toUpperCase().indexOf(this.props.searchPattern.toUpperCase()) !== -1) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }
 
@@ -73,7 +71,7 @@ const containerDropTarget: dnd.DropTargetSpec<FileContainerProps> = {
         const listIndex: number = props.listIndex;
         const sourceObj: DragDropProps = monitor.getItem() as DragDropProps;
         if (listIndex !== sourceObj.listIndex) {
-            props.pushFile(sourceObj.file, listIndex);
+            props.pushFile(sourceObj.filename, listIndex);
         }
 
         return {

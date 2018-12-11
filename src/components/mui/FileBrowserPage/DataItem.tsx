@@ -60,7 +60,7 @@ export default withStyles(style)(class DataItem extends React.PureComponent<Data
             {
                 this.props.source === Source.LOCAL && this.props.item.type === Type.FILE ?
                 <ListItemSecondaryAction>
-                        <IconButton aria-label="Delete" disabled={this.props.disabled}>
+                    <IconButton aria-label="Delete" disabled={this.props.disabled}>
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction> : null

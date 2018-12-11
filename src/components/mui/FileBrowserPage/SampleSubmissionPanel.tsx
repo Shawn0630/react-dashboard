@@ -1,4 +1,3 @@
-import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -8,11 +7,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import Add from "@material-ui/icons/Add";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import RemoveCircle from "@material-ui/icons/RemoveCircle";
 import Share from "@material-ui/icons/Share";
 import { OrderedMap } from "immutable";
 import { Divider } from "material-ui";
@@ -48,7 +45,7 @@ interface SelectableFile {
 }
 
 interface SampleData {
-    files: SelectableFile[];
+    fractions: SelectableFile[];
     listIndex: number;
     sampleName: string;
     selected: boolean;
@@ -71,6 +68,7 @@ interface SampleSubmissionPanelStates {
 const SPEC_BY_SAMPLE: string = "Specified by Sample";
 class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelProps, SampleSubmissionPanelStates> {
     private existedSampleName: string[];
+    private fileBrowserRef: FileBrowserWrapper = null;
     constructor(props: SampleSubmissionPanelProps) {
         super(props);
         const sampleList: SampleData[] = this.convertSampleList(this.props.samples);
@@ -88,19 +86,15 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         };
         this.existedSampleName = this.props.existedSample == null ? [] : this.props.existedSample.map((sample: ISample) => sample.name);
 
-        this.changeFiles = this.changeFiles.bind(this);
+        this.getFileBrowserRef = this.getFileBrowserRef.bind(this);
         this.removeFile = this.removeFile.bind(this);
         this.indexOf = this.indexOf.bind(this);
-        this.removeAllFiles = this.removeAllFiles.bind(this);
         this.moveFile = this.moveFile.bind(this);
         this.pushFile = this.pushFile.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.onCheck = this.onCheck.bind(this);
-        this.checkFileListHeader = this.checkFileListHeader.bind(this);
         this.checkSampleListHeader = this.checkSampleListHeader.bind(this);
         this.checkSampleList = this.checkSampleList.bind(this);
-        this.changeSearchPattern = this.changeSearchPattern.bind(this);
-        this.clearSearchPattern = this.clearSearchPattern.bind(this);
         this.changeEnzyme = this.changeEnzyme.bind(this);
         this.changeSampleName = this.changeSampleName.bind(this);
         this.changeSampleEnzyme = this.changeSampleEnzyme.bind(this);
@@ -155,26 +149,8 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         return <div>
                 <Grid container spacing={0}>
                     <Grid item xs={3}>
-                        {/* <input id="add-file-button" type="file" accept={".raw,.mzxml,.zip"} multiple={true} onChange={this.changeFiles}
-                                style={{display: "none"}} />
-                        <label htmlFor="add-file-button">
-                            <Button variant="outlined" component="span"
-                                className={styles.fileButton} key="btnChooseSample">
-                                    Add Data
-                            </Button>
-                        </label>
-                        <TextField
-                            style={{paddingLeft: 5}}
-                            value={this.state.searchPattern}
-                            placeholder={"Search for..."}
-                            onChange={this.changeSearchPattern}/>
-                    {this.renderFileListHeader()}
-                    <Paper style={{ height: 550, overflow: "auto" }}>
-                        <DroppableFileList moveFile={this.moveFile} fileList={this.state.sampleList[0].files}
-                            onCheck={this.onCheck} onRemove={this.onRemove} searchPattern={this.state.searchPattern}
-                            removeFile={this.removeFile} pushFile={this.pushFile} listIndex={0} />
-                    </Paper> */}
-                    <FileBrowserWrapper root={FileNode.fromObject(root)}/>
+                    <FileBrowserWrapper root={FileNode.fromObject(root)} ref={this.getFileBrowserRef}
+                                        existingFiles={this.props.existingFiles}/>
                     </Grid>
                     <Grid item xs={1} className={styles.iconButtons}>
                         <IconButton onClick={this.newSample} className={styles.iconButton}>
@@ -211,19 +187,15 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
     public componentWillMount(): void {
         this.props.beforeMount(this);
     }
+    private getFileBrowserRef(ref: FileBrowserWrapper): void {
+        this.fileBrowserRef = ref;
+    }
     private convertSampleList(samples: ISample[]): SampleData[] {
-        const fileList: SampleData = {
-            files: [],
-            listIndex: 0,
-            sampleName: "File List",
-            selected: false
-        };
         const sampleList: SampleData[] = [];
-        sampleList.push(fileList);
-        let index: number = 1;
+        let index: number = 0;
         for (const sample of samples) {
             const convertSample: SampleData = {
-                files: [],
+                fractions: [],
                 listIndex: index,
                 sampleName: sample.name,
                 selected: false,
@@ -232,7 +204,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                 activationMethod: convertActionMethodToString(sample.activationMethod)
             };
             for (const fraction of sample.fractions) {
-                convertSample.files.push({
+                convertSample.fractions.push({
                     name: this.props.existingFiles.get(fraction.sourceFile).name,
                     file: this.props.existingFiles.get(fraction.sourceFile),
                     selected: false
@@ -263,22 +235,9 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         }
     }
     private indexOf(fileName: string, listIndex: number): number {
-        const names: String[] = this.state.sampleList[listIndex].files.map((file: SelectableFile) => file.name);
+        const names: string[] = this.state.sampleList[listIndex].fractions.map((file: SelectableFile) => file.name);
 
         return names.indexOf(fileName);
-    }
-    private renderFileListHeader(): JSX.Element {
-        return <Grid container>
-                <Grid item xs={11}>
-                    <FormControlLabel label="Select All"
-                        control={
-                            <Checkbox color="primary" onChange={this.checkFileListHeader} checked={this.state.sampleList[0].selected}  />
-                        } />
-                </Grid>
-                <Grid item xs={1} className={styles.removeButton}>
-                    <RemoveCircle style={{ right: 5}} onClick={this.removeAllFiles} />
-                </Grid>
-            </Grid>;
     }
     private renderSampleListHeader(): JSX.Element {
         return <Grid container spacing={0} className={styles.sampleListHeader}>
@@ -331,10 +290,6 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
     }
     private renderSampleList(): JSX.Element[] {
         return this.state.sampleList.map((sampleData: SampleData, index: number) => {
-            if (index === 0) {
-                return null;
-            }
-
             return this.renderSampleListRow(sampleData, this.state.sampleNameError[index - 1], index);
         });
     }
@@ -347,7 +302,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
 
         for (const sample of this.props.existedSample) {
             sampleList.push({
-                files: sample.fractions.map((fraction: IFraction) => {
+                fractions: sample.fractions.map((fraction: IFraction) => {
                     return {
                         selected: false,
                         name: fraction.sourceFile
@@ -447,7 +402,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                 disable != null && disable ?
                 <div>
                     <ul className={sharedStyles.tree}>
-                        {sampleData.files.map((file: SelectableFile, fractionIndex: number) => {
+                        {sampleData.fractions.map((file: SelectableFile, fractionIndex: number) => {
                             return <li key={`sample_${index}_fraction_$${fractionIndex}`} className={sharedStyles.disabled}>
                                 <span>{file.name}</span>
                             </li>;
@@ -455,7 +410,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                     </ul>
                 </div> :
                 <div key={`sample_list_${index}`} style={{ marginLeft: 25 }}>
-                    <DroppableFileList moveFile={this.moveFile} fileList={sampleData.files} onCheck={this.onCheck}
+                    <DroppableFileList moveFile={this.moveFile} fileList={sampleData.fractions} onCheck={this.onCheck}
                         searchPattern={this.state.searchPattern}
                         onRemove={this.onRemove} removeFile={this.removeFile} pushFile={this.pushFile} listIndex={sampleData.listIndex} />
                 </div>
@@ -465,27 +420,14 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
             </div> */}
         </div>;
     }
-    private checkFileListHeader(event: React.ChangeEvent<HTMLInputElement>): void {
-        const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        updatedSampleList[0].selected = event.target.checked;
-        for (const file of updatedSampleList[0].files) {
-            if (!this.isFiltered(file.name)) {
-                file.selected = event.target.checked;
-            }
-        }
-
-        this.setState({
-            sampleList: updatedSampleList
-        });
-    }
     private checkSampleListHeader(event: React.ChangeEvent<HTMLInputElement>): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        for (let i: number = 1; i < updatedSampleList.length; i = i + 1) {
-            updatedSampleList[i].selected = event.target.checked;
-            for (const file of updatedSampleList[i].files) {
+        updatedSampleList.map((sample: SampleData) => {
+            sample.selected = event.target.checked;
+            for (const file of sample.fractions) {
                 file.selected = event.target.checked;
             }
-        }
+        });
 
         this.setState({
             sampleList: updatedSampleList,
@@ -496,67 +438,20 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         return (event: React.ChangeEvent<HTMLInputElement>): void => {
             const updatedSampleList: SampleData[] = [...this.state.sampleList];
             updatedSampleList[listIndex].selected = event.target.checked;
-            const updatedFiles: SelectableFile[] = [...this.state.sampleList[listIndex].files];
+            const updatedFiles: SelectableFile[] = [...this.state.sampleList[listIndex].fractions];
             for (const file of updatedFiles) {
                 file.selected = event.target.checked;
             }
-
-            let check: number = 0;
-            for (let i: number = 1; i < updatedSampleList.length; i = i + 1) {
-                if (updatedSampleList[i].selected) {
-                    check = check + 1;
-                }
-            }
-
             this.setState({
                 sampleList: updatedSampleList,
-                checkSampleListHeader: check === updatedSampleList.length - 1
+                checkSampleListHeader:
+                    updatedSampleList.filter((sample: SampleData) => sample.selected === true).length === updatedSampleList.length
             });
         };
     }
-    private changeFiles(event: React.SyntheticEvent<HTMLInputElement>): void {
-        const fileList: FileList = event.currentTarget.files;
-        const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFiles: SelectableFile[] = [...this.state.sampleList[0].files];
-        let updatedExistingFiles: OrderedMap<string, File> = this.state.existingFiles;
-        const updatedExistingFileNames: string[] = this.state.existingFiles.keySeq().toArray();
-        for (let i: number = 0; i < fileList.length; i = i + 1) {
-            const hasFile: boolean = updatedExistingFileNames.filter((item: string) => item === fileList.item(i).name).length > 0;
-            if (!hasFile) {
-                const file: File = fileList.item(i);
-                updatedFiles.push({
-                    file: file,
-                    name: file.name,
-                    selected: true
-                });
-                updatedExistingFiles = updatedExistingFiles.set(file.name, file);
-                updatedExistingFileNames.push(file.name);
-            }
-        }
-        let unfilteredFile: number = 0;
-        let checkedFile: number = 0;
-        for (const file of updatedFiles) {
-            if (!this.isFiltered(file.name)) {
-                unfilteredFile = unfilteredFile + 1;
-                if (file.selected) {
-                    checkedFile = checkedFile + 1;
-                }
-            }
-        }
-        updatedSampleList[0] = {
-            ...updatedSampleList[0],
-            files: updatedFiles,
-            selected: unfilteredFile === checkedFile ? true : false
-        };
-
-        this.setState({
-            sampleList: updatedSampleList,
-            existingFiles: updatedExistingFiles
-        });
-    }
     private moveFile(sourceIndex: number, targetIndex: number, listIndex: number): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        let updatedFiles: SelectableFile[] = [...updatedSampleList[listIndex].files];
+        let updatedFiles: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
         const curIndex: number = sourceIndex;
         const curFile: SelectableFile = updatedFiles[curIndex];
 
@@ -575,42 +470,41 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         }
 
         updatedSampleList[listIndex] = {...updatedSampleList[listIndex],
-            files: updatedFiles
+            fractions: updatedFiles
         };
 
         this.setState({
             sampleList: updatedSampleList
         });
     }
-    private removeFile(file: File, listIndex: number): void {
+    private removeFile(filename: string, listIndex: number): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].files];
+        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
         for (let i: number = 0; i < updatedFractions.length; i += 1) {
-            if (updatedFractions[i].name === file.name) {
+            if (updatedFractions[i].name === filename) {
                 updatedFractions.splice(i, 1);
                 break;
             }
         }
         updatedSampleList[listIndex] = {
             ...updatedSampleList[listIndex],
-            files: updatedFractions,
+            fractions: updatedFractions,
             selected: updatedFractions.length === 0 ? false : updatedSampleList[listIndex].selected
         };
         this.setState({
             sampleList: updatedSampleList
         });
     }
-    private pushFile(file: File, listIndex: number): void {
+    private pushFile(filename: string, listIndex: number): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFiles: SelectableFile[] = [...updatedSampleList[listIndex].files];
+        const updatedFiles: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
         updatedFiles.push({
-            file: file,
-            name: file.name,
+            name: filename,
             selected: false
         });
         updatedSampleList[listIndex] = {
             ...updatedSampleList[listIndex],
-            files: updatedFiles,
+            fractions: updatedFiles,
             selected: false
         };
         this.setState({
@@ -618,65 +512,50 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         });
     }
 
-    private onRemove(file: File, listIndex: number): void {
+    private onRemove(filename: string, listIndex: number): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].files];
+        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
         let updatedExistingFiles: OrderedMap<string, File> = this.state.existingFiles;
         for (let i: number = 0; i < updatedFractions.length; i += 1) {
-            if (updatedFractions[i].name === file.name) {
+            if (updatedFractions[i].name === filename) {
                 updatedFractions.splice(i, 1);
                 break;
             }
         }
         updatedSampleList[listIndex] = {
             ...updatedSampleList[listIndex],
-            files: updatedFractions,
+            fractions: updatedFractions,
             selected: updatedFractions.length === 0 ? false : updatedSampleList[listIndex].selected
         };
 
-        if (listIndex === 0) {
-            updatedExistingFiles = updatedExistingFiles.remove(file.name);
-        }
-
-        if (listIndex !== 0) {
-            const updatedFiles: SelectableFile[] = [...updatedSampleList[0].files];
-            updatedFiles.push({
-                file: file,
-                name: file.name,
-                selected: false
-            });
-            updatedSampleList[0] = {
-                ...updatedSampleList[0],
-                files: updatedFiles,
-                selected: false
-            };
-
-        }
+        const updatedFiles: SelectableFile[] = [...updatedSampleList[0].fractions];
+        updatedFiles.push({
+            name: filename,
+            selected: false
+        });
+        updatedSampleList[0] = {
+            ...updatedSampleList[0],
+            fractions: updatedFiles,
+            selected: false
+        };
 
         this.setState({
             sampleList: updatedSampleList,
             existingFiles: updatedExistingFiles
         });
     }
-    private onCheck(file: File, listIndex: number, index: number, checked: boolean): void {
+    private onCheck(file: string, listIndex: number, index: number, checked: boolean): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].files];
+        const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
         let updatedCheckSampleListHeader: boolean = false;
         updatedFractions[index].selected = checked;
         let checkFractions: number = 0;
-        let filteredFile: number = 0;
         for (const fraction of updatedFractions) {
-            if (listIndex === 0 && this.isFiltered(fraction.name)) {
-                filteredFile = filteredFile + 1;
-                continue;
-            }
             if (fraction.selected) {
                 checkFractions = checkFractions + 1;
             }
         }
-        if (listIndex === 0 && checkFractions === updatedFractions.length - filteredFile) {
-            updatedSampleList[0].selected = true;
-        } else if (checkFractions === updatedFractions.length) {
+        if (checkFractions === updatedFractions.length) {
             updatedSampleList[listIndex].selected = true;
             let checkSampleLists: number = 0;
             for (let i: number = 1; i < updatedSampleList.length; i = i + 1) {
@@ -693,56 +572,6 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
         this.setState({
             sampleList: updatedSampleList,
             checkSampleListHeader: updatedCheckSampleListHeader
-        });
-    }
-    private changeSearchPattern(event: React.ChangeEvent<HTMLInputElement>): void {
-        const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        const filteredFileList: SelectableFile[] = [];
-        let checkedFile: number = 0;
-        for (let i: number = updatedFileList.length - 1; i >= 0; i = i - 1) {
-            if (updatedFileList[i].name.toUpperCase().indexOf(event.target.value.toUpperCase()) === -1) {
-                filteredFileList.push({
-                    file: updatedFileList[i].file,
-                    name: updatedFileList[i].name,
-                    selected: updatedFileList[i].selected
-                });
-                updatedFileList.splice(i, 1);
-            } else {
-                if (updatedFileList[i].selected) {
-                    checkedFile = checkedFile + 1;
-                }
-            }
-        }
-        if (checkedFile === updatedFileList.length) {
-            updatedSampleList[0].selected = true;
-        } else {
-            updatedSampleList[0].selected = false;
-        }
-        filteredFileList.sort((a: SelectableFile, b: SelectableFile): number => {
-            if (a.name > b.name) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-        updatedFileList.sort((a: SelectableFile, b: SelectableFile): number => {
-            if (a.name > b.name) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-        for (const file of filteredFileList) {
-            updatedFileList.push(file);
-        }
-        this.setState({
-            searchPattern: event.target.value
-        });
-    }
-    private clearSearchPattern(): void {
-        this.setState({
-            searchPattern: ""
         });
     }
     private changeEnzyme(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -881,22 +710,15 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
     }
     private newSample(): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFractionList: SelectableFile[] = [];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        updatedSampleList[0].selected = false;
-        for (let i: number = 0; i < updatedFileList.length; i = i + 1) {
-            if (updatedFileList[i].selected === true && !this.isFiltered(updatedFileList[i].name)) {
-                updatedFractionList.push({
-                    file: updatedFileList[i].file,
-                    name: updatedFileList[i].name,
-                    selected: this.state.checkSampleListHeader
-                });
-                updatedFileList.splice(i, 1);
-                i = i - 1;
-            }
-        }
+        const selectedFiles: string[] = this.fileBrowserRef.getSelectedFiles();
+        const updatedFractionList: SelectableFile[] = selectedFiles.map((name: string) => {
+            return {
+                name: name,
+                selected: this.state.checkSampleListHeader
+            };
+        });
         updatedSampleList.push({
-            files: updatedFractionList,
+            fractions: updatedFractionList,
             listIndex: updatedSampleList.length,
             sampleName: `Sample ${updatedSampleList.length + this.existedSampleName.length}`,
             selected: this.state.checkSampleListHeader,
@@ -907,24 +729,18 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
             activationMethod: this.state.activationMethod === SPEC_BY_SAMPLE || this.state.activationMethod === "" ?
                 updatedSampleList[updatedSampleList.length - 1].activationMethod : this.state.activationMethod
         });
-
-        updatedSampleList[0].files = updatedFileList;
-
         this.setState({
             sampleList: updatedSampleList
         });
-
+        this.fileBrowserRef.removeSelectedFiles();
     }
     private splitToSamples(): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        updatedSampleList[0].selected = false;
-        for (let i: number = 0; i < updatedFileList.length; i = i + 1) {
-            if (updatedFileList[i].selected === true && !this.isFiltered(updatedFileList[i].name)) {
+        const selectedFile: string[] = this.fileBrowserRef.getSelectedFiles();
+        selectedFile.map((file: string) => {
                 updatedSampleList.push({
-                    files: [{
-                        file: updatedFileList[i].file,
-                        name: updatedFileList[i].name,
+                    fractions: [{
+                        name: file,
                         selected: false
                     }],
                     listIndex: updatedSampleList.length,
@@ -937,59 +753,40 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                     activationMethod: this.state.activationMethod === SPEC_BY_SAMPLE || this.state.activationMethod === "" ?
                             "" : this.state.activationMethod
                 });
-                updatedFileList.splice(i, 1);
-                i = i - 1;
-            }
-        }
+        });
         this.setState({
             sampleList: updatedSampleList
         });
+        this.fileBrowserRef.removeSelectedFiles();
     }
 
     private addToSample(): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        const selectedSampleListIndex: number[] = [];
-        for (let i: number = 1; i < updatedSampleList.length; i = i + 1) {
-            if (updatedSampleList[i].selected === true) {
-                selectedSampleListIndex.push(i);
-            }
-        }
-        if (selectedSampleListIndex.length !== 1) {
-            return;
-        }
-        const updatedFractionList: SelectableFile[] = updatedSampleList[selectedSampleListIndex[0]].files;
-        updatedSampleList[0].selected = false;
-        updatedSampleList[selectedSampleListIndex[0]].selected = true;
-        for (let i: number = 0; i < updatedFileList.length; i = i + 1) {
-            if (updatedFileList[i].selected === true && !this.isFiltered(updatedFileList[i].name)) {
-                updatedFractionList.push({
-                    file: updatedFileList[i].file,
-                    name: updatedFileList[i].name,
+        const selectedFiles: string[] = this.fileBrowserRef.getSelectedFiles();
+        const selectedSample: SampleData[] = updatedSampleList.filter((value: SampleData) => value.selected === true);
+        if (selectedSample.length === 1) {
+            const updatedFractionList: SelectableFile[] = selectedFiles.map((name: string) => {
+                return {
+                    name: name,
                     selected: true
-                });
-                updatedFileList.splice(i, 1);
-                i = i - 1;
-            }
+                };
+            });
+            selectedSample[0].fractions.push(...updatedFractionList);
+            this.setState({
+                sampleList: updatedSampleList
+            });
+            this.fileBrowserRef.removeSelectedFiles();
         }
-        this.setState({
-            sampleList: updatedSampleList
-        });
     }
 
     private removeFraction(): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        updatedSampleList[0].selected = false;
+        const fileList: string[] = [];
         for (let i: number = 0; i < updatedSampleList.length; i = i + 1) {
-            const updatedFractionList: SelectableFile[] = updatedSampleList[i].files;
+            const updatedFractionList: SelectableFile[] = updatedSampleList[i].fractions;
             for (let j: number = 0; j < updatedFractionList.length; j = j + 1) {
                 if (updatedFractionList[j].selected === true) {
-                    updatedFileList.push({
-                        file: updatedFractionList[j].file,
-                        name: updatedFractionList[j].name,
-                        selected: false
-                    });
+                    fileList.push(updatedFractionList[j].name);
                     updatedFractionList.splice(j, 1);
                     j = j - 1;
                 }
@@ -999,7 +796,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
                 i = i - 1;
             }
         }
-        for (let i: number = 1; i < updatedSampleList.length; i = i + 1) {
+        for (let i: number = 0; i < updatedSampleList.length; i = i + 1) {
             updatedSampleList[i].listIndex = i;
         }
         this.setState({
@@ -1007,30 +804,6 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
             checkSampleListHeader: false
         });
     }
-
-    private removeAllFiles(event: React.SyntheticEvent<{}>): void {
-        const updatedSampleList: SampleData[] = [...this.state.sampleList];
-        const updatedFileList: SelectableFile[] = updatedSampleList[0].files;
-        let updatedExistingFiles: OrderedMap<string, File> = this.props.existingFiles;
-        for (let i: number = 0; i < updatedFileList.length; i = i + 1) {
-            updatedExistingFiles = updatedExistingFiles.remove(updatedFileList[i].name);
-            updatedFileList.splice(i, 1);
-            i = i - 1;
-        }
-        this.setState({
-            sampleList: updatedSampleList,
-            existingFiles: updatedExistingFiles
-        });
-    }
-
-    private isFiltered(name: string): boolean {
-        if (RegExp(this.state.searchPattern.toUpperCase()).test(name.toUpperCase()) === true) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }
 // tslint:disable-next-line
 const DraggableSampleSubmissionPanel: dnd.ContextComponentClass<SampleSubmissionPanelProps> = withDragDropContext(SampleSubmissionPanel);

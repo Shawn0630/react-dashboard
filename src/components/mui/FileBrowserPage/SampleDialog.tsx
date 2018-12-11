@@ -77,11 +77,11 @@ export default withStyles(style)(class SampleDialog extends React.PureComponent<
             const samples: SelectableSample[] = [];
             for (const sample of this.submissionPanel.getSampleList()) {
                 // accept empty sample
-                if (sample.files.length === 0) {
+                if (sample.fractions.length === 0) {
                     continue;
                 }
                 const fractions: IFraction[] = [];
-                for (const fraction of sample.files) {
+                for (const fraction of sample.fractions) {
                     fractions.push({
                         sourceFile: fraction.name
                     });
