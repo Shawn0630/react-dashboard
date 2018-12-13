@@ -1,15 +1,22 @@
 import * as d3 from "d3";
 import * as React from "react";
-
-import { com } from "../../../models/example";
-import ProteinFoldChange = com.example.dto.ProteinFoldChange;
 import * as styles from "./VolcanoPlot.scss";
-const green: string = "rgb(0, 255, 0)";
+import { isSame } from "~utilities/ui-helper";
+
+import { com } from "~models/example";
+import ProteinFoldChange = com.example.dto.ProteinFoldChange;
+export interface ProteinFoldChangeNew extends ProteinFoldChange {
+    isDisplayInTable?: boolean;
+}
+
+const green: string = "rgb(0, 124, 0)";
+const lightGreen: string = "rgb(127, 250, 127)";
 const red: string = "rgb(255, 0, 0)";
+const lightRed: string = "rgb(252, 150, 150)";
 const grey: string = "rgb(207, 211, 216)";
 
-interface VolcanoPlotProps {
-    proteins: ProteinFoldChange[];
+interface LFQVolcanoPlotProps {
+    proteins: ProteinFoldChangeNew[];
     height: number;
     maxHeight?: number;
     width: number;
@@ -21,10 +28,10 @@ interface VolcanoPlotProps {
     graphId: string;
     interaction: boolean;
     selectedProteinAccession?: string;
-    selectProtein?(protein: ProteinFoldChange): void;
+    selectProtein?(protein: ProteinFoldChangeNew): void;
 }
 
-interface ScatterData {
+interface LFQScatterData {
     ratios: number[];
     significances: number[];
 }
@@ -33,8 +40,9 @@ interface Point {
     x: number;
     y: number;
     color?: string;
-    protein?: ProteinFoldChange;
+    protein?: ProteinFoldChangeNew;
     id?: number;
+    opacity?: number;
 }
 
 interface AxisTick {
@@ -49,7 +57,7 @@ type MarginType = {
     left: number;
 };
 
-class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
+export default class VolcanoPlot extends React.PureComponent<LFQVolcanoPlotProps> {
 
     private margin: MarginType = {
         top: 20,
@@ -73,7 +81,7 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
     private xTicks: AxisTick[];
     private selectedProtein: number;
     private points: Point[];
-    constructor(props: VolcanoPlotProps) {
+    constructor(props: LFQVolcanoPlotProps) {
         super(props);
 
         this.idleTimeout = null;
@@ -100,7 +108,12 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
     public componentDidMount(): void {
         this.drawGraph();
     }
-    public componentWillReceiveProps(nextProp: VolcanoPlotProps): void {
+    public componentDidUpdate(preProp: LFQVolcanoPlotProps): void {
+        if (!isSame(this.props.proteins, preProp.proteins)) {
+            this.drawGraph();
+        }
+    }
+    public componentWillReceiveProps(nextProp: LFQVolcanoPlotProps): void {
         if (this.props.selectedProteinAccession === nextProp.selectedProteinAccession) {
             return;
         }
@@ -108,29 +121,34 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
         this.selectProteinFromTable(main, this.points, nextProp.selectedProteinAccession);
     }
     public render(): JSX.Element {
-        return <div id={this.props.graphId}>
+        return <div>
+            <svg width={this.props.width}
+                id={this.props.graphId}
+                height={this.props.height} />
         </div>;
     }
     //tslint:disable-next-line
-    private drawGraph(): d3.Selection<d3.BaseType, {}, HTMLElement, {}> {
-        const svg: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = d3.select(this.referenceChartId())
-            .append("svg")
-            .attr("width", this.props.width)
-            .attr("height", this.props.height);
+    public drawGraph(): d3.Selection<d3.BaseType, {}, HTMLElement, {}> {
+        const svg: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = d3.select(this.referenceChartId());
 
-        svg.select("*").remove();
+        svg.selectAll("*").remove();
         svg.attr("class", styles.scatter);
+        const g: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
+            .attr("overflow", "hidden");
 
         this.height = this.props.height - this.margin.top - this.margin.bottom;
         this.width = this.props.width - this.margin.right - this.margin.left;
         this.ratio = this.height / this.width;
         const xAxisPos: Point = {
             x: this.props.width / 2,
-            y: this.props.height - 15
+            y: this.props.height - 15,
+            opacity: 0
         };
         const yAxisPos: Point = {
             x: 20,
-            y: this.props.height / 2
+            y: this.props.height / 2,
+            opacity: 0
         };
 
         svg.append("text")
@@ -144,11 +162,7 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
             .attr("transform", "rotate(-90)")
             .text(this.yLabel);
 
-        const g: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .attr("overflow", "hidden");
-
-        const data: ScatterData = this.convertData(this.props.proteins);
+        const data: LFQScatterData = this.convertData(this.props.proteins);
 
         this.minY = d3.min(data.significances);
         this.maxY = d3.max(data.significances);
@@ -177,16 +191,16 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
         }
 
         this.xAxis = d3.axisBottom(this.xScale).tickValues(xTicks)
-                                               .tickFormat((domainValue: number, index: number): string => {
-                                                        return xTickLabels[index];
-                                                }) as d3.Axis<number>;
+            .tickFormat((domainValue: number, index: number): string => {
+                return xTickLabels[index];
+            }) as d3.Axis<number>;
         this.yAxis = d3.axisLeft(this.yScale).tickValues(this.yScale.ticks(8)).tickSizeInner(-this.width) as d3.Axis<number>;
 
         g.append("g") //xG
             .attr("class", "xAxis")
             .attr("transform", `translate(0, ${this.height})`)
             .call(this.xAxis);
-        const yG: d3.Selection < d3.BaseType, {}, HTMLElement, {} > = g.append("g")
+        const yG: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = g.append("g")
             .attr("class", "yAxis")
             .call(this.yAxis);
 
@@ -202,6 +216,22 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
         const main: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = g.append("g")
             .attr("class", "main")
             .attr("clip-path", "url(#clip)");
+
+        /* const zoom: d3.ZoomBehavior<Element, {}> = d3.zoom()
+            .scaleExtent([1, 64])
+            .translateExtent([[0, this.margin.bottom + this.margin.top], [this.width, this.height]])
+            .on("zoom", () => {
+                const zoomTransform: d3.ZoomTransform = d3.event.transform;
+                const newXScale: d3.ScaleLinear<number, number> = this.xScale.copy()
+                    .domain([(this.minX - this.xDiff) / zoomTransform.k, (this.maxX + this.xDiff) / zoomTransform.k]);
+                const newYScale: d3.ScaleLinear<number, number> = this.yScale.copy()
+                    .domain([(this.minY - this.yDiff) / zoomTransform.k, (this.maxY + this.yDiff) / zoomTransform.k]);
+                this.xScale = newXScale;
+                this.yScale = newYScale;
+                this.zoom(g, main, yG);
+            });
+
+        main.call(zoom); */
 
         if (this.props.interaction) {
 
@@ -219,13 +249,13 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
                     newYScale = this.yScale.copy().domain([this.minY - this.yDiff, this.maxY + this.yDiff]);
                 } else {
                     newXScale = this.xScale.copy().domain([s[0][0] * this.ratio < 0 ? 0 : s[0][0] * this.ratio,
-                                                       s[1][0]].map(this.xScale.invert, this.xScale));
+                    s[1][0]].map(this.xScale.invert, this.xScale));
                     newYScale = this.yScale.copy().domain([s[1][1], s[0][1] * this.ratio].map(this.yScale.invert, this.yScale));
-                    svg.select(".brush").call(brush.move, null);
+                    g.select(".brush").call(brush.move, null);
                 }
                 this.xScale = newXScale;
                 this.yScale = newYScale;
-                this.zoom(svg, main, yG);
+                this.zoom(g, main, yG);
             });
 
             main.append("g")
@@ -239,10 +269,12 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
             .style("opacity", 0);
         main.selectAll("circle")
             .data(this.points).enter().append("circle")
+            .attr("id", (point: Point) => `protein-${point.id}`)
             .attr("cx", (point: Point) => this.xScale(point.x))
             .attr("cy", (point: Point) => this.yScale(point.y))
             .attr("r", 2)
             .attr("fill", "white")
+            .attr("fill-opacity", "0")
             .attr("stroke", (point: Point) => point.color)
             .attr("stroke-width", 1)
             .attr("clip-path", "url(#clip)")
@@ -264,7 +296,8 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
             })
             .on("click", (point: Point) => {
                 this.selectProtein(main, point);
-            });
+            }).style("opacity", (point: Point) => point.opacity);
+        main.append("use").attr("id", "positionOnTop");
 
         return svg;
     }
@@ -284,9 +317,9 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
             xTickLabels.push(xAxisTick.label);
         }
         this.xAxis = d3.axisBottom(this.xScale).tickValues(xTicks)
-                                               .tickFormat((domainValue: number, index: number): string => {
-                                                    return xTickLabels[index];
-                                                });
+            .tickFormat((domainValue: number, index: number): string => {
+                return xTickLabels[index];
+            });
         this.yAxis = d3.axisLeft(this.yScale).tickValues(this.yScale.ticks(8)).tickSizeInner(-this.width);
         g.select(".xAxis").transition(t).call(this.xAxis);
         g.select(".yAxis").transition(t).call(this.yAxis);
@@ -294,26 +327,39 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
             .attr("cx", (point: Point) => this.xScale(point.x))
             .attr("cy", (point: Point) => this.yScale(point.y));
     }
-    private convertPointsArray(data: ProteinFoldChange[]): Point[] {
+    private convertPointsArray(data: ProteinFoldChangeNew[]): Point[] {
         const points: Point[] = [];
 
         let id: number = 0;
         for (const proteinFoldChange of data) {
             let c: string = null;
+            let opacity: number = null;
 
-            if (proteinFoldChange.isFiltered === true)  {
+            if (proteinFoldChange.isFiltered === true) {
                 c = grey;
+                opacity = 0.6;
             } else if (proteinFoldChange.largestFoldChange < 1) {
-                c = green;
+                if (proteinFoldChange.isDisplayInTable != null && proteinFoldChange.isDisplayInTable) {
+                    c = lightGreen;
+                    opacity = 0.6;
+                } else {
+                    c = green;
+                }
             } else {
-                c = red;
+                if (proteinFoldChange.isDisplayInTable != null && proteinFoldChange.isDisplayInTable) {
+                    c = lightRed;
+                    opacity = 0.6;
+                } else {
+                    c = red;
+                }
             }
             points.push({
                 x: proteinFoldChange.largestFoldChange === undefined ? 0 : this.log2(proteinFoldChange.largestFoldChange),
                 y: proteinFoldChange.significance === undefined ? 0 : proteinFoldChange.significance,
                 color: c,
                 protein: proteinFoldChange,
-                id: id
+                id: id,
+                opacity: opacity
             });
 
             id = id + 1;
@@ -321,8 +367,8 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
 
         return points;
     }
-    private convertData(proteins: ProteinFoldChange[]): ScatterData {
-        const data: ScatterData = {
+    private convertData(proteins: ProteinFoldChangeNew[]): LFQScatterData {
+        const data: LFQScatterData = {
             ratios: [],
             significances: []
         };
@@ -337,7 +383,7 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
     private idled(): void {
         this.idleTimeout = null;
     }
-    private log2(x : number): number {
+    private log2(x: number): number {
         return Math.log(x) / Math.LOG2E;
     }
     private getXTicks(): AxisTick[] {
@@ -351,22 +397,34 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
         return xTicks;
     }
     private selectProtein(main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>, point: Point): void {
-        if (this.props.interaction === false || point.protein.isFiltered === true) {
+        if (this.props.interaction === false || point.protein.isFiltered === true || point.protein.isDisplayInTable === true) {
             return;
         }
 
         if (this.selectedProtein !== -1) {
-            main.selectAll(`.protein-${this.selectedProtein}`).attr("fill", "white");
+            this.uncolourDeselectedProtein(main, this.selectedProtein);
         }
-        main.selectAll(`.protein-${point.id}`).attr("fill", "black");
         this.selectedProtein = point.id;
+        this.colourSelectedProtein(main, this.selectedProtein);
 
         this.props.selectProtein(point.protein);
     }
+    private uncolourDeselectedProtein(main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>, id: number): void {
+        main.selectAll(`.protein-${this.selectedProtein}`)
+            .attr("fill", "white")
+            .attr("fill-opacity", "0");
+    }
 
+    private colourSelectedProtein(main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>, id: number): void {
+        main.selectAll(`.protein-${id}`)
+            .attr("fill", "black")
+            .attr("fill-opacity", "1");
+        main.selectAll("#positionOnTop")
+            .attr("xlink:href", `#protein-${id}`);
+    }
     private selectProteinFromTable(main: d3.Selection<d3.BaseType, {}, HTMLElement, {}>, points: Point[], accession: string): void {
         if (this.selectedProtein !== -1) {
-            main.selectAll(`.protein-${this.selectedProtein}`).attr("fill", "white");
+            this.uncolourDeselectedProtein(main, this.selectedProtein);
         }
 
         this.selectedProtein = -1;
@@ -378,9 +436,8 @@ class VolcanoPlot extends React.PureComponent<VolcanoPlotProps> {
         }
 
         if (this.selectedProtein !== -1) {
-            main.selectAll(`.protein-${this.selectedProtein}`).attr("fill", "black");
+            this.colourSelectedProtein(main, this.selectedProtein);
         }
     }
 
 }
-export{ VolcanoPlot };

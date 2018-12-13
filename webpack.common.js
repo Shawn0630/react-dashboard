@@ -38,6 +38,7 @@ module.exports = {
             "~models": srcPath("models"),
             "~styles": srcPath("styles"),
             "~components": srcPath("components"),
+            "~utilities": srcPath("utilities"),
             "~": srcPath("")
         }
     },
