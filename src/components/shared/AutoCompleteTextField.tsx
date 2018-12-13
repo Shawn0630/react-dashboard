@@ -29,7 +29,7 @@ interface AutoCompleteTextFieldProps {
 
 const style: any = { // tslint:disable-line
     container: () => ({
-        paddingTop: 30
+        paddingTop: 20
     }),
     menu: () => ({
         position: "relative",

@@ -3,6 +3,20 @@ import { PopperPlacementType } from "@material-ui/core/Popper";
 
 const muiThemeCore: Theme = createMuiTheme({
     overrides: {
+        MuiFormLabel: {
+            root: {
+                color: "black",
+                fontSize: 16,
+                "&$disabled": {
+                    color: "black"
+                }
+            }
+        },
+        MuiInputBase: {
+            root: {
+                fontSize: 16
+            }
+        },
         MuiTypography: {
             subheading: {
                 fontSize: 14
