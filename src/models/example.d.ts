@@ -1163,6 +1163,1013 @@ export namespace com {
                 INSERTION = 2,
                 DELETION = 3
             }
+
+            /** Properties of a FileNode. */
+            interface IFileNode {
+
+                /** FileNode filename */
+                filename?: (string|null);
+
+                /** FileNode type */
+                type?: (com.example.dto.FileNode.Type|null);
+
+                /** FileNode children */
+                children?: (com.example.dto.IFileNode[]|null);
+            }
+
+            /** Represents a FileNode. */
+            class FileNode implements IFileNode {
+
+                /**
+                 * Constructs a new FileNode.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IFileNode);
+
+                /** FileNode filename. */
+                public filename: string;
+
+                /** FileNode type. */
+                public type: com.example.dto.FileNode.Type;
+
+                /** FileNode children. */
+                public children: com.example.dto.IFileNode[];
+
+                /**
+                 * Creates a new FileNode instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns FileNode instance
+                 */
+                public static create(properties?: com.example.dto.IFileNode): com.example.dto.FileNode;
+
+                /**
+                 * Encodes the specified FileNode message. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @param message FileNode message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IFileNode, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified FileNode message, length delimited. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @param message FileNode message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IFileNode, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.FileNode;
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.FileNode;
+
+                /**
+                 * Verifies a FileNode message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a FileNode message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns FileNode
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.FileNode;
+
+                /**
+                 * Creates a plain object from a FileNode message. Also converts values to other types if specified.
+                 * @param message FileNode
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.FileNode, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this FileNode to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace FileNode {
+
+                /** Type enum. */
+                enum Type {
+                    FILE = 0,
+                    DIR = 1
+                }
+            }
+
+            /** IonType enum. */
+            enum IonType {
+                A = 0,
+                B = 1,
+                C = 2,
+                X = 3,
+                Y = 4,
+                Z = 5,
+                Z_PRIME = 6,
+                IMMONIUM = 7,
+                PRECURSOR = 8,
+                A_MINUS_H2O = 16,
+                B_MINUS_H2O = 17,
+                C_MINUS_H2O = 18,
+                X_MINUS_H2O = 19,
+                Y_MINUS_H2O = 20,
+                Z_MINUS_H2O = 21,
+                Z_PRIME_MINUS_H2O = 22,
+                A_MINUS_NH3 = 32,
+                B_MINUS_NH3 = 33,
+                C_MINUS_NH3 = 34,
+                X_MINUS_NH3 = 35,
+                Y_MINUS_NH3 = 36,
+                Z_MINUS_NH3 = 37,
+                Z_PRIME_MINUS_NH3 = 38,
+                A_CHARGE2 = 48,
+                B_CHARGE2 = 49,
+                C_CHARGE2 = 50,
+                X_CHARGE2 = 51,
+                Y_CHARGE2 = 52,
+                Z_CHARGE2 = 53,
+                Z_PRIME_CHARGE2 = 54,
+                C_MINUS_H = 66
+            }
+
+            /** Properties of a TheoreticalIons. */
+            interface ITheoreticalIons {
+
+                /** TheoreticalIons type */
+                type?: (com.example.dto.IonType|null);
+
+                /** TheoreticalIons mz */
+                mz?: (number[]|null);
+            }
+
+            /** Represents a TheoreticalIons. */
+            class TheoreticalIons implements ITheoreticalIons {
+
+                /**
+                 * Constructs a new TheoreticalIons.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ITheoreticalIons);
+
+                /** TheoreticalIons type. */
+                public type: com.example.dto.IonType;
+
+                /** TheoreticalIons mz. */
+                public mz: number[];
+
+                /**
+                 * Creates a new TheoreticalIons instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns TheoreticalIons instance
+                 */
+                public static create(properties?: com.example.dto.ITheoreticalIons): com.example.dto.TheoreticalIons;
+
+                /**
+                 * Encodes the specified TheoreticalIons message. Does not implicitly {@link com.example.dto.TheoreticalIons.verify|verify} messages.
+                 * @param message TheoreticalIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ITheoreticalIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified TheoreticalIons message, length delimited. Does not implicitly {@link com.example.dto.TheoreticalIons.verify|verify} messages.
+                 * @param message TheoreticalIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ITheoreticalIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a TheoreticalIons message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns TheoreticalIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.TheoreticalIons;
+
+                /**
+                 * Decodes a TheoreticalIons message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns TheoreticalIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.TheoreticalIons;
+
+                /**
+                 * Verifies a TheoreticalIons message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a TheoreticalIons message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns TheoreticalIons
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.TheoreticalIons;
+
+                /**
+                 * Creates a plain object from a TheoreticalIons message. Also converts values to other types if specified.
+                 * @param message TheoreticalIons
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.TheoreticalIons, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this TheoreticalIons to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an Ion. */
+            interface IIon {
+
+                /** Ion type */
+                type?: (com.example.dto.IonType|null);
+
+                /** Ion mz */
+                mz?: (number|null);
+
+                /** Ion h */
+                h?: (number|null);
+
+                /** Ion pos */
+                pos?: (number|null);
+            }
+
+            /** Represents an Ion. */
+            class Ion implements IIon {
+
+                /**
+                 * Constructs a new Ion.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IIon);
+
+                /** Ion type. */
+                public type: com.example.dto.IonType;
+
+                /** Ion mz. */
+                public mz: number;
+
+                /** Ion h. */
+                public h: number;
+
+                /** Ion pos. */
+                public pos: number;
+
+                /**
+                 * Creates a new Ion instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Ion instance
+                 */
+                public static create(properties?: com.example.dto.IIon): com.example.dto.Ion;
+
+                /**
+                 * Encodes the specified Ion message. Does not implicitly {@link com.example.dto.Ion.verify|verify} messages.
+                 * @param message Ion message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IIon, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Ion message, length delimited. Does not implicitly {@link com.example.dto.Ion.verify|verify} messages.
+                 * @param message Ion message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IIon, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an Ion message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Ion
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.Ion;
+
+                /**
+                 * Decodes an Ion message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Ion
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.Ion;
+
+                /**
+                 * Verifies an Ion message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an Ion message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Ion
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.Ion;
+
+                /**
+                 * Creates a plain object from an Ion message. Also converts values to other types if specified.
+                 * @param message Ion
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.Ion, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Ion to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Ms1Stats. */
+            interface IMs1Stats {
+
+                /** Ms1Stats retentionTime */
+                retentionTime?: (number|Long|null);
+
+                /** Ms1Stats tic */
+                tic?: (number|null);
+
+                /** Ms1Stats scan */
+                scan?: (number|null);
+
+                /** Ms1Stats basePeakIntensity */
+                basePeakIntensity?: (number|null);
+            }
+
+            /** Represents a Ms1Stats. */
+            class Ms1Stats implements IMs1Stats {
+
+                /**
+                 * Constructs a new Ms1Stats.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IMs1Stats);
+
+                /** Ms1Stats retentionTime. */
+                public retentionTime: (number|Long);
+
+                /** Ms1Stats tic. */
+                public tic: number;
+
+                /** Ms1Stats scan. */
+                public scan: number;
+
+                /** Ms1Stats basePeakIntensity. */
+                public basePeakIntensity: number;
+
+                /**
+                 * Creates a new Ms1Stats instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Ms1Stats instance
+                 */
+                public static create(properties?: com.example.dto.IMs1Stats): com.example.dto.Ms1Stats;
+
+                /**
+                 * Encodes the specified Ms1Stats message. Does not implicitly {@link com.example.dto.Ms1Stats.verify|verify} messages.
+                 * @param message Ms1Stats message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IMs1Stats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Ms1Stats message, length delimited. Does not implicitly {@link com.example.dto.Ms1Stats.verify|verify} messages.
+                 * @param message Ms1Stats message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IMs1Stats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Ms1Stats message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Ms1Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.Ms1Stats;
+
+                /**
+                 * Decodes a Ms1Stats message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Ms1Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.Ms1Stats;
+
+                /**
+                 * Verifies a Ms1Stats message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Ms1Stats message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Ms1Stats
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.Ms1Stats;
+
+                /**
+                 * Creates a plain object from a Ms1Stats message. Also converts values to other types if specified.
+                 * @param message Ms1Stats
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.Ms1Stats, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Ms1Stats to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Ms2Stats. */
+            interface IMs2Stats {
+
+                /** Ms2Stats retentionTime */
+                retentionTime?: (number|Long|null);
+
+                /** Ms2Stats tic */
+                tic?: (number|null);
+
+                /** Ms2Stats scan */
+                scan?: (number|null);
+
+                /** Ms2Stats ms1Scan */
+                ms1Scan?: (number|null);
+
+                /** Ms2Stats precursorMz */
+                precursorMz?: (number|null);
+
+                /** Ms2Stats precursorCharge */
+                precursorCharge?: (number|null);
+
+                /** Ms2Stats basePeakIntensity */
+                basePeakIntensity?: (number|null);
+            }
+
+            /** Represents a Ms2Stats. */
+            class Ms2Stats implements IMs2Stats {
+
+                /**
+                 * Constructs a new Ms2Stats.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IMs2Stats);
+
+                /** Ms2Stats retentionTime. */
+                public retentionTime: (number|Long);
+
+                /** Ms2Stats tic. */
+                public tic: number;
+
+                /** Ms2Stats scan. */
+                public scan: number;
+
+                /** Ms2Stats ms1Scan. */
+                public ms1Scan: number;
+
+                /** Ms2Stats precursorMz. */
+                public precursorMz: number;
+
+                /** Ms2Stats precursorCharge. */
+                public precursorCharge: number;
+
+                /** Ms2Stats basePeakIntensity. */
+                public basePeakIntensity: number;
+
+                /**
+                 * Creates a new Ms2Stats instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Ms2Stats instance
+                 */
+                public static create(properties?: com.example.dto.IMs2Stats): com.example.dto.Ms2Stats;
+
+                /**
+                 * Encodes the specified Ms2Stats message. Does not implicitly {@link com.example.dto.Ms2Stats.verify|verify} messages.
+                 * @param message Ms2Stats message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IMs2Stats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Ms2Stats message, length delimited. Does not implicitly {@link com.example.dto.Ms2Stats.verify|verify} messages.
+                 * @param message Ms2Stats message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IMs2Stats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Ms2Stats message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Ms2Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.Ms2Stats;
+
+                /**
+                 * Decodes a Ms2Stats message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Ms2Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.Ms2Stats;
+
+                /**
+                 * Verifies a Ms2Stats message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Ms2Stats message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Ms2Stats
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.Ms2Stats;
+
+                /**
+                 * Creates a plain object from a Ms2Stats message. Also converts values to other types if specified.
+                 * @param message Ms2Stats
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.Ms2Stats, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Ms2Stats to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Spectrum. */
+            interface ISpectrum {
+
+                /** Spectrum mz */
+                mz?: (number[]|null);
+
+                /** Spectrum intensity */
+                intensity?: (number[]|null);
+
+                /** Spectrum ms1Stats */
+                ms1Stats?: (com.example.dto.IMs1Stats|null);
+
+                /** Spectrum ms2Stats */
+                ms2Stats?: (com.example.dto.IMs2Stats|null);
+            }
+
+            /** Represents a Spectrum. */
+            class Spectrum implements ISpectrum {
+
+                /**
+                 * Constructs a new Spectrum.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ISpectrum);
+
+                /** Spectrum mz. */
+                public mz: number[];
+
+                /** Spectrum intensity. */
+                public intensity: number[];
+
+                /** Spectrum ms1Stats. */
+                public ms1Stats?: (com.example.dto.IMs1Stats|null);
+
+                /** Spectrum ms2Stats. */
+                public ms2Stats?: (com.example.dto.IMs2Stats|null);
+
+                /** Spectrum stat. */
+                public stat?: ("ms1Stats"|"ms2Stats");
+
+                /**
+                 * Creates a new Spectrum instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Spectrum instance
+                 */
+                public static create(properties?: com.example.dto.ISpectrum): com.example.dto.Spectrum;
+
+                /**
+                 * Encodes the specified Spectrum message. Does not implicitly {@link com.example.dto.Spectrum.verify|verify} messages.
+                 * @param message Spectrum message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ISpectrum, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Spectrum message, length delimited. Does not implicitly {@link com.example.dto.Spectrum.verify|verify} messages.
+                 * @param message Spectrum message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ISpectrum, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Spectrum message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Spectrum
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.Spectrum;
+
+                /**
+                 * Decodes a Spectrum message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Spectrum
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.Spectrum;
+
+                /**
+                 * Verifies a Spectrum message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Spectrum message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Spectrum
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.Spectrum;
+
+                /**
+                 * Creates a plain object from a Spectrum message. Also converts values to other types if specified.
+                 * @param message Spectrum
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.Spectrum, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Spectrum to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an ObservedIons. */
+            interface IObservedIons {
+
+                /** ObservedIons ions */
+                ions?: (com.example.dto.IIon[]|null);
+
+                /** ObservedIons spectrum */
+                spectrum?: (com.example.dto.ISpectrum|null);
+
+                /** ObservedIons mz */
+                mz?: (number|null);
+
+                /** ObservedIons z */
+                z?: (number|null);
+
+                /** ObservedIons retentionTime */
+                retentionTime?: (number|Long|null);
+            }
+
+            /** Represents an ObservedIons. */
+            class ObservedIons implements IObservedIons {
+
+                /**
+                 * Constructs a new ObservedIons.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IObservedIons);
+
+                /** ObservedIons ions. */
+                public ions: com.example.dto.IIon[];
+
+                /** ObservedIons spectrum. */
+                public spectrum?: (com.example.dto.ISpectrum|null);
+
+                /** ObservedIons mz. */
+                public mz: number;
+
+                /** ObservedIons z. */
+                public z: number;
+
+                /** ObservedIons retentionTime. */
+                public retentionTime: (number|Long);
+
+                /**
+                 * Creates a new ObservedIons instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns ObservedIons instance
+                 */
+                public static create(properties?: com.example.dto.IObservedIons): com.example.dto.ObservedIons;
+
+                /**
+                 * Encodes the specified ObservedIons message. Does not implicitly {@link com.example.dto.ObservedIons.verify|verify} messages.
+                 * @param message ObservedIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IObservedIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified ObservedIons message, length delimited. Does not implicitly {@link com.example.dto.ObservedIons.verify|verify} messages.
+                 * @param message ObservedIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IObservedIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an ObservedIons message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns ObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.ObservedIons;
+
+                /**
+                 * Decodes an ObservedIons message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns ObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.ObservedIons;
+
+                /**
+                 * Verifies an ObservedIons message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an ObservedIons message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns ObservedIons
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.ObservedIons;
+
+                /**
+                 * Creates a plain object from an ObservedIons message. Also converts values to other types if specified.
+                 * @param message ObservedIons
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.ObservedIons, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this ObservedIons to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a FractionObservedIons. */
+            interface IFractionObservedIons {
+
+                /** FractionObservedIons scanumObservedIons */
+                scanumObservedIons?: ({ [k: string]: com.example.dto.IObservedIons }|null);
+            }
+
+            /** Represents a FractionObservedIons. */
+            class FractionObservedIons implements IFractionObservedIons {
+
+                /**
+                 * Constructs a new FractionObservedIons.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IFractionObservedIons);
+
+                /** FractionObservedIons scanumObservedIons. */
+                public scanumObservedIons: { [k: string]: com.example.dto.IObservedIons };
+
+                /**
+                 * Creates a new FractionObservedIons instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns FractionObservedIons instance
+                 */
+                public static create(properties?: com.example.dto.IFractionObservedIons): com.example.dto.FractionObservedIons;
+
+                /**
+                 * Encodes the specified FractionObservedIons message. Does not implicitly {@link com.example.dto.FractionObservedIons.verify|verify} messages.
+                 * @param message FractionObservedIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IFractionObservedIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified FractionObservedIons message, length delimited. Does not implicitly {@link com.example.dto.FractionObservedIons.verify|verify} messages.
+                 * @param message FractionObservedIons message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IFractionObservedIons, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a FractionObservedIons message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns FractionObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.FractionObservedIons;
+
+                /**
+                 * Decodes a FractionObservedIons message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns FractionObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.FractionObservedIons;
+
+                /**
+                 * Verifies a FractionObservedIons message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a FractionObservedIons message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns FractionObservedIons
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.FractionObservedIons;
+
+                /**
+                 * Creates a plain object from a FractionObservedIons message. Also converts values to other types if specified.
+                 * @param message FractionObservedIons
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.FractionObservedIons, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this FractionObservedIons to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a PsmIonMatch. */
+            interface IPsmIonMatch {
+
+                /** PsmIonMatch sequence */
+                sequence?: (string|null);
+
+                /** PsmIonMatch fractionObservedIons */
+                fractionObservedIons?: ({ [k: string]: com.example.dto.IFractionObservedIons }|null);
+
+                /** PsmIonMatch theoreticalIons */
+                theoreticalIons?: (com.example.dto.ITheoreticalIons[]|null);
+
+                /** PsmIonMatch activationMethod */
+                activationMethod?: (com.example.dto.ActivationMethod|null);
+            }
+
+            /** Represents a PsmIonMatch. */
+            class PsmIonMatch implements IPsmIonMatch {
+
+                /**
+                 * Constructs a new PsmIonMatch.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IPsmIonMatch);
+
+                /** PsmIonMatch sequence. */
+                public sequence: string;
+
+                /** PsmIonMatch fractionObservedIons. */
+                public fractionObservedIons: { [k: string]: com.example.dto.IFractionObservedIons };
+
+                /** PsmIonMatch theoreticalIons. */
+                public theoreticalIons: com.example.dto.ITheoreticalIons[];
+
+                /** PsmIonMatch activationMethod. */
+                public activationMethod: com.example.dto.ActivationMethod;
+
+                /**
+                 * Creates a new PsmIonMatch instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PsmIonMatch instance
+                 */
+                public static create(properties?: com.example.dto.IPsmIonMatch): com.example.dto.PsmIonMatch;
+
+                /**
+                 * Encodes the specified PsmIonMatch message. Does not implicitly {@link com.example.dto.PsmIonMatch.verify|verify} messages.
+                 * @param message PsmIonMatch message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IPsmIonMatch, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PsmIonMatch message, length delimited. Does not implicitly {@link com.example.dto.PsmIonMatch.verify|verify} messages.
+                 * @param message PsmIonMatch message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IPsmIonMatch, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PsmIonMatch message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PsmIonMatch
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.PsmIonMatch;
+
+                /**
+                 * Decodes a PsmIonMatch message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PsmIonMatch
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.PsmIonMatch;
+
+                /**
+                 * Verifies a PsmIonMatch message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PsmIonMatch message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PsmIonMatch
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.PsmIonMatch;
+
+                /**
+                 * Creates a plain object from a PsmIonMatch message. Also converts values to other types if specified.
+                 * @param message PsmIonMatch
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.PsmIonMatch, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PsmIonMatch to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
         }
     }
 }

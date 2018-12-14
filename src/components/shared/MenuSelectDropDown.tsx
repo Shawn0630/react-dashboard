@@ -21,7 +21,7 @@ interface MenuSelectDropDownProps {
     errorStyle?: object;
     children?: any; //tslint:disable-line
     multiple?: boolean;
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+    onChange?(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
 function MenuSelectDropDown(props: MenuSelectDropDownProps): JSX.Element { //tslint:disable-line
@@ -33,27 +33,27 @@ function MenuSelectDropDown(props: MenuSelectDropDownProps): JSX.Element { //tsl
             </InputLabel>
         }
         {
-        <Select
-            multiple={props.multiple != null && props.multiple === true }
-            onChange={props.onChange}
-            MenuProps={{
-                style: {
-                    maxHeight: 560,
+            <Select
+                multiple={props.multiple != null && props.multiple === true }
+                onChange={props.onChange}
+                MenuProps={{
+                    style: {
+                        maxHeight: 560,
                 },
-                getContentAnchorEl: null,
-                anchorOrigin: {
-                    vertical: "bottom",
-                    horizontal: "left",
-                }
-            }}
-            value={props.value}
-            renderValue={props.multiple != null && props.multiple === true ?
-                (values: string[]) => { return values.join(",") } : null} //tslint:disable-line
-            input={<Input id={`${props.id}-input-label`} />}
-            rowsMax={props.maxRows}
-        >
-            {props.children}
-        </Select>
+                    getContentAnchorEl: null,
+                    anchorOrigin: {
+                        vertical: "bottom",
+                        horizontal: "left",
+                    }
+                }}
+                value={props.value}
+                renderValue={props.multiple != null && props.multiple === true ?
+                    (values: string[]) => { return values.join(",") } : null} //tslint:disable-line
+                input={<Input id={`${props.id}-input-label`} />}
+                rowsMax={props.maxRows}
+            >
+                {props.children}
+            </Select>
         }
         {
             <FormHelperText error={props.errorMessage !== undefined && props.errorMessage !== ""}>

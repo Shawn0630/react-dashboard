@@ -3139,6 +3139,2983 @@ $root.com = (function() {
                 return values;
             })();
 
+            dto.FileNode = (function() {
+
+                /**
+                 * Properties of a FileNode.
+                 * @memberof com.example.dto
+                 * @interface IFileNode
+                 * @property {string|null} [filename] FileNode filename
+                 * @property {com.example.dto.FileNode.Type|null} [type] FileNode type
+                 * @property {Array.<com.example.dto.IFileNode>|null} [children] FileNode children
+                 */
+
+                /**
+                 * Constructs a new FileNode.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a FileNode.
+                 * @implements IFileNode
+                 * @constructor
+                 * @param {com.example.dto.IFileNode=} [properties] Properties to set
+                 */
+                function FileNode(properties) {
+                    this.children = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * FileNode filename.
+                 * @member {string} filename
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.filename = "";
+
+                /**
+                 * FileNode type.
+                 * @member {com.example.dto.FileNode.Type} type
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.type = 0;
+
+                /**
+                 * FileNode children.
+                 * @member {Array.<com.example.dto.IFileNode>} children
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 */
+                FileNode.prototype.children = $util.emptyArray;
+
+                /**
+                 * Creates a new FileNode instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode=} [properties] Properties to set
+                 * @returns {com.example.dto.FileNode} FileNode instance
+                 */
+                FileNode.create = function create(properties) {
+                    return new FileNode(properties);
+                };
+
+                /**
+                 * Encodes the specified FileNode message. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode} message FileNode message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FileNode.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.filename);
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
+                    if (message.children != null && message.children.length)
+                        for (var i = 0; i < message.children.length; ++i)
+                            $root.com.example.dto.FileNode.encode(message.children[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified FileNode message, length delimited. Does not implicitly {@link com.example.dto.FileNode.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.IFileNode} message FileNode message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FileNode.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.FileNode} FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FileNode.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.FileNode();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.filename = reader.string();
+                            break;
+                        case 2:
+                            message.type = reader.int32();
+                            break;
+                        case 3:
+                            if (!(message.children && message.children.length))
+                                message.children = [];
+                            message.children.push($root.com.example.dto.FileNode.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a FileNode message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.FileNode} FileNode
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FileNode.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a FileNode message.
+                 * @function verify
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                FileNode.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        if (!$util.isString(message.filename))
+                            return "filename: string expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                            break;
+                        }
+                    if (message.children != null && message.hasOwnProperty("children")) {
+                        if (!Array.isArray(message.children))
+                            return "children: array expected";
+                        for (var i = 0; i < message.children.length; ++i) {
+                            var error = $root.com.example.dto.FileNode.verify(message.children[i]);
+                            if (error)
+                                return "children." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a FileNode message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.FileNode} FileNode
+                 */
+                FileNode.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.FileNode)
+                        return object;
+                    var message = new $root.com.example.dto.FileNode();
+                    if (object.filename != null)
+                        message.filename = String(object.filename);
+                    switch (object.type) {
+                    case "FILE":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "DIR":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    }
+                    if (object.children) {
+                        if (!Array.isArray(object.children))
+                            throw TypeError(".com.example.dto.FileNode.children: array expected");
+                        message.children = [];
+                        for (var i = 0; i < object.children.length; ++i) {
+                            if (typeof object.children[i] !== "object")
+                                throw TypeError(".com.example.dto.FileNode.children: object expected");
+                            message.children[i] = $root.com.example.dto.FileNode.fromObject(object.children[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a FileNode message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.FileNode
+                 * @static
+                 * @param {com.example.dto.FileNode} message FileNode
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                FileNode.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.children = [];
+                    if (options.defaults) {
+                        object.filename = "";
+                        object.type = options.enums === String ? "FILE" : 0;
+                    }
+                    if (message.filename != null && message.hasOwnProperty("filename"))
+                        object.filename = message.filename;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.FileNode.Type[message.type] : message.type;
+                    if (message.children && message.children.length) {
+                        object.children = [];
+                        for (var j = 0; j < message.children.length; ++j)
+                            object.children[j] = $root.com.example.dto.FileNode.toObject(message.children[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this FileNode to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.FileNode
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                FileNode.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Type enum.
+                 * @name com.example.dto.FileNode.Type
+                 * @enum {string}
+                 * @property {number} FILE=0 FILE value
+                 * @property {number} DIR=1 DIR value
+                 */
+                FileNode.Type = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "FILE"] = 0;
+                    values[valuesById[1] = "DIR"] = 1;
+                    return values;
+                })();
+
+                return FileNode;
+            })();
+
+            /**
+             * IonType enum.
+             * @name com.example.dto.IonType
+             * @enum {string}
+             * @property {number} A=0 A value
+             * @property {number} B=1 B value
+             * @property {number} C=2 C value
+             * @property {number} X=3 X value
+             * @property {number} Y=4 Y value
+             * @property {number} Z=5 Z value
+             * @property {number} Z_PRIME=6 Z_PRIME value
+             * @property {number} IMMONIUM=7 IMMONIUM value
+             * @property {number} PRECURSOR=8 PRECURSOR value
+             * @property {number} A_MINUS_H2O=16 A_MINUS_H2O value
+             * @property {number} B_MINUS_H2O=17 B_MINUS_H2O value
+             * @property {number} C_MINUS_H2O=18 C_MINUS_H2O value
+             * @property {number} X_MINUS_H2O=19 X_MINUS_H2O value
+             * @property {number} Y_MINUS_H2O=20 Y_MINUS_H2O value
+             * @property {number} Z_MINUS_H2O=21 Z_MINUS_H2O value
+             * @property {number} Z_PRIME_MINUS_H2O=22 Z_PRIME_MINUS_H2O value
+             * @property {number} A_MINUS_NH3=32 A_MINUS_NH3 value
+             * @property {number} B_MINUS_NH3=33 B_MINUS_NH3 value
+             * @property {number} C_MINUS_NH3=34 C_MINUS_NH3 value
+             * @property {number} X_MINUS_NH3=35 X_MINUS_NH3 value
+             * @property {number} Y_MINUS_NH3=36 Y_MINUS_NH3 value
+             * @property {number} Z_MINUS_NH3=37 Z_MINUS_NH3 value
+             * @property {number} Z_PRIME_MINUS_NH3=38 Z_PRIME_MINUS_NH3 value
+             * @property {number} A_CHARGE2=48 A_CHARGE2 value
+             * @property {number} B_CHARGE2=49 B_CHARGE2 value
+             * @property {number} C_CHARGE2=50 C_CHARGE2 value
+             * @property {number} X_CHARGE2=51 X_CHARGE2 value
+             * @property {number} Y_CHARGE2=52 Y_CHARGE2 value
+             * @property {number} Z_CHARGE2=53 Z_CHARGE2 value
+             * @property {number} Z_PRIME_CHARGE2=54 Z_PRIME_CHARGE2 value
+             * @property {number} C_MINUS_H=66 C_MINUS_H value
+             */
+            dto.IonType = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "A"] = 0;
+                values[valuesById[1] = "B"] = 1;
+                values[valuesById[2] = "C"] = 2;
+                values[valuesById[3] = "X"] = 3;
+                values[valuesById[4] = "Y"] = 4;
+                values[valuesById[5] = "Z"] = 5;
+                values[valuesById[6] = "Z_PRIME"] = 6;
+                values[valuesById[7] = "IMMONIUM"] = 7;
+                values[valuesById[8] = "PRECURSOR"] = 8;
+                values[valuesById[16] = "A_MINUS_H2O"] = 16;
+                values[valuesById[17] = "B_MINUS_H2O"] = 17;
+                values[valuesById[18] = "C_MINUS_H2O"] = 18;
+                values[valuesById[19] = "X_MINUS_H2O"] = 19;
+                values[valuesById[20] = "Y_MINUS_H2O"] = 20;
+                values[valuesById[21] = "Z_MINUS_H2O"] = 21;
+                values[valuesById[22] = "Z_PRIME_MINUS_H2O"] = 22;
+                values[valuesById[32] = "A_MINUS_NH3"] = 32;
+                values[valuesById[33] = "B_MINUS_NH3"] = 33;
+                values[valuesById[34] = "C_MINUS_NH3"] = 34;
+                values[valuesById[35] = "X_MINUS_NH3"] = 35;
+                values[valuesById[36] = "Y_MINUS_NH3"] = 36;
+                values[valuesById[37] = "Z_MINUS_NH3"] = 37;
+                values[valuesById[38] = "Z_PRIME_MINUS_NH3"] = 38;
+                values[valuesById[48] = "A_CHARGE2"] = 48;
+                values[valuesById[49] = "B_CHARGE2"] = 49;
+                values[valuesById[50] = "C_CHARGE2"] = 50;
+                values[valuesById[51] = "X_CHARGE2"] = 51;
+                values[valuesById[52] = "Y_CHARGE2"] = 52;
+                values[valuesById[53] = "Z_CHARGE2"] = 53;
+                values[valuesById[54] = "Z_PRIME_CHARGE2"] = 54;
+                values[valuesById[66] = "C_MINUS_H"] = 66;
+                return values;
+            })();
+
+            dto.TheoreticalIons = (function() {
+
+                /**
+                 * Properties of a TheoreticalIons.
+                 * @memberof com.example.dto
+                 * @interface ITheoreticalIons
+                 * @property {com.example.dto.IonType|null} [type] TheoreticalIons type
+                 * @property {Array.<number>|null} [mz] TheoreticalIons mz
+                 */
+
+                /**
+                 * Constructs a new TheoreticalIons.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a TheoreticalIons.
+                 * @implements ITheoreticalIons
+                 * @constructor
+                 * @param {com.example.dto.ITheoreticalIons=} [properties] Properties to set
+                 */
+                function TheoreticalIons(properties) {
+                    this.mz = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * TheoreticalIons type.
+                 * @member {com.example.dto.IonType} type
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @instance
+                 */
+                TheoreticalIons.prototype.type = 0;
+
+                /**
+                 * TheoreticalIons mz.
+                 * @member {Array.<number>} mz
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @instance
+                 */
+                TheoreticalIons.prototype.mz = $util.emptyArray;
+
+                /**
+                 * Creates a new TheoreticalIons instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {com.example.dto.ITheoreticalIons=} [properties] Properties to set
+                 * @returns {com.example.dto.TheoreticalIons} TheoreticalIons instance
+                 */
+                TheoreticalIons.create = function create(properties) {
+                    return new TheoreticalIons(properties);
+                };
+
+                /**
+                 * Encodes the specified TheoreticalIons message. Does not implicitly {@link com.example.dto.TheoreticalIons.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {com.example.dto.ITheoreticalIons} message TheoreticalIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TheoreticalIons.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.mz != null && message.mz.length) {
+                        writer.uint32(/* id 2, wireType 2 =*/18).fork();
+                        for (var i = 0; i < message.mz.length; ++i)
+                            writer.float(message.mz[i]);
+                        writer.ldelim();
+                    }
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified TheoreticalIons message, length delimited. Does not implicitly {@link com.example.dto.TheoreticalIons.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {com.example.dto.ITheoreticalIons} message TheoreticalIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TheoreticalIons.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a TheoreticalIons message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.TheoreticalIons} TheoreticalIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TheoreticalIons.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.TheoreticalIons();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            if (!(message.mz && message.mz.length))
+                                message.mz = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.mz.push(reader.float());
+                            } else
+                                message.mz.push(reader.float());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a TheoreticalIons message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.TheoreticalIons} TheoreticalIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TheoreticalIons.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a TheoreticalIons message.
+                 * @function verify
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                TheoreticalIons.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 16:
+                        case 17:
+                        case 18:
+                        case 19:
+                        case 20:
+                        case 21:
+                        case 22:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 35:
+                        case 36:
+                        case 37:
+                        case 38:
+                        case 48:
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 52:
+                        case 53:
+                        case 54:
+                        case 66:
+                            break;
+                        }
+                    if (message.mz != null && message.hasOwnProperty("mz")) {
+                        if (!Array.isArray(message.mz))
+                            return "mz: array expected";
+                        for (var i = 0; i < message.mz.length; ++i)
+                            if (typeof message.mz[i] !== "number")
+                                return "mz: number[] expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a TheoreticalIons message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.TheoreticalIons} TheoreticalIons
+                 */
+                TheoreticalIons.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.TheoreticalIons)
+                        return object;
+                    var message = new $root.com.example.dto.TheoreticalIons();
+                    switch (object.type) {
+                    case "A":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "B":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    case "C":
+                    case 2:
+                        message.type = 2;
+                        break;
+                    case "X":
+                    case 3:
+                        message.type = 3;
+                        break;
+                    case "Y":
+                    case 4:
+                        message.type = 4;
+                        break;
+                    case "Z":
+                    case 5:
+                        message.type = 5;
+                        break;
+                    case "Z_PRIME":
+                    case 6:
+                        message.type = 6;
+                        break;
+                    case "IMMONIUM":
+                    case 7:
+                        message.type = 7;
+                        break;
+                    case "PRECURSOR":
+                    case 8:
+                        message.type = 8;
+                        break;
+                    case "A_MINUS_H2O":
+                    case 16:
+                        message.type = 16;
+                        break;
+                    case "B_MINUS_H2O":
+                    case 17:
+                        message.type = 17;
+                        break;
+                    case "C_MINUS_H2O":
+                    case 18:
+                        message.type = 18;
+                        break;
+                    case "X_MINUS_H2O":
+                    case 19:
+                        message.type = 19;
+                        break;
+                    case "Y_MINUS_H2O":
+                    case 20:
+                        message.type = 20;
+                        break;
+                    case "Z_MINUS_H2O":
+                    case 21:
+                        message.type = 21;
+                        break;
+                    case "Z_PRIME_MINUS_H2O":
+                    case 22:
+                        message.type = 22;
+                        break;
+                    case "A_MINUS_NH3":
+                    case 32:
+                        message.type = 32;
+                        break;
+                    case "B_MINUS_NH3":
+                    case 33:
+                        message.type = 33;
+                        break;
+                    case "C_MINUS_NH3":
+                    case 34:
+                        message.type = 34;
+                        break;
+                    case "X_MINUS_NH3":
+                    case 35:
+                        message.type = 35;
+                        break;
+                    case "Y_MINUS_NH3":
+                    case 36:
+                        message.type = 36;
+                        break;
+                    case "Z_MINUS_NH3":
+                    case 37:
+                        message.type = 37;
+                        break;
+                    case "Z_PRIME_MINUS_NH3":
+                    case 38:
+                        message.type = 38;
+                        break;
+                    case "A_CHARGE2":
+                    case 48:
+                        message.type = 48;
+                        break;
+                    case "B_CHARGE2":
+                    case 49:
+                        message.type = 49;
+                        break;
+                    case "C_CHARGE2":
+                    case 50:
+                        message.type = 50;
+                        break;
+                    case "X_CHARGE2":
+                    case 51:
+                        message.type = 51;
+                        break;
+                    case "Y_CHARGE2":
+                    case 52:
+                        message.type = 52;
+                        break;
+                    case "Z_CHARGE2":
+                    case 53:
+                        message.type = 53;
+                        break;
+                    case "Z_PRIME_CHARGE2":
+                    case 54:
+                        message.type = 54;
+                        break;
+                    case "C_MINUS_H":
+                    case 66:
+                        message.type = 66;
+                        break;
+                    }
+                    if (object.mz) {
+                        if (!Array.isArray(object.mz))
+                            throw TypeError(".com.example.dto.TheoreticalIons.mz: array expected");
+                        message.mz = [];
+                        for (var i = 0; i < object.mz.length; ++i)
+                            message.mz[i] = Number(object.mz[i]);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a TheoreticalIons message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @static
+                 * @param {com.example.dto.TheoreticalIons} message TheoreticalIons
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                TheoreticalIons.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.mz = [];
+                    if (options.defaults)
+                        object.type = options.enums === String ? "A" : 0;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.IonType[message.type] : message.type;
+                    if (message.mz && message.mz.length) {
+                        object.mz = [];
+                        for (var j = 0; j < message.mz.length; ++j)
+                            object.mz[j] = options.json && !isFinite(message.mz[j]) ? String(message.mz[j]) : message.mz[j];
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this TheoreticalIons to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.TheoreticalIons
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                TheoreticalIons.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return TheoreticalIons;
+            })();
+
+            dto.Ion = (function() {
+
+                /**
+                 * Properties of an Ion.
+                 * @memberof com.example.dto
+                 * @interface IIon
+                 * @property {com.example.dto.IonType|null} [type] Ion type
+                 * @property {number|null} [mz] Ion mz
+                 * @property {number|null} [h] Ion h
+                 * @property {number|null} [pos] Ion pos
+                 */
+
+                /**
+                 * Constructs a new Ion.
+                 * @memberof com.example.dto
+                 * @classdesc Represents an Ion.
+                 * @implements IIon
+                 * @constructor
+                 * @param {com.example.dto.IIon=} [properties] Properties to set
+                 */
+                function Ion(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Ion type.
+                 * @member {com.example.dto.IonType} type
+                 * @memberof com.example.dto.Ion
+                 * @instance
+                 */
+                Ion.prototype.type = 0;
+
+                /**
+                 * Ion mz.
+                 * @member {number} mz
+                 * @memberof com.example.dto.Ion
+                 * @instance
+                 */
+                Ion.prototype.mz = 0;
+
+                /**
+                 * Ion h.
+                 * @member {number} h
+                 * @memberof com.example.dto.Ion
+                 * @instance
+                 */
+                Ion.prototype.h = 0;
+
+                /**
+                 * Ion pos.
+                 * @member {number} pos
+                 * @memberof com.example.dto.Ion
+                 * @instance
+                 */
+                Ion.prototype.pos = 0;
+
+                /**
+                 * Creates a new Ion instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {com.example.dto.IIon=} [properties] Properties to set
+                 * @returns {com.example.dto.Ion} Ion instance
+                 */
+                Ion.create = function create(properties) {
+                    return new Ion(properties);
+                };
+
+                /**
+                 * Encodes the specified Ion message. Does not implicitly {@link com.example.dto.Ion.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {com.example.dto.IIon} message Ion message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ion.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.mz);
+                    if (message.h != null && message.hasOwnProperty("h"))
+                        writer.uint32(/* id 3, wireType 5 =*/29).float(message.h);
+                    if (message.pos != null && message.hasOwnProperty("pos"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.pos);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Ion message, length delimited. Does not implicitly {@link com.example.dto.Ion.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {com.example.dto.IIon} message Ion message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ion.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an Ion message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Ion} Ion
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ion.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Ion();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            message.mz = reader.float();
+                            break;
+                        case 3:
+                            message.h = reader.float();
+                            break;
+                        case 4:
+                            message.pos = reader.uint32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an Ion message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Ion} Ion
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ion.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an Ion message.
+                 * @function verify
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Ion.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 16:
+                        case 17:
+                        case 18:
+                        case 19:
+                        case 20:
+                        case 21:
+                        case 22:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 35:
+                        case 36:
+                        case 37:
+                        case 38:
+                        case 48:
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 52:
+                        case 53:
+                        case 54:
+                        case 66:
+                            break;
+                        }
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        if (typeof message.mz !== "number")
+                            return "mz: number expected";
+                    if (message.h != null && message.hasOwnProperty("h"))
+                        if (typeof message.h !== "number")
+                            return "h: number expected";
+                    if (message.pos != null && message.hasOwnProperty("pos"))
+                        if (!$util.isInteger(message.pos))
+                            return "pos: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an Ion message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Ion} Ion
+                 */
+                Ion.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Ion)
+                        return object;
+                    var message = new $root.com.example.dto.Ion();
+                    switch (object.type) {
+                    case "A":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "B":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    case "C":
+                    case 2:
+                        message.type = 2;
+                        break;
+                    case "X":
+                    case 3:
+                        message.type = 3;
+                        break;
+                    case "Y":
+                    case 4:
+                        message.type = 4;
+                        break;
+                    case "Z":
+                    case 5:
+                        message.type = 5;
+                        break;
+                    case "Z_PRIME":
+                    case 6:
+                        message.type = 6;
+                        break;
+                    case "IMMONIUM":
+                    case 7:
+                        message.type = 7;
+                        break;
+                    case "PRECURSOR":
+                    case 8:
+                        message.type = 8;
+                        break;
+                    case "A_MINUS_H2O":
+                    case 16:
+                        message.type = 16;
+                        break;
+                    case "B_MINUS_H2O":
+                    case 17:
+                        message.type = 17;
+                        break;
+                    case "C_MINUS_H2O":
+                    case 18:
+                        message.type = 18;
+                        break;
+                    case "X_MINUS_H2O":
+                    case 19:
+                        message.type = 19;
+                        break;
+                    case "Y_MINUS_H2O":
+                    case 20:
+                        message.type = 20;
+                        break;
+                    case "Z_MINUS_H2O":
+                    case 21:
+                        message.type = 21;
+                        break;
+                    case "Z_PRIME_MINUS_H2O":
+                    case 22:
+                        message.type = 22;
+                        break;
+                    case "A_MINUS_NH3":
+                    case 32:
+                        message.type = 32;
+                        break;
+                    case "B_MINUS_NH3":
+                    case 33:
+                        message.type = 33;
+                        break;
+                    case "C_MINUS_NH3":
+                    case 34:
+                        message.type = 34;
+                        break;
+                    case "X_MINUS_NH3":
+                    case 35:
+                        message.type = 35;
+                        break;
+                    case "Y_MINUS_NH3":
+                    case 36:
+                        message.type = 36;
+                        break;
+                    case "Z_MINUS_NH3":
+                    case 37:
+                        message.type = 37;
+                        break;
+                    case "Z_PRIME_MINUS_NH3":
+                    case 38:
+                        message.type = 38;
+                        break;
+                    case "A_CHARGE2":
+                    case 48:
+                        message.type = 48;
+                        break;
+                    case "B_CHARGE2":
+                    case 49:
+                        message.type = 49;
+                        break;
+                    case "C_CHARGE2":
+                    case 50:
+                        message.type = 50;
+                        break;
+                    case "X_CHARGE2":
+                    case 51:
+                        message.type = 51;
+                        break;
+                    case "Y_CHARGE2":
+                    case 52:
+                        message.type = 52;
+                        break;
+                    case "Z_CHARGE2":
+                    case 53:
+                        message.type = 53;
+                        break;
+                    case "Z_PRIME_CHARGE2":
+                    case 54:
+                        message.type = 54;
+                        break;
+                    case "C_MINUS_H":
+                    case 66:
+                        message.type = 66;
+                        break;
+                    }
+                    if (object.mz != null)
+                        message.mz = Number(object.mz);
+                    if (object.h != null)
+                        message.h = Number(object.h);
+                    if (object.pos != null)
+                        message.pos = object.pos >>> 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an Ion message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Ion
+                 * @static
+                 * @param {com.example.dto.Ion} message Ion
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Ion.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.type = options.enums === String ? "A" : 0;
+                        object.mz = 0;
+                        object.h = 0;
+                        object.pos = 0;
+                    }
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.IonType[message.type] : message.type;
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        object.mz = options.json && !isFinite(message.mz) ? String(message.mz) : message.mz;
+                    if (message.h != null && message.hasOwnProperty("h"))
+                        object.h = options.json && !isFinite(message.h) ? String(message.h) : message.h;
+                    if (message.pos != null && message.hasOwnProperty("pos"))
+                        object.pos = message.pos;
+                    return object;
+                };
+
+                /**
+                 * Converts this Ion to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Ion
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Ion.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Ion;
+            })();
+
+            dto.Ms1Stats = (function() {
+
+                /**
+                 * Properties of a Ms1Stats.
+                 * @memberof com.example.dto
+                 * @interface IMs1Stats
+                 * @property {number|Long|null} [retentionTime] Ms1Stats retentionTime
+                 * @property {number|null} [tic] Ms1Stats tic
+                 * @property {number|null} [scan] Ms1Stats scan
+                 * @property {number|null} [basePeakIntensity] Ms1Stats basePeakIntensity
+                 */
+
+                /**
+                 * Constructs a new Ms1Stats.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a Ms1Stats.
+                 * @implements IMs1Stats
+                 * @constructor
+                 * @param {com.example.dto.IMs1Stats=} [properties] Properties to set
+                 */
+                function Ms1Stats(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Ms1Stats retentionTime.
+                 * @member {number|Long} retentionTime
+                 * @memberof com.example.dto.Ms1Stats
+                 * @instance
+                 */
+                Ms1Stats.prototype.retentionTime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * Ms1Stats tic.
+                 * @member {number} tic
+                 * @memberof com.example.dto.Ms1Stats
+                 * @instance
+                 */
+                Ms1Stats.prototype.tic = 0;
+
+                /**
+                 * Ms1Stats scan.
+                 * @member {number} scan
+                 * @memberof com.example.dto.Ms1Stats
+                 * @instance
+                 */
+                Ms1Stats.prototype.scan = 0;
+
+                /**
+                 * Ms1Stats basePeakIntensity.
+                 * @member {number} basePeakIntensity
+                 * @memberof com.example.dto.Ms1Stats
+                 * @instance
+                 */
+                Ms1Stats.prototype.basePeakIntensity = 0;
+
+                /**
+                 * Creates a new Ms1Stats instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {com.example.dto.IMs1Stats=} [properties] Properties to set
+                 * @returns {com.example.dto.Ms1Stats} Ms1Stats instance
+                 */
+                Ms1Stats.create = function create(properties) {
+                    return new Ms1Stats(properties);
+                };
+
+                /**
+                 * Encodes the specified Ms1Stats message. Does not implicitly {@link com.example.dto.Ms1Stats.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {com.example.dto.IMs1Stats} message Ms1Stats message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ms1Stats.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.retentionTime);
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.tic);
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.scan);
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        writer.uint32(/* id 4, wireType 5 =*/37).float(message.basePeakIntensity);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Ms1Stats message, length delimited. Does not implicitly {@link com.example.dto.Ms1Stats.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {com.example.dto.IMs1Stats} message Ms1Stats message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ms1Stats.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Ms1Stats message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Ms1Stats} Ms1Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ms1Stats.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Ms1Stats();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.retentionTime = reader.uint64();
+                            break;
+                        case 2:
+                            message.tic = reader.float();
+                            break;
+                        case 3:
+                            message.scan = reader.uint32();
+                            break;
+                        case 4:
+                            message.basePeakIntensity = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Ms1Stats message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Ms1Stats} Ms1Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ms1Stats.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Ms1Stats message.
+                 * @function verify
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Ms1Stats.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (!$util.isInteger(message.retentionTime) && !(message.retentionTime && $util.isInteger(message.retentionTime.low) && $util.isInteger(message.retentionTime.high)))
+                            return "retentionTime: integer|Long expected";
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        if (typeof message.tic !== "number")
+                            return "tic: number expected";
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        if (!$util.isInteger(message.scan))
+                            return "scan: integer expected";
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        if (typeof message.basePeakIntensity !== "number")
+                            return "basePeakIntensity: number expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Ms1Stats message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Ms1Stats} Ms1Stats
+                 */
+                Ms1Stats.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Ms1Stats)
+                        return object;
+                    var message = new $root.com.example.dto.Ms1Stats();
+                    if (object.retentionTime != null)
+                        if ($util.Long)
+                            (message.retentionTime = $util.Long.fromValue(object.retentionTime)).unsigned = true;
+                        else if (typeof object.retentionTime === "string")
+                            message.retentionTime = parseInt(object.retentionTime, 10);
+                        else if (typeof object.retentionTime === "number")
+                            message.retentionTime = object.retentionTime;
+                        else if (typeof object.retentionTime === "object")
+                            message.retentionTime = new $util.LongBits(object.retentionTime.low >>> 0, object.retentionTime.high >>> 0).toNumber(true);
+                    if (object.tic != null)
+                        message.tic = Number(object.tic);
+                    if (object.scan != null)
+                        message.scan = object.scan >>> 0;
+                    if (object.basePeakIntensity != null)
+                        message.basePeakIntensity = Number(object.basePeakIntensity);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Ms1Stats message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Ms1Stats
+                 * @static
+                 * @param {com.example.dto.Ms1Stats} message Ms1Stats
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Ms1Stats.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, true);
+                            object.retentionTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.retentionTime = options.longs === String ? "0" : 0;
+                        object.tic = 0;
+                        object.scan = 0;
+                        object.basePeakIntensity = 0;
+                    }
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (typeof message.retentionTime === "number")
+                            object.retentionTime = options.longs === String ? String(message.retentionTime) : message.retentionTime;
+                        else
+                            object.retentionTime = options.longs === String ? $util.Long.prototype.toString.call(message.retentionTime) : options.longs === Number ? new $util.LongBits(message.retentionTime.low >>> 0, message.retentionTime.high >>> 0).toNumber(true) : message.retentionTime;
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        object.tic = options.json && !isFinite(message.tic) ? String(message.tic) : message.tic;
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        object.scan = message.scan;
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        object.basePeakIntensity = options.json && !isFinite(message.basePeakIntensity) ? String(message.basePeakIntensity) : message.basePeakIntensity;
+                    return object;
+                };
+
+                /**
+                 * Converts this Ms1Stats to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Ms1Stats
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Ms1Stats.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Ms1Stats;
+            })();
+
+            dto.Ms2Stats = (function() {
+
+                /**
+                 * Properties of a Ms2Stats.
+                 * @memberof com.example.dto
+                 * @interface IMs2Stats
+                 * @property {number|Long|null} [retentionTime] Ms2Stats retentionTime
+                 * @property {number|null} [tic] Ms2Stats tic
+                 * @property {number|null} [scan] Ms2Stats scan
+                 * @property {number|null} [ms1Scan] Ms2Stats ms1Scan
+                 * @property {number|null} [precursorMz] Ms2Stats precursorMz
+                 * @property {number|null} [precursorCharge] Ms2Stats precursorCharge
+                 * @property {number|null} [basePeakIntensity] Ms2Stats basePeakIntensity
+                 */
+
+                /**
+                 * Constructs a new Ms2Stats.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a Ms2Stats.
+                 * @implements IMs2Stats
+                 * @constructor
+                 * @param {com.example.dto.IMs2Stats=} [properties] Properties to set
+                 */
+                function Ms2Stats(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Ms2Stats retentionTime.
+                 * @member {number|Long} retentionTime
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.retentionTime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * Ms2Stats tic.
+                 * @member {number} tic
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.tic = 0;
+
+                /**
+                 * Ms2Stats scan.
+                 * @member {number} scan
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.scan = 0;
+
+                /**
+                 * Ms2Stats ms1Scan.
+                 * @member {number} ms1Scan
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.ms1Scan = 0;
+
+                /**
+                 * Ms2Stats precursorMz.
+                 * @member {number} precursorMz
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.precursorMz = 0;
+
+                /**
+                 * Ms2Stats precursorCharge.
+                 * @member {number} precursorCharge
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.precursorCharge = 0;
+
+                /**
+                 * Ms2Stats basePeakIntensity.
+                 * @member {number} basePeakIntensity
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 */
+                Ms2Stats.prototype.basePeakIntensity = 0;
+
+                /**
+                 * Creates a new Ms2Stats instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {com.example.dto.IMs2Stats=} [properties] Properties to set
+                 * @returns {com.example.dto.Ms2Stats} Ms2Stats instance
+                 */
+                Ms2Stats.create = function create(properties) {
+                    return new Ms2Stats(properties);
+                };
+
+                /**
+                 * Encodes the specified Ms2Stats message. Does not implicitly {@link com.example.dto.Ms2Stats.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {com.example.dto.IMs2Stats} message Ms2Stats message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ms2Stats.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.retentionTime);
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.tic);
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.scan);
+                    if (message.ms1Scan != null && message.hasOwnProperty("ms1Scan"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ms1Scan);
+                    if (message.precursorMz != null && message.hasOwnProperty("precursorMz"))
+                        writer.uint32(/* id 5, wireType 5 =*/45).float(message.precursorMz);
+                    if (message.precursorCharge != null && message.hasOwnProperty("precursorCharge"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.precursorCharge);
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        writer.uint32(/* id 7, wireType 5 =*/61).float(message.basePeakIntensity);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Ms2Stats message, length delimited. Does not implicitly {@link com.example.dto.Ms2Stats.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {com.example.dto.IMs2Stats} message Ms2Stats message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Ms2Stats.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Ms2Stats message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Ms2Stats} Ms2Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ms2Stats.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Ms2Stats();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.retentionTime = reader.uint64();
+                            break;
+                        case 2:
+                            message.tic = reader.float();
+                            break;
+                        case 3:
+                            message.scan = reader.uint32();
+                            break;
+                        case 4:
+                            message.ms1Scan = reader.uint32();
+                            break;
+                        case 5:
+                            message.precursorMz = reader.float();
+                            break;
+                        case 6:
+                            message.precursorCharge = reader.uint32();
+                            break;
+                        case 7:
+                            message.basePeakIntensity = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Ms2Stats message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Ms2Stats} Ms2Stats
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Ms2Stats.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Ms2Stats message.
+                 * @function verify
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Ms2Stats.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (!$util.isInteger(message.retentionTime) && !(message.retentionTime && $util.isInteger(message.retentionTime.low) && $util.isInteger(message.retentionTime.high)))
+                            return "retentionTime: integer|Long expected";
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        if (typeof message.tic !== "number")
+                            return "tic: number expected";
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        if (!$util.isInteger(message.scan))
+                            return "scan: integer expected";
+                    if (message.ms1Scan != null && message.hasOwnProperty("ms1Scan"))
+                        if (!$util.isInteger(message.ms1Scan))
+                            return "ms1Scan: integer expected";
+                    if (message.precursorMz != null && message.hasOwnProperty("precursorMz"))
+                        if (typeof message.precursorMz !== "number")
+                            return "precursorMz: number expected";
+                    if (message.precursorCharge != null && message.hasOwnProperty("precursorCharge"))
+                        if (!$util.isInteger(message.precursorCharge))
+                            return "precursorCharge: integer expected";
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        if (typeof message.basePeakIntensity !== "number")
+                            return "basePeakIntensity: number expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Ms2Stats message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Ms2Stats} Ms2Stats
+                 */
+                Ms2Stats.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Ms2Stats)
+                        return object;
+                    var message = new $root.com.example.dto.Ms2Stats();
+                    if (object.retentionTime != null)
+                        if ($util.Long)
+                            (message.retentionTime = $util.Long.fromValue(object.retentionTime)).unsigned = true;
+                        else if (typeof object.retentionTime === "string")
+                            message.retentionTime = parseInt(object.retentionTime, 10);
+                        else if (typeof object.retentionTime === "number")
+                            message.retentionTime = object.retentionTime;
+                        else if (typeof object.retentionTime === "object")
+                            message.retentionTime = new $util.LongBits(object.retentionTime.low >>> 0, object.retentionTime.high >>> 0).toNumber(true);
+                    if (object.tic != null)
+                        message.tic = Number(object.tic);
+                    if (object.scan != null)
+                        message.scan = object.scan >>> 0;
+                    if (object.ms1Scan != null)
+                        message.ms1Scan = object.ms1Scan >>> 0;
+                    if (object.precursorMz != null)
+                        message.precursorMz = Number(object.precursorMz);
+                    if (object.precursorCharge != null)
+                        message.precursorCharge = object.precursorCharge >>> 0;
+                    if (object.basePeakIntensity != null)
+                        message.basePeakIntensity = Number(object.basePeakIntensity);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Ms2Stats message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Ms2Stats
+                 * @static
+                 * @param {com.example.dto.Ms2Stats} message Ms2Stats
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Ms2Stats.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, true);
+                            object.retentionTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.retentionTime = options.longs === String ? "0" : 0;
+                        object.tic = 0;
+                        object.scan = 0;
+                        object.ms1Scan = 0;
+                        object.precursorMz = 0;
+                        object.precursorCharge = 0;
+                        object.basePeakIntensity = 0;
+                    }
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (typeof message.retentionTime === "number")
+                            object.retentionTime = options.longs === String ? String(message.retentionTime) : message.retentionTime;
+                        else
+                            object.retentionTime = options.longs === String ? $util.Long.prototype.toString.call(message.retentionTime) : options.longs === Number ? new $util.LongBits(message.retentionTime.low >>> 0, message.retentionTime.high >>> 0).toNumber(true) : message.retentionTime;
+                    if (message.tic != null && message.hasOwnProperty("tic"))
+                        object.tic = options.json && !isFinite(message.tic) ? String(message.tic) : message.tic;
+                    if (message.scan != null && message.hasOwnProperty("scan"))
+                        object.scan = message.scan;
+                    if (message.ms1Scan != null && message.hasOwnProperty("ms1Scan"))
+                        object.ms1Scan = message.ms1Scan;
+                    if (message.precursorMz != null && message.hasOwnProperty("precursorMz"))
+                        object.precursorMz = options.json && !isFinite(message.precursorMz) ? String(message.precursorMz) : message.precursorMz;
+                    if (message.precursorCharge != null && message.hasOwnProperty("precursorCharge"))
+                        object.precursorCharge = message.precursorCharge;
+                    if (message.basePeakIntensity != null && message.hasOwnProperty("basePeakIntensity"))
+                        object.basePeakIntensity = options.json && !isFinite(message.basePeakIntensity) ? String(message.basePeakIntensity) : message.basePeakIntensity;
+                    return object;
+                };
+
+                /**
+                 * Converts this Ms2Stats to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Ms2Stats
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Ms2Stats.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Ms2Stats;
+            })();
+
+            dto.Spectrum = (function() {
+
+                /**
+                 * Properties of a Spectrum.
+                 * @memberof com.example.dto
+                 * @interface ISpectrum
+                 * @property {Array.<number>|null} [mz] Spectrum mz
+                 * @property {Array.<number>|null} [intensity] Spectrum intensity
+                 * @property {com.example.dto.IMs1Stats|null} [ms1Stats] Spectrum ms1Stats
+                 * @property {com.example.dto.IMs2Stats|null} [ms2Stats] Spectrum ms2Stats
+                 */
+
+                /**
+                 * Constructs a new Spectrum.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a Spectrum.
+                 * @implements ISpectrum
+                 * @constructor
+                 * @param {com.example.dto.ISpectrum=} [properties] Properties to set
+                 */
+                function Spectrum(properties) {
+                    this.mz = [];
+                    this.intensity = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Spectrum mz.
+                 * @member {Array.<number>} mz
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 */
+                Spectrum.prototype.mz = $util.emptyArray;
+
+                /**
+                 * Spectrum intensity.
+                 * @member {Array.<number>} intensity
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 */
+                Spectrum.prototype.intensity = $util.emptyArray;
+
+                /**
+                 * Spectrum ms1Stats.
+                 * @member {com.example.dto.IMs1Stats|null|undefined} ms1Stats
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 */
+                Spectrum.prototype.ms1Stats = null;
+
+                /**
+                 * Spectrum ms2Stats.
+                 * @member {com.example.dto.IMs2Stats|null|undefined} ms2Stats
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 */
+                Spectrum.prototype.ms2Stats = null;
+
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+
+                /**
+                 * Spectrum stat.
+                 * @member {"ms1Stats"|"ms2Stats"|undefined} stat
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 */
+                Object.defineProperty(Spectrum.prototype, "stat", {
+                    get: $util.oneOfGetter($oneOfFields = ["ms1Stats", "ms2Stats"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+
+                /**
+                 * Creates a new Spectrum instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {com.example.dto.ISpectrum=} [properties] Properties to set
+                 * @returns {com.example.dto.Spectrum} Spectrum instance
+                 */
+                Spectrum.create = function create(properties) {
+                    return new Spectrum(properties);
+                };
+
+                /**
+                 * Encodes the specified Spectrum message. Does not implicitly {@link com.example.dto.Spectrum.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {com.example.dto.ISpectrum} message Spectrum message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Spectrum.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.mz != null && message.mz.length) {
+                        writer.uint32(/* id 1, wireType 2 =*/10).fork();
+                        for (var i = 0; i < message.mz.length; ++i)
+                            writer.float(message.mz[i]);
+                        writer.ldelim();
+                    }
+                    if (message.intensity != null && message.intensity.length) {
+                        writer.uint32(/* id 2, wireType 2 =*/18).fork();
+                        for (var i = 0; i < message.intensity.length; ++i)
+                            writer.float(message.intensity[i]);
+                        writer.ldelim();
+                    }
+                    if (message.ms1Stats != null && message.hasOwnProperty("ms1Stats"))
+                        $root.com.example.dto.Ms1Stats.encode(message.ms1Stats, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.ms2Stats != null && message.hasOwnProperty("ms2Stats"))
+                        $root.com.example.dto.Ms2Stats.encode(message.ms2Stats, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Spectrum message, length delimited. Does not implicitly {@link com.example.dto.Spectrum.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {com.example.dto.ISpectrum} message Spectrum message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Spectrum.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Spectrum message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Spectrum} Spectrum
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Spectrum.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Spectrum();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.mz && message.mz.length))
+                                message.mz = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.mz.push(reader.float());
+                            } else
+                                message.mz.push(reader.float());
+                            break;
+                        case 2:
+                            if (!(message.intensity && message.intensity.length))
+                                message.intensity = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.intensity.push(reader.float());
+                            } else
+                                message.intensity.push(reader.float());
+                            break;
+                        case 4:
+                            message.ms1Stats = $root.com.example.dto.Ms1Stats.decode(reader, reader.uint32());
+                            break;
+                        case 5:
+                            message.ms2Stats = $root.com.example.dto.Ms2Stats.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Spectrum message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Spectrum} Spectrum
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Spectrum.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Spectrum message.
+                 * @function verify
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Spectrum.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    var properties = {};
+                    if (message.mz != null && message.hasOwnProperty("mz")) {
+                        if (!Array.isArray(message.mz))
+                            return "mz: array expected";
+                        for (var i = 0; i < message.mz.length; ++i)
+                            if (typeof message.mz[i] !== "number")
+                                return "mz: number[] expected";
+                    }
+                    if (message.intensity != null && message.hasOwnProperty("intensity")) {
+                        if (!Array.isArray(message.intensity))
+                            return "intensity: array expected";
+                        for (var i = 0; i < message.intensity.length; ++i)
+                            if (typeof message.intensity[i] !== "number")
+                                return "intensity: number[] expected";
+                    }
+                    if (message.ms1Stats != null && message.hasOwnProperty("ms1Stats")) {
+                        properties.stat = 1;
+                        {
+                            var error = $root.com.example.dto.Ms1Stats.verify(message.ms1Stats);
+                            if (error)
+                                return "ms1Stats." + error;
+                        }
+                    }
+                    if (message.ms2Stats != null && message.hasOwnProperty("ms2Stats")) {
+                        if (properties.stat === 1)
+                            return "stat: multiple values";
+                        properties.stat = 1;
+                        {
+                            var error = $root.com.example.dto.Ms2Stats.verify(message.ms2Stats);
+                            if (error)
+                                return "ms2Stats." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a Spectrum message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Spectrum} Spectrum
+                 */
+                Spectrum.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Spectrum)
+                        return object;
+                    var message = new $root.com.example.dto.Spectrum();
+                    if (object.mz) {
+                        if (!Array.isArray(object.mz))
+                            throw TypeError(".com.example.dto.Spectrum.mz: array expected");
+                        message.mz = [];
+                        for (var i = 0; i < object.mz.length; ++i)
+                            message.mz[i] = Number(object.mz[i]);
+                    }
+                    if (object.intensity) {
+                        if (!Array.isArray(object.intensity))
+                            throw TypeError(".com.example.dto.Spectrum.intensity: array expected");
+                        message.intensity = [];
+                        for (var i = 0; i < object.intensity.length; ++i)
+                            message.intensity[i] = Number(object.intensity[i]);
+                    }
+                    if (object.ms1Stats != null) {
+                        if (typeof object.ms1Stats !== "object")
+                            throw TypeError(".com.example.dto.Spectrum.ms1Stats: object expected");
+                        message.ms1Stats = $root.com.example.dto.Ms1Stats.fromObject(object.ms1Stats);
+                    }
+                    if (object.ms2Stats != null) {
+                        if (typeof object.ms2Stats !== "object")
+                            throw TypeError(".com.example.dto.Spectrum.ms2Stats: object expected");
+                        message.ms2Stats = $root.com.example.dto.Ms2Stats.fromObject(object.ms2Stats);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Spectrum message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Spectrum
+                 * @static
+                 * @param {com.example.dto.Spectrum} message Spectrum
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Spectrum.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.mz = [];
+                        object.intensity = [];
+                    }
+                    if (message.mz && message.mz.length) {
+                        object.mz = [];
+                        for (var j = 0; j < message.mz.length; ++j)
+                            object.mz[j] = options.json && !isFinite(message.mz[j]) ? String(message.mz[j]) : message.mz[j];
+                    }
+                    if (message.intensity && message.intensity.length) {
+                        object.intensity = [];
+                        for (var j = 0; j < message.intensity.length; ++j)
+                            object.intensity[j] = options.json && !isFinite(message.intensity[j]) ? String(message.intensity[j]) : message.intensity[j];
+                    }
+                    if (message.ms1Stats != null && message.hasOwnProperty("ms1Stats")) {
+                        object.ms1Stats = $root.com.example.dto.Ms1Stats.toObject(message.ms1Stats, options);
+                        if (options.oneofs)
+                            object.stat = "ms1Stats";
+                    }
+                    if (message.ms2Stats != null && message.hasOwnProperty("ms2Stats")) {
+                        object.ms2Stats = $root.com.example.dto.Ms2Stats.toObject(message.ms2Stats, options);
+                        if (options.oneofs)
+                            object.stat = "ms2Stats";
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this Spectrum to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Spectrum
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Spectrum.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Spectrum;
+            })();
+
+            dto.ObservedIons = (function() {
+
+                /**
+                 * Properties of an ObservedIons.
+                 * @memberof com.example.dto
+                 * @interface IObservedIons
+                 * @property {Array.<com.example.dto.IIon>|null} [ions] ObservedIons ions
+                 * @property {com.example.dto.ISpectrum|null} [spectrum] ObservedIons spectrum
+                 * @property {number|null} [mz] ObservedIons mz
+                 * @property {number|null} [z] ObservedIons z
+                 * @property {number|Long|null} [retentionTime] ObservedIons retentionTime
+                 */
+
+                /**
+                 * Constructs a new ObservedIons.
+                 * @memberof com.example.dto
+                 * @classdesc Represents an ObservedIons.
+                 * @implements IObservedIons
+                 * @constructor
+                 * @param {com.example.dto.IObservedIons=} [properties] Properties to set
+                 */
+                function ObservedIons(properties) {
+                    this.ions = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ObservedIons ions.
+                 * @member {Array.<com.example.dto.IIon>} ions
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 */
+                ObservedIons.prototype.ions = $util.emptyArray;
+
+                /**
+                 * ObservedIons spectrum.
+                 * @member {com.example.dto.ISpectrum|null|undefined} spectrum
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 */
+                ObservedIons.prototype.spectrum = null;
+
+                /**
+                 * ObservedIons mz.
+                 * @member {number} mz
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 */
+                ObservedIons.prototype.mz = 0;
+
+                /**
+                 * ObservedIons z.
+                 * @member {number} z
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 */
+                ObservedIons.prototype.z = 0;
+
+                /**
+                 * ObservedIons retentionTime.
+                 * @member {number|Long} retentionTime
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 */
+                ObservedIons.prototype.retentionTime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * Creates a new ObservedIons instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {com.example.dto.IObservedIons=} [properties] Properties to set
+                 * @returns {com.example.dto.ObservedIons} ObservedIons instance
+                 */
+                ObservedIons.create = function create(properties) {
+                    return new ObservedIons(properties);
+                };
+
+                /**
+                 * Encodes the specified ObservedIons message. Does not implicitly {@link com.example.dto.ObservedIons.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {com.example.dto.IObservedIons} message ObservedIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ObservedIons.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.ions != null && message.ions.length)
+                        for (var i = 0; i < message.ions.length; ++i)
+                            $root.com.example.dto.Ion.encode(message.ions[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.spectrum != null && message.hasOwnProperty("spectrum"))
+                        $root.com.example.dto.Spectrum.encode(message.spectrum, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        writer.uint32(/* id 4, wireType 5 =*/37).float(message.mz);
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.z);
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).uint64(message.retentionTime);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ObservedIons message, length delimited. Does not implicitly {@link com.example.dto.ObservedIons.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {com.example.dto.IObservedIons} message ObservedIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ObservedIons.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an ObservedIons message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.ObservedIons} ObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ObservedIons.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.ObservedIons();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 2:
+                            if (!(message.ions && message.ions.length))
+                                message.ions = [];
+                            message.ions.push($root.com.example.dto.Ion.decode(reader, reader.uint32()));
+                            break;
+                        case 3:
+                            message.spectrum = $root.com.example.dto.Spectrum.decode(reader, reader.uint32());
+                            break;
+                        case 4:
+                            message.mz = reader.float();
+                            break;
+                        case 5:
+                            message.z = reader.uint32();
+                            break;
+                        case 6:
+                            message.retentionTime = reader.uint64();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an ObservedIons message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.ObservedIons} ObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ObservedIons.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an ObservedIons message.
+                 * @function verify
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ObservedIons.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.ions != null && message.hasOwnProperty("ions")) {
+                        if (!Array.isArray(message.ions))
+                            return "ions: array expected";
+                        for (var i = 0; i < message.ions.length; ++i) {
+                            var error = $root.com.example.dto.Ion.verify(message.ions[i]);
+                            if (error)
+                                return "ions." + error;
+                        }
+                    }
+                    if (message.spectrum != null && message.hasOwnProperty("spectrum")) {
+                        var error = $root.com.example.dto.Spectrum.verify(message.spectrum);
+                        if (error)
+                            return "spectrum." + error;
+                    }
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        if (typeof message.mz !== "number")
+                            return "mz: number expected";
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        if (!$util.isInteger(message.z))
+                            return "z: integer expected";
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (!$util.isInteger(message.retentionTime) && !(message.retentionTime && $util.isInteger(message.retentionTime.low) && $util.isInteger(message.retentionTime.high)))
+                            return "retentionTime: integer|Long expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an ObservedIons message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.ObservedIons} ObservedIons
+                 */
+                ObservedIons.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.ObservedIons)
+                        return object;
+                    var message = new $root.com.example.dto.ObservedIons();
+                    if (object.ions) {
+                        if (!Array.isArray(object.ions))
+                            throw TypeError(".com.example.dto.ObservedIons.ions: array expected");
+                        message.ions = [];
+                        for (var i = 0; i < object.ions.length; ++i) {
+                            if (typeof object.ions[i] !== "object")
+                                throw TypeError(".com.example.dto.ObservedIons.ions: object expected");
+                            message.ions[i] = $root.com.example.dto.Ion.fromObject(object.ions[i]);
+                        }
+                    }
+                    if (object.spectrum != null) {
+                        if (typeof object.spectrum !== "object")
+                            throw TypeError(".com.example.dto.ObservedIons.spectrum: object expected");
+                        message.spectrum = $root.com.example.dto.Spectrum.fromObject(object.spectrum);
+                    }
+                    if (object.mz != null)
+                        message.mz = Number(object.mz);
+                    if (object.z != null)
+                        message.z = object.z >>> 0;
+                    if (object.retentionTime != null)
+                        if ($util.Long)
+                            (message.retentionTime = $util.Long.fromValue(object.retentionTime)).unsigned = true;
+                        else if (typeof object.retentionTime === "string")
+                            message.retentionTime = parseInt(object.retentionTime, 10);
+                        else if (typeof object.retentionTime === "number")
+                            message.retentionTime = object.retentionTime;
+                        else if (typeof object.retentionTime === "object")
+                            message.retentionTime = new $util.LongBits(object.retentionTime.low >>> 0, object.retentionTime.high >>> 0).toNumber(true);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an ObservedIons message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.ObservedIons
+                 * @static
+                 * @param {com.example.dto.ObservedIons} message ObservedIons
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ObservedIons.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.ions = [];
+                    if (options.defaults) {
+                        object.spectrum = null;
+                        object.mz = 0;
+                        object.z = 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, true);
+                            object.retentionTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.retentionTime = options.longs === String ? "0" : 0;
+                    }
+                    if (message.ions && message.ions.length) {
+                        object.ions = [];
+                        for (var j = 0; j < message.ions.length; ++j)
+                            object.ions[j] = $root.com.example.dto.Ion.toObject(message.ions[j], options);
+                    }
+                    if (message.spectrum != null && message.hasOwnProperty("spectrum"))
+                        object.spectrum = $root.com.example.dto.Spectrum.toObject(message.spectrum, options);
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        object.mz = options.json && !isFinite(message.mz) ? String(message.mz) : message.mz;
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        object.z = message.z;
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (typeof message.retentionTime === "number")
+                            object.retentionTime = options.longs === String ? String(message.retentionTime) : message.retentionTime;
+                        else
+                            object.retentionTime = options.longs === String ? $util.Long.prototype.toString.call(message.retentionTime) : options.longs === Number ? new $util.LongBits(message.retentionTime.low >>> 0, message.retentionTime.high >>> 0).toNumber(true) : message.retentionTime;
+                    return object;
+                };
+
+                /**
+                 * Converts this ObservedIons to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.ObservedIons
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ObservedIons.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ObservedIons;
+            })();
+
+            dto.FractionObservedIons = (function() {
+
+                /**
+                 * Properties of a FractionObservedIons.
+                 * @memberof com.example.dto
+                 * @interface IFractionObservedIons
+                 * @property {Object.<string,com.example.dto.IObservedIons>|null} [scanumObservedIons] FractionObservedIons scanumObservedIons
+                 */
+
+                /**
+                 * Constructs a new FractionObservedIons.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a FractionObservedIons.
+                 * @implements IFractionObservedIons
+                 * @constructor
+                 * @param {com.example.dto.IFractionObservedIons=} [properties] Properties to set
+                 */
+                function FractionObservedIons(properties) {
+                    this.scanumObservedIons = {};
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * FractionObservedIons scanumObservedIons.
+                 * @member {Object.<string,com.example.dto.IObservedIons>} scanumObservedIons
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @instance
+                 */
+                FractionObservedIons.prototype.scanumObservedIons = $util.emptyObject;
+
+                /**
+                 * Creates a new FractionObservedIons instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {com.example.dto.IFractionObservedIons=} [properties] Properties to set
+                 * @returns {com.example.dto.FractionObservedIons} FractionObservedIons instance
+                 */
+                FractionObservedIons.create = function create(properties) {
+                    return new FractionObservedIons(properties);
+                };
+
+                /**
+                 * Encodes the specified FractionObservedIons message. Does not implicitly {@link com.example.dto.FractionObservedIons.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {com.example.dto.IFractionObservedIons} message FractionObservedIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FractionObservedIons.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.scanumObservedIons != null && message.hasOwnProperty("scanumObservedIons"))
+                        for (var keys = Object.keys(message.scanumObservedIons), i = 0; i < keys.length; ++i) {
+                            writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 0 =*/8).uint32(keys[i]);
+                            $root.com.example.dto.ObservedIons.encode(message.scanumObservedIons[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                        }
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified FractionObservedIons message, length delimited. Does not implicitly {@link com.example.dto.FractionObservedIons.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {com.example.dto.IFractionObservedIons} message FractionObservedIons message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FractionObservedIons.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a FractionObservedIons message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.FractionObservedIons} FractionObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FractionObservedIons.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.FractionObservedIons(), key;
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 2:
+                            reader.skip().pos++;
+                            if (message.scanumObservedIons === $util.emptyObject)
+                                message.scanumObservedIons = {};
+                            key = reader.uint32();
+                            reader.pos++;
+                            message.scanumObservedIons[key] = $root.com.example.dto.ObservedIons.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a FractionObservedIons message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.FractionObservedIons} FractionObservedIons
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FractionObservedIons.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a FractionObservedIons message.
+                 * @function verify
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                FractionObservedIons.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.scanumObservedIons != null && message.hasOwnProperty("scanumObservedIons")) {
+                        if (!$util.isObject(message.scanumObservedIons))
+                            return "scanumObservedIons: object expected";
+                        var key = Object.keys(message.scanumObservedIons);
+                        for (var i = 0; i < key.length; ++i) {
+                            if (!$util.key32Re.test(key[i]))
+                                return "scanumObservedIons: integer key{k:uint32} expected";
+                            {
+                                var error = $root.com.example.dto.ObservedIons.verify(message.scanumObservedIons[key[i]]);
+                                if (error)
+                                    return "scanumObservedIons." + error;
+                            }
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a FractionObservedIons message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.FractionObservedIons} FractionObservedIons
+                 */
+                FractionObservedIons.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.FractionObservedIons)
+                        return object;
+                    var message = new $root.com.example.dto.FractionObservedIons();
+                    if (object.scanumObservedIons) {
+                        if (typeof object.scanumObservedIons !== "object")
+                            throw TypeError(".com.example.dto.FractionObservedIons.scanumObservedIons: object expected");
+                        message.scanumObservedIons = {};
+                        for (var keys = Object.keys(object.scanumObservedIons), i = 0; i < keys.length; ++i) {
+                            if (typeof object.scanumObservedIons[keys[i]] !== "object")
+                                throw TypeError(".com.example.dto.FractionObservedIons.scanumObservedIons: object expected");
+                            message.scanumObservedIons[keys[i]] = $root.com.example.dto.ObservedIons.fromObject(object.scanumObservedIons[keys[i]]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a FractionObservedIons message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @static
+                 * @param {com.example.dto.FractionObservedIons} message FractionObservedIons
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                FractionObservedIons.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.objects || options.defaults)
+                        object.scanumObservedIons = {};
+                    var keys2;
+                    if (message.scanumObservedIons && (keys2 = Object.keys(message.scanumObservedIons)).length) {
+                        object.scanumObservedIons = {};
+                        for (var j = 0; j < keys2.length; ++j)
+                            object.scanumObservedIons[keys2[j]] = $root.com.example.dto.ObservedIons.toObject(message.scanumObservedIons[keys2[j]], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this FractionObservedIons to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.FractionObservedIons
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                FractionObservedIons.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return FractionObservedIons;
+            })();
+
+            dto.PsmIonMatch = (function() {
+
+                /**
+                 * Properties of a PsmIonMatch.
+                 * @memberof com.example.dto
+                 * @interface IPsmIonMatch
+                 * @property {string|null} [sequence] PsmIonMatch sequence
+                 * @property {Object.<string,com.example.dto.IFractionObservedIons>|null} [fractionObservedIons] PsmIonMatch fractionObservedIons
+                 * @property {Array.<com.example.dto.ITheoreticalIons>|null} [theoreticalIons] PsmIonMatch theoreticalIons
+                 * @property {com.example.dto.ActivationMethod|null} [activationMethod] PsmIonMatch activationMethod
+                 */
+
+                /**
+                 * Constructs a new PsmIonMatch.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a PsmIonMatch.
+                 * @implements IPsmIonMatch
+                 * @constructor
+                 * @param {com.example.dto.IPsmIonMatch=} [properties] Properties to set
+                 */
+                function PsmIonMatch(properties) {
+                    this.fractionObservedIons = {};
+                    this.theoreticalIons = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PsmIonMatch sequence.
+                 * @member {string} sequence
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @instance
+                 */
+                PsmIonMatch.prototype.sequence = "";
+
+                /**
+                 * PsmIonMatch fractionObservedIons.
+                 * @member {Object.<string,com.example.dto.IFractionObservedIons>} fractionObservedIons
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @instance
+                 */
+                PsmIonMatch.prototype.fractionObservedIons = $util.emptyObject;
+
+                /**
+                 * PsmIonMatch theoreticalIons.
+                 * @member {Array.<com.example.dto.ITheoreticalIons>} theoreticalIons
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @instance
+                 */
+                PsmIonMatch.prototype.theoreticalIons = $util.emptyArray;
+
+                /**
+                 * PsmIonMatch activationMethod.
+                 * @member {com.example.dto.ActivationMethod} activationMethod
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @instance
+                 */
+                PsmIonMatch.prototype.activationMethod = 0;
+
+                /**
+                 * Creates a new PsmIonMatch instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {com.example.dto.IPsmIonMatch=} [properties] Properties to set
+                 * @returns {com.example.dto.PsmIonMatch} PsmIonMatch instance
+                 */
+                PsmIonMatch.create = function create(properties) {
+                    return new PsmIonMatch(properties);
+                };
+
+                /**
+                 * Encodes the specified PsmIonMatch message. Does not implicitly {@link com.example.dto.PsmIonMatch.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {com.example.dto.IPsmIonMatch} message PsmIonMatch message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PsmIonMatch.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.sequence);
+                    if (message.fractionObservedIons != null && message.hasOwnProperty("fractionObservedIons"))
+                        for (var keys = Object.keys(message.fractionObservedIons), i = 0; i < keys.length; ++i) {
+                            writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
+                            $root.com.example.dto.FractionObservedIons.encode(message.fractionObservedIons[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                        }
+                    if (message.theoreticalIons != null && message.theoreticalIons.length)
+                        for (var i = 0; i < message.theoreticalIons.length; ++i)
+                            $root.com.example.dto.TheoreticalIons.encode(message.theoreticalIons[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.activationMethod);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PsmIonMatch message, length delimited. Does not implicitly {@link com.example.dto.PsmIonMatch.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {com.example.dto.IPsmIonMatch} message PsmIonMatch message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PsmIonMatch.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PsmIonMatch message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.PsmIonMatch} PsmIonMatch
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PsmIonMatch.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.PsmIonMatch(), key;
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sequence = reader.string();
+                            break;
+                        case 2:
+                            reader.skip().pos++;
+                            if (message.fractionObservedIons === $util.emptyObject)
+                                message.fractionObservedIons = {};
+                            key = reader.string();
+                            reader.pos++;
+                            message.fractionObservedIons[key] = $root.com.example.dto.FractionObservedIons.decode(reader, reader.uint32());
+                            break;
+                        case 3:
+                            if (!(message.theoreticalIons && message.theoreticalIons.length))
+                                message.theoreticalIons = [];
+                            message.theoreticalIons.push($root.com.example.dto.TheoreticalIons.decode(reader, reader.uint32()));
+                            break;
+                        case 4:
+                            message.activationMethod = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PsmIonMatch message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.PsmIonMatch} PsmIonMatch
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PsmIonMatch.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PsmIonMatch message.
+                 * @function verify
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PsmIonMatch.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        if (!$util.isString(message.sequence))
+                            return "sequence: string expected";
+                    if (message.fractionObservedIons != null && message.hasOwnProperty("fractionObservedIons")) {
+                        if (!$util.isObject(message.fractionObservedIons))
+                            return "fractionObservedIons: object expected";
+                        var key = Object.keys(message.fractionObservedIons);
+                        for (var i = 0; i < key.length; ++i) {
+                            var error = $root.com.example.dto.FractionObservedIons.verify(message.fractionObservedIons[key[i]]);
+                            if (error)
+                                return "fractionObservedIons." + error;
+                        }
+                    }
+                    if (message.theoreticalIons != null && message.hasOwnProperty("theoreticalIons")) {
+                        if (!Array.isArray(message.theoreticalIons))
+                            return "theoreticalIons: array expected";
+                        for (var i = 0; i < message.theoreticalIons.length; ++i) {
+                            var error = $root.com.example.dto.TheoreticalIons.verify(message.theoreticalIons[i]);
+                            if (error)
+                                return "theoreticalIons." + error;
+                        }
+                    }
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        switch (message.activationMethod) {
+                        default:
+                            return "activationMethod: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a PsmIonMatch message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.PsmIonMatch} PsmIonMatch
+                 */
+                PsmIonMatch.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.PsmIonMatch)
+                        return object;
+                    var message = new $root.com.example.dto.PsmIonMatch();
+                    if (object.sequence != null)
+                        message.sequence = String(object.sequence);
+                    if (object.fractionObservedIons) {
+                        if (typeof object.fractionObservedIons !== "object")
+                            throw TypeError(".com.example.dto.PsmIonMatch.fractionObservedIons: object expected");
+                        message.fractionObservedIons = {};
+                        for (var keys = Object.keys(object.fractionObservedIons), i = 0; i < keys.length; ++i) {
+                            if (typeof object.fractionObservedIons[keys[i]] !== "object")
+                                throw TypeError(".com.example.dto.PsmIonMatch.fractionObservedIons: object expected");
+                            message.fractionObservedIons[keys[i]] = $root.com.example.dto.FractionObservedIons.fromObject(object.fractionObservedIons[keys[i]]);
+                        }
+                    }
+                    if (object.theoreticalIons) {
+                        if (!Array.isArray(object.theoreticalIons))
+                            throw TypeError(".com.example.dto.PsmIonMatch.theoreticalIons: array expected");
+                        message.theoreticalIons = [];
+                        for (var i = 0; i < object.theoreticalIons.length; ++i) {
+                            if (typeof object.theoreticalIons[i] !== "object")
+                                throw TypeError(".com.example.dto.PsmIonMatch.theoreticalIons: object expected");
+                            message.theoreticalIons[i] = $root.com.example.dto.TheoreticalIons.fromObject(object.theoreticalIons[i]);
+                        }
+                    }
+                    switch (object.activationMethod) {
+                    case "UNDEFINED":
+                    case 0:
+                        message.activationMethod = 0;
+                        break;
+                    case "CID":
+                    case 1:
+                        message.activationMethod = 1;
+                        break;
+                    case "HCD":
+                    case 2:
+                        message.activationMethod = 2;
+                        break;
+                    case "ECD":
+                    case 3:
+                        message.activationMethod = 3;
+                        break;
+                    case "MIX":
+                    case 4:
+                        message.activationMethod = 4;
+                        break;
+                    case "PQD":
+                    case 5:
+                        message.activationMethod = 5;
+                        break;
+                    case "IRMPD":
+                    case 6:
+                        message.activationMethod = 6;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PsmIonMatch message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @static
+                 * @param {com.example.dto.PsmIonMatch} message PsmIonMatch
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PsmIonMatch.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.theoreticalIons = [];
+                    if (options.objects || options.defaults)
+                        object.fractionObservedIons = {};
+                    if (options.defaults) {
+                        object.sequence = "";
+                        object.activationMethod = options.enums === String ? "UNDEFINED" : 0;
+                    }
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        object.sequence = message.sequence;
+                    var keys2;
+                    if (message.fractionObservedIons && (keys2 = Object.keys(message.fractionObservedIons)).length) {
+                        object.fractionObservedIons = {};
+                        for (var j = 0; j < keys2.length; ++j)
+                            object.fractionObservedIons[keys2[j]] = $root.com.example.dto.FractionObservedIons.toObject(message.fractionObservedIons[keys2[j]], options);
+                    }
+                    if (message.theoreticalIons && message.theoreticalIons.length) {
+                        object.theoreticalIons = [];
+                        for (var j = 0; j < message.theoreticalIons.length; ++j)
+                            object.theoreticalIons[j] = $root.com.example.dto.TheoreticalIons.toObject(message.theoreticalIons[j], options);
+                    }
+                    if (message.activationMethod != null && message.hasOwnProperty("activationMethod"))
+                        object.activationMethod = options.enums === String ? $root.com.example.dto.ActivationMethod[message.activationMethod] : message.activationMethod;
+                    return object;
+                };
+
+                /**
+                 * Converts this PsmIonMatch to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.PsmIonMatch
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PsmIonMatch.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PsmIonMatch;
+            })();
+
             return dto;
         })();
 

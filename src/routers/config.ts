@@ -14,6 +14,7 @@ const routesConfig: {[key: string]: RoutesConfig[]} = {
           subs: [
               { key: "/app/charts/scatter", title: "ScatterPlot", icon: "bubble_chart", component: "VolcanoPlotPage", auth: true},
               { key: "/app/charts/heatmap", title: "Heatmap", icon: "title", component: "HeatmapPage", auth: true},
+              { key: "/app/charts/spectrum", title: "Spectrum", icon: "bar_chart", component: "SpectrumViewPage", auth: true}
           ]},
         {
             key: "/app/material", title: "MUI Components", icon: "M", component: "ButtonsPage",

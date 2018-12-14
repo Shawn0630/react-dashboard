@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://shawn0630.github.io/ts-react-redux-webpack-starter",
+  "homepage": "https://shawn0630.github.io/react-dashboard",
   "devDependencies": {
     "@types/classnames": "^2.2.6",
     "@types/d3": "^4.12.0",

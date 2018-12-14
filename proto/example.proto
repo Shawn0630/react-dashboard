@@ -101,3 +101,104 @@ enum ModificationType {
     DELETION = 3;
 }
 
+
+message FileNode {
+    string filename = 1;
+    Type type = 2;
+    repeated FileNode children = 3;
+
+    enum Type {
+        FILE = 0;
+        DIR = 1;
+    }
+}
+
+enum IonType {
+    A = 0;
+    B = 1;
+    C = 2;
+    X = 3;
+    Y = 4;
+    Z = 5;
+    Z_PRIME = 6;
+    IMMONIUM = 7;
+    PRECURSOR = 8;
+
+    A_MINUS_H2O = 16;
+    B_MINUS_H2O = 17;
+    C_MINUS_H2O = 18;
+    X_MINUS_H2O = 19;
+    Y_MINUS_H2O = 20;
+    Z_MINUS_H2O = 21;
+    Z_PRIME_MINUS_H2O = 22;
+
+    A_MINUS_NH3 = 32;
+    B_MINUS_NH3 = 33;
+    C_MINUS_NH3 = 34;
+    X_MINUS_NH3 = 35;
+    Y_MINUS_NH3 = 36;
+    Z_MINUS_NH3 = 37;
+    Z_PRIME_MINUS_NH3 = 38;
+
+    A_CHARGE2 = 48;
+    B_CHARGE2 = 49;
+    C_CHARGE2 = 50;
+    X_CHARGE2 = 51;
+    Y_CHARGE2 = 52;
+    Z_CHARGE2 = 53;
+    Z_PRIME_CHARGE2 = 54;
+
+    C_MINUS_H = 66;
+}
+
+message TheoreticalIons {
+    IonType type = 1;
+    repeated float mz = 2;
+}
+
+message Ion {
+    IonType type = 1;
+    float mz = 2;
+    float h = 3;
+    uint32 pos = 4;
+}
+message Ms1Stats {
+    uint64 retentionTime = 1; // milliseconds
+    float tic = 2;
+    uint32 scan = 3; //ms1 scan number
+    float basePeakIntensity = 4;
+}
+
+message Ms2Stats {
+    uint64 retentionTime = 1; // milliseconds
+    float tic = 2;
+    uint32 scan = 3;
+    uint32 ms1Scan = 4;
+    float precursorMz = 5;
+    uint32 precursorCharge = 6;
+    float basePeakIntensity = 7;
+}
+message Spectrum {
+    repeated float mz = 1;
+    repeated float intensity = 2;
+    oneof stat {
+        Ms1Stats ms1Stats = 4;
+        Ms2Stats ms2Stats = 5;
+    }
+}
+message ObservedIons {
+    repeated Ion ions = 2;
+    Spectrum spectrum = 3;
+    float mz = 4;
+    uint32 z = 5;
+    uint64 retentionTime = 6; // milliseconds
+}
+message FractionObservedIons {
+    map<uint32, ObservedIons> scanumObservedIons = 2; // Scannum is key
+}
+message PsmIonMatch {
+    string sequence = 1;
+    map<string, FractionObservedIons> fractionObservedIons = 2; // Fraction is key
+    repeated TheoreticalIons theoreticalIons = 3;
+    ActivationMethod activationMethod = 4;
+}
