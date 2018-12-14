@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as styles from "./SpectrumView.scss";
 import { ExperimentalSpectrum, SpectrumView, TheoreticalIonMatch } from "./SpectrumView";
 import { IonHelpers } from "./ion-helpers";
 import * as data from "../../../data/IonMatch.json";
@@ -33,8 +34,10 @@ export default class SpectrumViewPage extends React.PureComponent<null> {
             intensity: observedIons.spectrum.intensity,
             basePeakIntensity: observedIons.spectrum.ms2Stats.basePeakIntensity
         };
-        return <SpectrumView id={"spectrumView-1"} showPercent
-                    theoreticalIonMatch={theoreticalIonMatch} experimentalSpectrum={experimentalSpectrum} />;
+        return <div className={styles.spectrumViewPage}>
+            <SpectrumView id={"spectrumView-1"} showPercent
+                    theoreticalIonMatch={theoreticalIonMatch} experimentalSpectrum={experimentalSpectrum} />
+        </div>;
     }
 
     private filterTheoreticalIons(theoreticalIons: ITheoreticalIons[], columns: string[]): ITheoreticalIons[] {
