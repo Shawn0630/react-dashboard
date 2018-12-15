@@ -1,0 +1,76 @@
+{
+    "filename": "Sources",
+    "type": "DIR",
+    "children": [
+        {
+            "filename": "Remote Data 1",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "File 1",
+                    "type": "FILE",
+                    "children": []
+                },
+                {
+                    "filename": "File 2",
+                    "type": "FILE",
+                    "children": []
+                },
+                {
+                    "filename": "DIR 1",
+                    "type": "DIR",
+                    "children": [
+                        {
+                            "filename": "File 1",
+                            "type": "FILE",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "filename": "File 3",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "filename": "Remote Data 2",
+            "type": "DIR",
+            "children": []
+        },
+        {
+            "filename": "Remote Data 3",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "file 3",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "filename": "Remote Data 4",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "file 4",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "filename": "Remote Data 5",
+            "type": "DIR",
+            "children": [
+                {
+                    "filename": "file 5",
+                    "type": "FILE",
+                    "children": []
+                }
+            ]
+        }
+    ]
+}

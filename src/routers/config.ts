@@ -20,7 +20,8 @@ const routesConfig: {[key: string]: RoutesConfig[]} = {
             key: "/app/material", title: "MUI Components", icon: "M", component: "ButtonsPage",
             subs: [
                 { key: "/app/material/buttons", title: "Buttons", icon: "B", component: "ButtonsPage"},
-                { key: "/app/material/customize", title: "Customizations", icon: "C", component: "CustomizePage"}
+                { key: "/app/material/customize", title: "Customizations", icon: "C", component: "CustomizePage"},
+                { key: "/app/material/filebrowser", title: "File Browser", icon: "F", component: "FileBrowserPage"}
             ]}
     ],
     others: [
