@@ -11,3 +11,68 @@
 .select {
     padding-top: 15px;
 }
+
+.tree {
+    ul {
+        margin-left: 20px;
+    }
+
+    li {
+        list-style-type: none;
+        margin:10px;
+        position: relative;
+
+        span {
+            margin-left: 5px
+        }
+    }
+
+    li::before {
+        content: "";
+        position: absolute;
+        top:-6px;
+        left:-20px;
+        border-left: 1px solid #ccc;
+        border-bottom:1px solid #ccc;
+        border-radius:0 0 0 0px;
+        width:20px;
+        height:15px;
+    }
+
+    li::after {
+        position:absolute;
+        content:"";
+        top:8px;
+        left:-20px;
+        border-left: 1px solid #ccc;
+        border-top:1px solid #ccc;
+        border-radius:0px 0 0 0;
+        width:20px;
+        height:30px;
+    }
+
+    li:last-child::after  {
+        display:none;
+    }
+
+    li:last-child:before{
+        border-radius: 0 0 0 5px;
+    }
+
+    ul.tree>li:first-child::before {
+        display:none;
+    }
+
+    ul.tree>li:first-child::after {
+        border-radius:5px 0 0 0;
+    }
+}
+
+.disabled {
+     color: theme-color("disable", "background");
+}
+
+.textToolTip {
+    white-space: pre-line !important;
+    text-align: left
+}
