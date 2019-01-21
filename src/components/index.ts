@@ -6,6 +6,7 @@ import NotFound from "~components/NotFound";
 import CustomizePage from "~components/mui/CustomizePage";
 import SpectrumViewPage from "~components/charts/SpectrumViewPage";
 import FileBrowserPage from "~components/mui/FileBrowserPage";
+import ProteinCoveragePage from "~components/mui/ProteinCoveragePage";
 
 const Components: { [key: string]: React.ComponentClass } = { // tslint:disable-line
     VolcanoPlotPage,
@@ -15,7 +16,8 @@ const Components: { [key: string]: React.ComponentClass } = { // tslint:disable-
     NotFound,
     CustomizePage,
     SpectrumViewPage,
-    FileBrowserPage
+    FileBrowserPage,
+    ProteinCoveragePage
 };
 
 export default Components;

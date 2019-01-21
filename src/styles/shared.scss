@@ -76,3 +76,69 @@
     white-space: pre-line !important;
     text-align: left
 }
+
+.ptmCoverage {
+    display: block;
+    width: 14px;
+    height: 14px;
+    font-size: 18px;
+}
+
+.ptmInCoverageColorOne {
+    @extend .ptmCoverage;
+    background-color: #F36D70;
+    color: black;
+}
+
+.ptmInCoverageColorTwo {
+    @extend .ptmCoverage;
+    background-color: #FFAD15;
+    color: black;
+}
+
+.ptmInCoverageColorThree {
+    @extend .ptmCoverage;
+    background-color: #97A2FF;
+    color: black;
+}
+
+.ptmInCoverageColorFour {
+    @extend .ptmCoverage;
+    background-color: #5ED3DD;
+    color: black;
+}
+
+.ptmInCoverageColorFive {
+    @extend .ptmCoverage;
+    background-color: #DF8BCF;
+    color: black;
+}
+
+.ptmInCoverageColorSix {
+    @extend .ptmCoverage;
+    background-color: #92E770;
+    color: black;
+}
+
+.ptmInCoverageColorSeven {
+    @extend .ptmCoverage;
+    background-color: #974806;
+    color: white;
+}
+
+.ptmInCoverageColorEight {
+    @extend .ptmCoverage;
+    background-color: #31859B;
+    color: white;
+}
+
+.ptmInCoverageColorNine {
+    @extend .ptmCoverage;
+    background-color: #944BC9;
+    color: white;
+}
+
+.ptmInCoverageSubstituation {
+    @extend .ptmCoverage;
+    border: 1px solid black;
+}
