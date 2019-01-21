@@ -6116,6 +6116,3129 @@ $root.com = (function() {
                 return PsmIonMatch;
             })();
 
+            dto.ProteinPeptide = (function() {
+
+                /**
+                 * Properties of a ProteinPeptide.
+                 * @memberof com.example.dto
+                 * @interface IProteinPeptide
+                 * @property {com.example.dto.IProtein|null} [protein] ProteinPeptide protein
+                 * @property {Array.<com.example.dto.ISupportPeptide>|null} [peptides] ProteinPeptide peptides
+                 * @property {string|null} [proteinSequence] ProteinPeptide proteinSequence
+                 */
+
+                /**
+                 * Constructs a new ProteinPeptide.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a ProteinPeptide.
+                 * @implements IProteinPeptide
+                 * @constructor
+                 * @param {com.example.dto.IProteinPeptide=} [properties] Properties to set
+                 */
+                function ProteinPeptide(properties) {
+                    this.peptides = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ProteinPeptide protein.
+                 * @member {com.example.dto.IProtein|null|undefined} protein
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @instance
+                 */
+                ProteinPeptide.prototype.protein = null;
+
+                /**
+                 * ProteinPeptide peptides.
+                 * @member {Array.<com.example.dto.ISupportPeptide>} peptides
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @instance
+                 */
+                ProteinPeptide.prototype.peptides = $util.emptyArray;
+
+                /**
+                 * ProteinPeptide proteinSequence.
+                 * @member {string} proteinSequence
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @instance
+                 */
+                ProteinPeptide.prototype.proteinSequence = "";
+
+                /**
+                 * Creates a new ProteinPeptide instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {com.example.dto.IProteinPeptide=} [properties] Properties to set
+                 * @returns {com.example.dto.ProteinPeptide} ProteinPeptide instance
+                 */
+                ProteinPeptide.create = function create(properties) {
+                    return new ProteinPeptide(properties);
+                };
+
+                /**
+                 * Encodes the specified ProteinPeptide message. Does not implicitly {@link com.example.dto.ProteinPeptide.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {com.example.dto.IProteinPeptide} message ProteinPeptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ProteinPeptide.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.protein != null && message.hasOwnProperty("protein"))
+                        $root.com.example.dto.Protein.encode(message.protein, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.peptides != null && message.peptides.length)
+                        for (var i = 0; i < message.peptides.length; ++i)
+                            $root.com.example.dto.SupportPeptide.encode(message.peptides[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.proteinSequence != null && message.hasOwnProperty("proteinSequence"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.proteinSequence);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ProteinPeptide message, length delimited. Does not implicitly {@link com.example.dto.ProteinPeptide.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {com.example.dto.IProteinPeptide} message ProteinPeptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ProteinPeptide.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ProteinPeptide message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.ProteinPeptide} ProteinPeptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ProteinPeptide.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.ProteinPeptide();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.protein = $root.com.example.dto.Protein.decode(reader, reader.uint32());
+                            break;
+                        case 2:
+                            if (!(message.peptides && message.peptides.length))
+                                message.peptides = [];
+                            message.peptides.push($root.com.example.dto.SupportPeptide.decode(reader, reader.uint32()));
+                            break;
+                        case 3:
+                            message.proteinSequence = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ProteinPeptide message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.ProteinPeptide} ProteinPeptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ProteinPeptide.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ProteinPeptide message.
+                 * @function verify
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ProteinPeptide.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.protein != null && message.hasOwnProperty("protein")) {
+                        var error = $root.com.example.dto.Protein.verify(message.protein);
+                        if (error)
+                            return "protein." + error;
+                    }
+                    if (message.peptides != null && message.hasOwnProperty("peptides")) {
+                        if (!Array.isArray(message.peptides))
+                            return "peptides: array expected";
+                        for (var i = 0; i < message.peptides.length; ++i) {
+                            var error = $root.com.example.dto.SupportPeptide.verify(message.peptides[i]);
+                            if (error)
+                                return "peptides." + error;
+                        }
+                    }
+                    if (message.proteinSequence != null && message.hasOwnProperty("proteinSequence"))
+                        if (!$util.isString(message.proteinSequence))
+                            return "proteinSequence: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a ProteinPeptide message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.ProteinPeptide} ProteinPeptide
+                 */
+                ProteinPeptide.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.ProteinPeptide)
+                        return object;
+                    var message = new $root.com.example.dto.ProteinPeptide();
+                    if (object.protein != null) {
+                        if (typeof object.protein !== "object")
+                            throw TypeError(".com.example.dto.ProteinPeptide.protein: object expected");
+                        message.protein = $root.com.example.dto.Protein.fromObject(object.protein);
+                    }
+                    if (object.peptides) {
+                        if (!Array.isArray(object.peptides))
+                            throw TypeError(".com.example.dto.ProteinPeptide.peptides: array expected");
+                        message.peptides = [];
+                        for (var i = 0; i < object.peptides.length; ++i) {
+                            if (typeof object.peptides[i] !== "object")
+                                throw TypeError(".com.example.dto.ProteinPeptide.peptides: object expected");
+                            message.peptides[i] = $root.com.example.dto.SupportPeptide.fromObject(object.peptides[i]);
+                        }
+                    }
+                    if (object.proteinSequence != null)
+                        message.proteinSequence = String(object.proteinSequence);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ProteinPeptide message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @static
+                 * @param {com.example.dto.ProteinPeptide} message ProteinPeptide
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ProteinPeptide.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.peptides = [];
+                    if (options.defaults) {
+                        object.protein = null;
+                        object.proteinSequence = "";
+                    }
+                    if (message.protein != null && message.hasOwnProperty("protein"))
+                        object.protein = $root.com.example.dto.Protein.toObject(message.protein, options);
+                    if (message.peptides && message.peptides.length) {
+                        object.peptides = [];
+                        for (var j = 0; j < message.peptides.length; ++j)
+                            object.peptides[j] = $root.com.example.dto.SupportPeptide.toObject(message.peptides[j], options);
+                    }
+                    if (message.proteinSequence != null && message.hasOwnProperty("proteinSequence"))
+                        object.proteinSequence = message.proteinSequence;
+                    return object;
+                };
+
+                /**
+                 * Converts this ProteinPeptide to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.ProteinPeptide
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ProteinPeptide.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ProteinPeptide;
+            })();
+
+            dto.Protein = (function() {
+
+                /**
+                 * Properties of a Protein.
+                 * @memberof com.example.dto
+                 * @interface IProtein
+                 * @property {string|null} [id] Protein id
+                 * @property {string|null} [accession] Protein accession
+                 * @property {string|null} [description] Protein description
+                 * @property {number|null} [pValue] Protein pValue
+                 * @property {number|null} [cluster] Protein cluster
+                 * @property {number|null} [coverage] Protein coverage
+                 * @property {number|null} [mass] Protein mass
+                 * @property {Array.<com.example.dto.IAbbreviatedModification>|null} [modifications] Protein modifications
+                 * @property {Array.<com.example.dto.IProteinSample>|null} [samples] Protein samples
+                 * @property {number|null} [peptides] Protein peptides
+                 * @property {number|null} [unique] Protein unique
+                 * @property {boolean|null} [top] Protein top
+                 */
+
+                /**
+                 * Constructs a new Protein.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a Protein.
+                 * @implements IProtein
+                 * @constructor
+                 * @param {com.example.dto.IProtein=} [properties] Properties to set
+                 */
+                function Protein(properties) {
+                    this.modifications = [];
+                    this.samples = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Protein id.
+                 * @member {string} id
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.id = "";
+
+                /**
+                 * Protein accession.
+                 * @member {string} accession
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.accession = "";
+
+                /**
+                 * Protein description.
+                 * @member {string} description
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.description = "";
+
+                /**
+                 * Protein pValue.
+                 * @member {number} pValue
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.pValue = 0;
+
+                /**
+                 * Protein cluster.
+                 * @member {number} cluster
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.cluster = 0;
+
+                /**
+                 * Protein coverage.
+                 * @member {number} coverage
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.coverage = 0;
+
+                /**
+                 * Protein mass.
+                 * @member {number} mass
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.mass = 0;
+
+                /**
+                 * Protein modifications.
+                 * @member {Array.<com.example.dto.IAbbreviatedModification>} modifications
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.modifications = $util.emptyArray;
+
+                /**
+                 * Protein samples.
+                 * @member {Array.<com.example.dto.IProteinSample>} samples
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.samples = $util.emptyArray;
+
+                /**
+                 * Protein peptides.
+                 * @member {number} peptides
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.peptides = 0;
+
+                /**
+                 * Protein unique.
+                 * @member {number} unique
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.unique = 0;
+
+                /**
+                 * Protein top.
+                 * @member {boolean} top
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 */
+                Protein.prototype.top = false;
+
+                /**
+                 * Creates a new Protein instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {com.example.dto.IProtein=} [properties] Properties to set
+                 * @returns {com.example.dto.Protein} Protein instance
+                 */
+                Protein.create = function create(properties) {
+                    return new Protein(properties);
+                };
+
+                /**
+                 * Encodes the specified Protein message. Does not implicitly {@link com.example.dto.Protein.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {com.example.dto.IProtein} message Protein message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Protein.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                    if (message.accession != null && message.hasOwnProperty("accession"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.accession);
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.description);
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        writer.uint32(/* id 4, wireType 5 =*/37).float(message.pValue);
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.cluster);
+                    if (message.coverage != null && message.hasOwnProperty("coverage"))
+                        writer.uint32(/* id 6, wireType 5 =*/53).float(message.coverage);
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        writer.uint32(/* id 7, wireType 5 =*/61).float(message.mass);
+                    if (message.modifications != null && message.modifications.length)
+                        for (var i = 0; i < message.modifications.length; ++i)
+                            $root.com.example.dto.AbbreviatedModification.encode(message.modifications[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.samples != null && message.samples.length)
+                        for (var i = 0; i < message.samples.length; ++i)
+                            $root.com.example.dto.ProteinSample.encode(message.samples[i], writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    if (message.peptides != null && message.hasOwnProperty("peptides"))
+                        writer.uint32(/* id 12, wireType 0 =*/96).uint32(message.peptides);
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.unique);
+                    if (message.top != null && message.hasOwnProperty("top"))
+                        writer.uint32(/* id 14, wireType 0 =*/112).bool(message.top);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Protein message, length delimited. Does not implicitly {@link com.example.dto.Protein.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {com.example.dto.IProtein} message Protein message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Protein.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Protein message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Protein} Protein
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Protein.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Protein();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.id = reader.string();
+                            break;
+                        case 2:
+                            message.accession = reader.string();
+                            break;
+                        case 3:
+                            message.description = reader.string();
+                            break;
+                        case 4:
+                            message.pValue = reader.float();
+                            break;
+                        case 5:
+                            message.cluster = reader.uint32();
+                            break;
+                        case 6:
+                            message.coverage = reader.float();
+                            break;
+                        case 7:
+                            message.mass = reader.float();
+                            break;
+                        case 8:
+                            if (!(message.modifications && message.modifications.length))
+                                message.modifications = [];
+                            message.modifications.push($root.com.example.dto.AbbreviatedModification.decode(reader, reader.uint32()));
+                            break;
+                        case 9:
+                            if (!(message.samples && message.samples.length))
+                                message.samples = [];
+                            message.samples.push($root.com.example.dto.ProteinSample.decode(reader, reader.uint32()));
+                            break;
+                        case 12:
+                            message.peptides = reader.uint32();
+                            break;
+                        case 13:
+                            message.unique = reader.uint32();
+                            break;
+                        case 14:
+                            message.top = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Protein message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Protein} Protein
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Protein.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Protein message.
+                 * @function verify
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Protein.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (!$util.isString(message.id))
+                            return "id: string expected";
+                    if (message.accession != null && message.hasOwnProperty("accession"))
+                        if (!$util.isString(message.accession))
+                            return "accession: string expected";
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        if (!$util.isString(message.description))
+                            return "description: string expected";
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        if (typeof message.pValue !== "number")
+                            return "pValue: number expected";
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        if (!$util.isInteger(message.cluster))
+                            return "cluster: integer expected";
+                    if (message.coverage != null && message.hasOwnProperty("coverage"))
+                        if (typeof message.coverage !== "number")
+                            return "coverage: number expected";
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        if (typeof message.mass !== "number")
+                            return "mass: number expected";
+                    if (message.modifications != null && message.hasOwnProperty("modifications")) {
+                        if (!Array.isArray(message.modifications))
+                            return "modifications: array expected";
+                        for (var i = 0; i < message.modifications.length; ++i) {
+                            var error = $root.com.example.dto.AbbreviatedModification.verify(message.modifications[i]);
+                            if (error)
+                                return "modifications." + error;
+                        }
+                    }
+                    if (message.samples != null && message.hasOwnProperty("samples")) {
+                        if (!Array.isArray(message.samples))
+                            return "samples: array expected";
+                        for (var i = 0; i < message.samples.length; ++i) {
+                            var error = $root.com.example.dto.ProteinSample.verify(message.samples[i]);
+                            if (error)
+                                return "samples." + error;
+                        }
+                    }
+                    if (message.peptides != null && message.hasOwnProperty("peptides"))
+                        if (!$util.isInteger(message.peptides))
+                            return "peptides: integer expected";
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        if (!$util.isInteger(message.unique))
+                            return "unique: integer expected";
+                    if (message.top != null && message.hasOwnProperty("top"))
+                        if (typeof message.top !== "boolean")
+                            return "top: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Protein message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Protein} Protein
+                 */
+                Protein.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Protein)
+                        return object;
+                    var message = new $root.com.example.dto.Protein();
+                    if (object.id != null)
+                        message.id = String(object.id);
+                    if (object.accession != null)
+                        message.accession = String(object.accession);
+                    if (object.description != null)
+                        message.description = String(object.description);
+                    if (object.pValue != null)
+                        message.pValue = Number(object.pValue);
+                    if (object.cluster != null)
+                        message.cluster = object.cluster >>> 0;
+                    if (object.coverage != null)
+                        message.coverage = Number(object.coverage);
+                    if (object.mass != null)
+                        message.mass = Number(object.mass);
+                    if (object.modifications) {
+                        if (!Array.isArray(object.modifications))
+                            throw TypeError(".com.example.dto.Protein.modifications: array expected");
+                        message.modifications = [];
+                        for (var i = 0; i < object.modifications.length; ++i) {
+                            if (typeof object.modifications[i] !== "object")
+                                throw TypeError(".com.example.dto.Protein.modifications: object expected");
+                            message.modifications[i] = $root.com.example.dto.AbbreviatedModification.fromObject(object.modifications[i]);
+                        }
+                    }
+                    if (object.samples) {
+                        if (!Array.isArray(object.samples))
+                            throw TypeError(".com.example.dto.Protein.samples: array expected");
+                        message.samples = [];
+                        for (var i = 0; i < object.samples.length; ++i) {
+                            if (typeof object.samples[i] !== "object")
+                                throw TypeError(".com.example.dto.Protein.samples: object expected");
+                            message.samples[i] = $root.com.example.dto.ProteinSample.fromObject(object.samples[i]);
+                        }
+                    }
+                    if (object.peptides != null)
+                        message.peptides = object.peptides >>> 0;
+                    if (object.unique != null)
+                        message.unique = object.unique >>> 0;
+                    if (object.top != null)
+                        message.top = Boolean(object.top);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Protein message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Protein
+                 * @static
+                 * @param {com.example.dto.Protein} message Protein
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Protein.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.modifications = [];
+                        object.samples = [];
+                    }
+                    if (options.defaults) {
+                        object.id = "";
+                        object.accession = "";
+                        object.description = "";
+                        object.pValue = 0;
+                        object.cluster = 0;
+                        object.coverage = 0;
+                        object.mass = 0;
+                        object.peptides = 0;
+                        object.unique = 0;
+                        object.top = false;
+                    }
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        object.id = message.id;
+                    if (message.accession != null && message.hasOwnProperty("accession"))
+                        object.accession = message.accession;
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        object.description = message.description;
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        object.pValue = options.json && !isFinite(message.pValue) ? String(message.pValue) : message.pValue;
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        object.cluster = message.cluster;
+                    if (message.coverage != null && message.hasOwnProperty("coverage"))
+                        object.coverage = options.json && !isFinite(message.coverage) ? String(message.coverage) : message.coverage;
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        object.mass = options.json && !isFinite(message.mass) ? String(message.mass) : message.mass;
+                    if (message.modifications && message.modifications.length) {
+                        object.modifications = [];
+                        for (var j = 0; j < message.modifications.length; ++j)
+                            object.modifications[j] = $root.com.example.dto.AbbreviatedModification.toObject(message.modifications[j], options);
+                    }
+                    if (message.samples && message.samples.length) {
+                        object.samples = [];
+                        for (var j = 0; j < message.samples.length; ++j)
+                            object.samples[j] = $root.com.example.dto.ProteinSample.toObject(message.samples[j], options);
+                    }
+                    if (message.peptides != null && message.hasOwnProperty("peptides"))
+                        object.peptides = message.peptides;
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        object.unique = message.unique;
+                    if (message.top != null && message.hasOwnProperty("top"))
+                        object.top = message.top;
+                    return object;
+                };
+
+                /**
+                 * Converts this Protein to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Protein
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Protein.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Protein;
+            })();
+
+            dto.ProteinSample = (function() {
+
+                /**
+                 * Properties of a ProteinSample.
+                 * @memberof com.example.dto
+                 * @interface IProteinSample
+                 * @property {number|null} [sampleCoverage] ProteinSample sampleCoverage
+                 * @property {number|null} [sampleArea] ProteinSample sampleArea
+                 * @property {number|null} [sampleSpec] ProteinSample sampleSpec
+                 */
+
+                /**
+                 * Constructs a new ProteinSample.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a ProteinSample.
+                 * @implements IProteinSample
+                 * @constructor
+                 * @param {com.example.dto.IProteinSample=} [properties] Properties to set
+                 */
+                function ProteinSample(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ProteinSample sampleCoverage.
+                 * @member {number} sampleCoverage
+                 * @memberof com.example.dto.ProteinSample
+                 * @instance
+                 */
+                ProteinSample.prototype.sampleCoverage = 0;
+
+                /**
+                 * ProteinSample sampleArea.
+                 * @member {number} sampleArea
+                 * @memberof com.example.dto.ProteinSample
+                 * @instance
+                 */
+                ProteinSample.prototype.sampleArea = 0;
+
+                /**
+                 * ProteinSample sampleSpec.
+                 * @member {number} sampleSpec
+                 * @memberof com.example.dto.ProteinSample
+                 * @instance
+                 */
+                ProteinSample.prototype.sampleSpec = 0;
+
+                /**
+                 * Creates a new ProteinSample instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {com.example.dto.IProteinSample=} [properties] Properties to set
+                 * @returns {com.example.dto.ProteinSample} ProteinSample instance
+                 */
+                ProteinSample.create = function create(properties) {
+                    return new ProteinSample(properties);
+                };
+
+                /**
+                 * Encodes the specified ProteinSample message. Does not implicitly {@link com.example.dto.ProteinSample.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {com.example.dto.IProteinSample} message ProteinSample message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ProteinSample.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sampleCoverage != null && message.hasOwnProperty("sampleCoverage"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.sampleCoverage);
+                    if (message.sampleArea != null && message.hasOwnProperty("sampleArea"))
+                        writer.uint32(/* id 3, wireType 5 =*/29).float(message.sampleArea);
+                    if (message.sampleSpec != null && message.hasOwnProperty("sampleSpec"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.sampleSpec);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ProteinSample message, length delimited. Does not implicitly {@link com.example.dto.ProteinSample.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {com.example.dto.IProteinSample} message ProteinSample message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ProteinSample.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ProteinSample message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.ProteinSample} ProteinSample
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ProteinSample.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.ProteinSample();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 2:
+                            message.sampleCoverage = reader.float();
+                            break;
+                        case 3:
+                            message.sampleArea = reader.float();
+                            break;
+                        case 4:
+                            message.sampleSpec = reader.uint32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ProteinSample message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.ProteinSample} ProteinSample
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ProteinSample.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ProteinSample message.
+                 * @function verify
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ProteinSample.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sampleCoverage != null && message.hasOwnProperty("sampleCoverage"))
+                        if (typeof message.sampleCoverage !== "number")
+                            return "sampleCoverage: number expected";
+                    if (message.sampleArea != null && message.hasOwnProperty("sampleArea"))
+                        if (typeof message.sampleArea !== "number")
+                            return "sampleArea: number expected";
+                    if (message.sampleSpec != null && message.hasOwnProperty("sampleSpec"))
+                        if (!$util.isInteger(message.sampleSpec))
+                            return "sampleSpec: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a ProteinSample message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.ProteinSample} ProteinSample
+                 */
+                ProteinSample.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.ProteinSample)
+                        return object;
+                    var message = new $root.com.example.dto.ProteinSample();
+                    if (object.sampleCoverage != null)
+                        message.sampleCoverage = Number(object.sampleCoverage);
+                    if (object.sampleArea != null)
+                        message.sampleArea = Number(object.sampleArea);
+                    if (object.sampleSpec != null)
+                        message.sampleSpec = object.sampleSpec >>> 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ProteinSample message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.ProteinSample
+                 * @static
+                 * @param {com.example.dto.ProteinSample} message ProteinSample
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ProteinSample.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.sampleCoverage = 0;
+                        object.sampleArea = 0;
+                        object.sampleSpec = 0;
+                    }
+                    if (message.sampleCoverage != null && message.hasOwnProperty("sampleCoverage"))
+                        object.sampleCoverage = options.json && !isFinite(message.sampleCoverage) ? String(message.sampleCoverage) : message.sampleCoverage;
+                    if (message.sampleArea != null && message.hasOwnProperty("sampleArea"))
+                        object.sampleArea = options.json && !isFinite(message.sampleArea) ? String(message.sampleArea) : message.sampleArea;
+                    if (message.sampleSpec != null && message.hasOwnProperty("sampleSpec"))
+                        object.sampleSpec = message.sampleSpec;
+                    return object;
+                };
+
+                /**
+                 * Converts this ProteinSample to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.ProteinSample
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ProteinSample.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ProteinSample;
+            })();
+
+            dto.AbbreviatedModification = (function() {
+
+                /**
+                 * Properties of an AbbreviatedModification.
+                 * @memberof com.example.dto
+                 * @interface IAbbreviatedModification
+                 * @property {string|null} [name] AbbreviatedModification name
+                 * @property {string|null} [abbreviation] AbbreviatedModification abbreviation
+                 * @property {number|null} [monoMass] AbbreviatedModification monoMass
+                 * @property {com.example.dto.ModificationType|null} [type] AbbreviatedModification type
+                 * @property {string|null} [anywhereResidues] AbbreviatedModification anywhereResidues
+                 */
+
+                /**
+                 * Constructs a new AbbreviatedModification.
+                 * @memberof com.example.dto
+                 * @classdesc Represents an AbbreviatedModification.
+                 * @implements IAbbreviatedModification
+                 * @constructor
+                 * @param {com.example.dto.IAbbreviatedModification=} [properties] Properties to set
+                 */
+                function AbbreviatedModification(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * AbbreviatedModification name.
+                 * @member {string} name
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 */
+                AbbreviatedModification.prototype.name = "";
+
+                /**
+                 * AbbreviatedModification abbreviation.
+                 * @member {string} abbreviation
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 */
+                AbbreviatedModification.prototype.abbreviation = "";
+
+                /**
+                 * AbbreviatedModification monoMass.
+                 * @member {number} monoMass
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 */
+                AbbreviatedModification.prototype.monoMass = 0;
+
+                /**
+                 * AbbreviatedModification type.
+                 * @member {com.example.dto.ModificationType} type
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 */
+                AbbreviatedModification.prototype.type = 0;
+
+                /**
+                 * AbbreviatedModification anywhereResidues.
+                 * @member {string} anywhereResidues
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 */
+                AbbreviatedModification.prototype.anywhereResidues = "";
+
+                /**
+                 * Creates a new AbbreviatedModification instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviatedModification=} [properties] Properties to set
+                 * @returns {com.example.dto.AbbreviatedModification} AbbreviatedModification instance
+                 */
+                AbbreviatedModification.create = function create(properties) {
+                    return new AbbreviatedModification(properties);
+                };
+
+                /**
+                 * Encodes the specified AbbreviatedModification message. Does not implicitly {@link com.example.dto.AbbreviatedModification.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviatedModification} message AbbreviatedModification message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AbbreviatedModification.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.abbreviation);
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        writer.uint32(/* id 3, wireType 5 =*/29).float(message.monoMass);
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.type);
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        writer.uint32(/* id 5, wireType 2 =*/42).string(message.anywhereResidues);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified AbbreviatedModification message, length delimited. Does not implicitly {@link com.example.dto.AbbreviatedModification.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {com.example.dto.IAbbreviatedModification} message AbbreviatedModification message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AbbreviatedModification.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an AbbreviatedModification message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.AbbreviatedModification} AbbreviatedModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AbbreviatedModification.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.AbbreviatedModification();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.name = reader.string();
+                            break;
+                        case 2:
+                            message.abbreviation = reader.string();
+                            break;
+                        case 3:
+                            message.monoMass = reader.float();
+                            break;
+                        case 4:
+                            message.type = reader.int32();
+                            break;
+                        case 5:
+                            message.anywhereResidues = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an AbbreviatedModification message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.AbbreviatedModification} AbbreviatedModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AbbreviatedModification.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an AbbreviatedModification message.
+                 * @function verify
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                AbbreviatedModification.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        if (!$util.isString(message.abbreviation))
+                            return "abbreviation: string expected";
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        if (typeof message.monoMass !== "number")
+                            return "monoMass: number expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            break;
+                        }
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        if (!$util.isString(message.anywhereResidues))
+                            return "anywhereResidues: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an AbbreviatedModification message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.AbbreviatedModification} AbbreviatedModification
+                 */
+                AbbreviatedModification.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.AbbreviatedModification)
+                        return object;
+                    var message = new $root.com.example.dto.AbbreviatedModification();
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    if (object.abbreviation != null)
+                        message.abbreviation = String(object.abbreviation);
+                    if (object.monoMass != null)
+                        message.monoMass = Number(object.monoMass);
+                    switch (object.type) {
+                    case "PTM":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "MUTATION":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    case "INSERTION":
+                    case 2:
+                        message.type = 2;
+                        break;
+                    case "DELETION":
+                    case 3:
+                        message.type = 3;
+                        break;
+                    }
+                    if (object.anywhereResidues != null)
+                        message.anywhereResidues = String(object.anywhereResidues);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an AbbreviatedModification message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @static
+                 * @param {com.example.dto.AbbreviatedModification} message AbbreviatedModification
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                AbbreviatedModification.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.name = "";
+                        object.abbreviation = "";
+                        object.monoMass = 0;
+                        object.type = options.enums === String ? "PTM" : 0;
+                        object.anywhereResidues = "";
+                    }
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    if (message.abbreviation != null && message.hasOwnProperty("abbreviation"))
+                        object.abbreviation = message.abbreviation;
+                    if (message.monoMass != null && message.hasOwnProperty("monoMass"))
+                        object.monoMass = options.json && !isFinite(message.monoMass) ? String(message.monoMass) : message.monoMass;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.com.example.dto.ModificationType[message.type] : message.type;
+                    if (message.anywhereResidues != null && message.hasOwnProperty("anywhereResidues"))
+                        object.anywhereResidues = message.anywhereResidues;
+                    return object;
+                };
+
+                /**
+                 * Converts this AbbreviatedModification to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.AbbreviatedModification
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                AbbreviatedModification.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return AbbreviatedModification;
+            })();
+
+            dto.SupportPeptide = (function() {
+
+                /**
+                 * Properties of a SupportPeptide.
+                 * @memberof com.example.dto
+                 * @interface ISupportPeptide
+                 * @property {com.example.dto.IPeptide|null} [peptide] SupportPeptide peptide
+                 * @property {number|null} [start] SupportPeptide start
+                 * @property {number|null} [end] SupportPeptide end
+                 * @property {boolean|null} [unique] SupportPeptide unique
+                 */
+
+                /**
+                 * Constructs a new SupportPeptide.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a SupportPeptide.
+                 * @implements ISupportPeptide
+                 * @constructor
+                 * @param {com.example.dto.ISupportPeptide=} [properties] Properties to set
+                 */
+                function SupportPeptide(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SupportPeptide peptide.
+                 * @member {com.example.dto.IPeptide|null|undefined} peptide
+                 * @memberof com.example.dto.SupportPeptide
+                 * @instance
+                 */
+                SupportPeptide.prototype.peptide = null;
+
+                /**
+                 * SupportPeptide start.
+                 * @member {number} start
+                 * @memberof com.example.dto.SupportPeptide
+                 * @instance
+                 */
+                SupportPeptide.prototype.start = 0;
+
+                /**
+                 * SupportPeptide end.
+                 * @member {number} end
+                 * @memberof com.example.dto.SupportPeptide
+                 * @instance
+                 */
+                SupportPeptide.prototype.end = 0;
+
+                /**
+                 * SupportPeptide unique.
+                 * @member {boolean} unique
+                 * @memberof com.example.dto.SupportPeptide
+                 * @instance
+                 */
+                SupportPeptide.prototype.unique = false;
+
+                /**
+                 * Creates a new SupportPeptide instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {com.example.dto.ISupportPeptide=} [properties] Properties to set
+                 * @returns {com.example.dto.SupportPeptide} SupportPeptide instance
+                 */
+                SupportPeptide.create = function create(properties) {
+                    return new SupportPeptide(properties);
+                };
+
+                /**
+                 * Encodes the specified SupportPeptide message. Does not implicitly {@link com.example.dto.SupportPeptide.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {com.example.dto.ISupportPeptide} message SupportPeptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SupportPeptide.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.peptide != null && message.hasOwnProperty("peptide"))
+                        $root.com.example.dto.Peptide.encode(message.peptide, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.start != null && message.hasOwnProperty("start"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.start);
+                    if (message.end != null && message.hasOwnProperty("end"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.end);
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).bool(message.unique);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SupportPeptide message, length delimited. Does not implicitly {@link com.example.dto.SupportPeptide.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {com.example.dto.ISupportPeptide} message SupportPeptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SupportPeptide.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SupportPeptide message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.SupportPeptide} SupportPeptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SupportPeptide.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.SupportPeptide();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.peptide = $root.com.example.dto.Peptide.decode(reader, reader.uint32());
+                            break;
+                        case 2:
+                            message.start = reader.uint32();
+                            break;
+                        case 3:
+                            message.end = reader.uint32();
+                            break;
+                        case 4:
+                            message.unique = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SupportPeptide message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.SupportPeptide} SupportPeptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SupportPeptide.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SupportPeptide message.
+                 * @function verify
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SupportPeptide.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.peptide != null && message.hasOwnProperty("peptide")) {
+                        var error = $root.com.example.dto.Peptide.verify(message.peptide);
+                        if (error)
+                            return "peptide." + error;
+                    }
+                    if (message.start != null && message.hasOwnProperty("start"))
+                        if (!$util.isInteger(message.start))
+                            return "start: integer expected";
+                    if (message.end != null && message.hasOwnProperty("end"))
+                        if (!$util.isInteger(message.end))
+                            return "end: integer expected";
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        if (typeof message.unique !== "boolean")
+                            return "unique: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a SupportPeptide message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.SupportPeptide} SupportPeptide
+                 */
+                SupportPeptide.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.SupportPeptide)
+                        return object;
+                    var message = new $root.com.example.dto.SupportPeptide();
+                    if (object.peptide != null) {
+                        if (typeof object.peptide !== "object")
+                            throw TypeError(".com.example.dto.SupportPeptide.peptide: object expected");
+                        message.peptide = $root.com.example.dto.Peptide.fromObject(object.peptide);
+                    }
+                    if (object.start != null)
+                        message.start = object.start >>> 0;
+                    if (object.end != null)
+                        message.end = object.end >>> 0;
+                    if (object.unique != null)
+                        message.unique = Boolean(object.unique);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SupportPeptide message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.SupportPeptide
+                 * @static
+                 * @param {com.example.dto.SupportPeptide} message SupportPeptide
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SupportPeptide.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.peptide = null;
+                        object.start = 0;
+                        object.end = 0;
+                        object.unique = false;
+                    }
+                    if (message.peptide != null && message.hasOwnProperty("peptide"))
+                        object.peptide = $root.com.example.dto.Peptide.toObject(message.peptide, options);
+                    if (message.start != null && message.hasOwnProperty("start"))
+                        object.start = message.start;
+                    if (message.end != null && message.hasOwnProperty("end"))
+                        object.end = message.end;
+                    if (message.unique != null && message.hasOwnProperty("unique"))
+                        object.unique = message.unique;
+                    return object;
+                };
+
+                /**
+                 * Converts this SupportPeptide to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.SupportPeptide
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SupportPeptide.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return SupportPeptide;
+            })();
+
+            dto.Peptide = (function() {
+
+                /**
+                 * Properties of a Peptide.
+                 * @memberof com.example.dto
+                 * @interface IPeptide
+                 * @property {string|null} [sequence] Peptide sequence
+                 * @property {number|null} [mass] Peptide mass
+                 * @property {number|null} [length] Peptide length
+                 * @property {Array.<com.example.dto.IAbbreviatedModification>|null} [modifications] Peptide modifications
+                 * @property {Array.<com.example.dto.IPeptideSample>|null} [samples] Peptide samples
+                 * @property {Array.<number>|null} [positionOfModifications] Peptide positionOfModifications
+                 * @property {number|null} [psmCount] Peptide psmCount
+                 * @property {Array.<Uint8Array>|null} [targetProteinIds] Peptide targetProteinIds
+                 * @property {Array.<Uint8Array>|null} [decoyProteinIds] Peptide decoyProteinIds
+                 * @property {Array.<number>|null} [allPsmScanNums] Peptide allPsmScanNums
+                 */
+
+                /**
+                 * Constructs a new Peptide.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a Peptide.
+                 * @implements IPeptide
+                 * @constructor
+                 * @param {com.example.dto.IPeptide=} [properties] Properties to set
+                 */
+                function Peptide(properties) {
+                    this.modifications = [];
+                    this.samples = [];
+                    this.positionOfModifications = [];
+                    this.targetProteinIds = [];
+                    this.decoyProteinIds = [];
+                    this.allPsmScanNums = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Peptide sequence.
+                 * @member {string} sequence
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.sequence = "";
+
+                /**
+                 * Peptide mass.
+                 * @member {number} mass
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.mass = 0;
+
+                /**
+                 * Peptide length.
+                 * @member {number} length
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.length = 0;
+
+                /**
+                 * Peptide modifications.
+                 * @member {Array.<com.example.dto.IAbbreviatedModification>} modifications
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.modifications = $util.emptyArray;
+
+                /**
+                 * Peptide samples.
+                 * @member {Array.<com.example.dto.IPeptideSample>} samples
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.samples = $util.emptyArray;
+
+                /**
+                 * Peptide positionOfModifications.
+                 * @member {Array.<number>} positionOfModifications
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.positionOfModifications = $util.emptyArray;
+
+                /**
+                 * Peptide psmCount.
+                 * @member {number} psmCount
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.psmCount = 0;
+
+                /**
+                 * Peptide targetProteinIds.
+                 * @member {Array.<Uint8Array>} targetProteinIds
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.targetProteinIds = $util.emptyArray;
+
+                /**
+                 * Peptide decoyProteinIds.
+                 * @member {Array.<Uint8Array>} decoyProteinIds
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.decoyProteinIds = $util.emptyArray;
+
+                /**
+                 * Peptide allPsmScanNums.
+                 * @member {Array.<number>} allPsmScanNums
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 */
+                Peptide.prototype.allPsmScanNums = $util.emptyArray;
+
+                /**
+                 * Creates a new Peptide instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {com.example.dto.IPeptide=} [properties] Properties to set
+                 * @returns {com.example.dto.Peptide} Peptide instance
+                 */
+                Peptide.create = function create(properties) {
+                    return new Peptide(properties);
+                };
+
+                /**
+                 * Encodes the specified Peptide message. Does not implicitly {@link com.example.dto.Peptide.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {com.example.dto.IPeptide} message Peptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Peptide.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.sequence);
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.mass);
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.length);
+                    if (message.modifications != null && message.modifications.length)
+                        for (var i = 0; i < message.modifications.length; ++i)
+                            $root.com.example.dto.AbbreviatedModification.encode(message.modifications[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.samples != null && message.samples.length)
+                        for (var i = 0; i < message.samples.length; ++i)
+                            $root.com.example.dto.PeptideSample.encode(message.samples[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.positionOfModifications != null && message.positionOfModifications.length) {
+                        writer.uint32(/* id 8, wireType 2 =*/66).fork();
+                        for (var i = 0; i < message.positionOfModifications.length; ++i)
+                            writer.uint32(message.positionOfModifications[i]);
+                        writer.ldelim();
+                    }
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.psmCount);
+                    if (message.targetProteinIds != null && message.targetProteinIds.length)
+                        for (var i = 0; i < message.targetProteinIds.length; ++i)
+                            writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.targetProteinIds[i]);
+                    if (message.decoyProteinIds != null && message.decoyProteinIds.length)
+                        for (var i = 0; i < message.decoyProteinIds.length; ++i)
+                            writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.decoyProteinIds[i]);
+                    if (message.allPsmScanNums != null && message.allPsmScanNums.length) {
+                        writer.uint32(/* id 12, wireType 2 =*/98).fork();
+                        for (var i = 0; i < message.allPsmScanNums.length; ++i)
+                            writer.uint32(message.allPsmScanNums[i]);
+                        writer.ldelim();
+                    }
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Peptide message, length delimited. Does not implicitly {@link com.example.dto.Peptide.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {com.example.dto.IPeptide} message Peptide message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Peptide.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Peptide message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.Peptide} Peptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Peptide.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.Peptide();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sequence = reader.string();
+                            break;
+                        case 2:
+                            message.mass = reader.float();
+                            break;
+                        case 3:
+                            message.length = reader.uint32();
+                            break;
+                        case 5:
+                            if (!(message.modifications && message.modifications.length))
+                                message.modifications = [];
+                            message.modifications.push($root.com.example.dto.AbbreviatedModification.decode(reader, reader.uint32()));
+                            break;
+                        case 6:
+                            if (!(message.samples && message.samples.length))
+                                message.samples = [];
+                            message.samples.push($root.com.example.dto.PeptideSample.decode(reader, reader.uint32()));
+                            break;
+                        case 8:
+                            if (!(message.positionOfModifications && message.positionOfModifications.length))
+                                message.positionOfModifications = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.positionOfModifications.push(reader.uint32());
+                            } else
+                                message.positionOfModifications.push(reader.uint32());
+                            break;
+                        case 9:
+                            message.psmCount = reader.uint32();
+                            break;
+                        case 10:
+                            if (!(message.targetProteinIds && message.targetProteinIds.length))
+                                message.targetProteinIds = [];
+                            message.targetProteinIds.push(reader.bytes());
+                            break;
+                        case 11:
+                            if (!(message.decoyProteinIds && message.decoyProteinIds.length))
+                                message.decoyProteinIds = [];
+                            message.decoyProteinIds.push(reader.bytes());
+                            break;
+                        case 12:
+                            if (!(message.allPsmScanNums && message.allPsmScanNums.length))
+                                message.allPsmScanNums = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.allPsmScanNums.push(reader.uint32());
+                            } else
+                                message.allPsmScanNums.push(reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Peptide message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.Peptide} Peptide
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Peptide.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Peptide message.
+                 * @function verify
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Peptide.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        if (!$util.isString(message.sequence))
+                            return "sequence: string expected";
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        if (typeof message.mass !== "number")
+                            return "mass: number expected";
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        if (!$util.isInteger(message.length))
+                            return "length: integer expected";
+                    if (message.modifications != null && message.hasOwnProperty("modifications")) {
+                        if (!Array.isArray(message.modifications))
+                            return "modifications: array expected";
+                        for (var i = 0; i < message.modifications.length; ++i) {
+                            var error = $root.com.example.dto.AbbreviatedModification.verify(message.modifications[i]);
+                            if (error)
+                                return "modifications." + error;
+                        }
+                    }
+                    if (message.samples != null && message.hasOwnProperty("samples")) {
+                        if (!Array.isArray(message.samples))
+                            return "samples: array expected";
+                        for (var i = 0; i < message.samples.length; ++i) {
+                            var error = $root.com.example.dto.PeptideSample.verify(message.samples[i]);
+                            if (error)
+                                return "samples." + error;
+                        }
+                    }
+                    if (message.positionOfModifications != null && message.hasOwnProperty("positionOfModifications")) {
+                        if (!Array.isArray(message.positionOfModifications))
+                            return "positionOfModifications: array expected";
+                        for (var i = 0; i < message.positionOfModifications.length; ++i)
+                            if (!$util.isInteger(message.positionOfModifications[i]))
+                                return "positionOfModifications: integer[] expected";
+                    }
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        if (!$util.isInteger(message.psmCount))
+                            return "psmCount: integer expected";
+                    if (message.targetProteinIds != null && message.hasOwnProperty("targetProteinIds")) {
+                        if (!Array.isArray(message.targetProteinIds))
+                            return "targetProteinIds: array expected";
+                        for (var i = 0; i < message.targetProteinIds.length; ++i)
+                            if (!(message.targetProteinIds[i] && typeof message.targetProteinIds[i].length === "number" || $util.isString(message.targetProteinIds[i])))
+                                return "targetProteinIds: buffer[] expected";
+                    }
+                    if (message.decoyProteinIds != null && message.hasOwnProperty("decoyProteinIds")) {
+                        if (!Array.isArray(message.decoyProteinIds))
+                            return "decoyProteinIds: array expected";
+                        for (var i = 0; i < message.decoyProteinIds.length; ++i)
+                            if (!(message.decoyProteinIds[i] && typeof message.decoyProteinIds[i].length === "number" || $util.isString(message.decoyProteinIds[i])))
+                                return "decoyProteinIds: buffer[] expected";
+                    }
+                    if (message.allPsmScanNums != null && message.hasOwnProperty("allPsmScanNums")) {
+                        if (!Array.isArray(message.allPsmScanNums))
+                            return "allPsmScanNums: array expected";
+                        for (var i = 0; i < message.allPsmScanNums.length; ++i)
+                            if (!$util.isInteger(message.allPsmScanNums[i]))
+                                return "allPsmScanNums: integer[] expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a Peptide message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.Peptide} Peptide
+                 */
+                Peptide.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.Peptide)
+                        return object;
+                    var message = new $root.com.example.dto.Peptide();
+                    if (object.sequence != null)
+                        message.sequence = String(object.sequence);
+                    if (object.mass != null)
+                        message.mass = Number(object.mass);
+                    if (object.length != null)
+                        message.length = object.length >>> 0;
+                    if (object.modifications) {
+                        if (!Array.isArray(object.modifications))
+                            throw TypeError(".com.example.dto.Peptide.modifications: array expected");
+                        message.modifications = [];
+                        for (var i = 0; i < object.modifications.length; ++i) {
+                            if (typeof object.modifications[i] !== "object")
+                                throw TypeError(".com.example.dto.Peptide.modifications: object expected");
+                            message.modifications[i] = $root.com.example.dto.AbbreviatedModification.fromObject(object.modifications[i]);
+                        }
+                    }
+                    if (object.samples) {
+                        if (!Array.isArray(object.samples))
+                            throw TypeError(".com.example.dto.Peptide.samples: array expected");
+                        message.samples = [];
+                        for (var i = 0; i < object.samples.length; ++i) {
+                            if (typeof object.samples[i] !== "object")
+                                throw TypeError(".com.example.dto.Peptide.samples: object expected");
+                            message.samples[i] = $root.com.example.dto.PeptideSample.fromObject(object.samples[i]);
+                        }
+                    }
+                    if (object.positionOfModifications) {
+                        if (!Array.isArray(object.positionOfModifications))
+                            throw TypeError(".com.example.dto.Peptide.positionOfModifications: array expected");
+                        message.positionOfModifications = [];
+                        for (var i = 0; i < object.positionOfModifications.length; ++i)
+                            message.positionOfModifications[i] = object.positionOfModifications[i] >>> 0;
+                    }
+                    if (object.psmCount != null)
+                        message.psmCount = object.psmCount >>> 0;
+                    if (object.targetProteinIds) {
+                        if (!Array.isArray(object.targetProteinIds))
+                            throw TypeError(".com.example.dto.Peptide.targetProteinIds: array expected");
+                        message.targetProteinIds = [];
+                        for (var i = 0; i < object.targetProteinIds.length; ++i)
+                            if (typeof object.targetProteinIds[i] === "string")
+                                $util.base64.decode(object.targetProteinIds[i], message.targetProteinIds[i] = $util.newBuffer($util.base64.length(object.targetProteinIds[i])), 0);
+                            else if (object.targetProteinIds[i].length)
+                                message.targetProteinIds[i] = object.targetProteinIds[i];
+                    }
+                    if (object.decoyProteinIds) {
+                        if (!Array.isArray(object.decoyProteinIds))
+                            throw TypeError(".com.example.dto.Peptide.decoyProteinIds: array expected");
+                        message.decoyProteinIds = [];
+                        for (var i = 0; i < object.decoyProteinIds.length; ++i)
+                            if (typeof object.decoyProteinIds[i] === "string")
+                                $util.base64.decode(object.decoyProteinIds[i], message.decoyProteinIds[i] = $util.newBuffer($util.base64.length(object.decoyProteinIds[i])), 0);
+                            else if (object.decoyProteinIds[i].length)
+                                message.decoyProteinIds[i] = object.decoyProteinIds[i];
+                    }
+                    if (object.allPsmScanNums) {
+                        if (!Array.isArray(object.allPsmScanNums))
+                            throw TypeError(".com.example.dto.Peptide.allPsmScanNums: array expected");
+                        message.allPsmScanNums = [];
+                        for (var i = 0; i < object.allPsmScanNums.length; ++i)
+                            message.allPsmScanNums[i] = object.allPsmScanNums[i] >>> 0;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Peptide message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.Peptide
+                 * @static
+                 * @param {com.example.dto.Peptide} message Peptide
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Peptide.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.modifications = [];
+                        object.samples = [];
+                        object.positionOfModifications = [];
+                        object.targetProteinIds = [];
+                        object.decoyProteinIds = [];
+                        object.allPsmScanNums = [];
+                    }
+                    if (options.defaults) {
+                        object.sequence = "";
+                        object.mass = 0;
+                        object.length = 0;
+                        object.psmCount = 0;
+                    }
+                    if (message.sequence != null && message.hasOwnProperty("sequence"))
+                        object.sequence = message.sequence;
+                    if (message.mass != null && message.hasOwnProperty("mass"))
+                        object.mass = options.json && !isFinite(message.mass) ? String(message.mass) : message.mass;
+                    if (message.length != null && message.hasOwnProperty("length"))
+                        object.length = message.length;
+                    if (message.modifications && message.modifications.length) {
+                        object.modifications = [];
+                        for (var j = 0; j < message.modifications.length; ++j)
+                            object.modifications[j] = $root.com.example.dto.AbbreviatedModification.toObject(message.modifications[j], options);
+                    }
+                    if (message.samples && message.samples.length) {
+                        object.samples = [];
+                        for (var j = 0; j < message.samples.length; ++j)
+                            object.samples[j] = $root.com.example.dto.PeptideSample.toObject(message.samples[j], options);
+                    }
+                    if (message.positionOfModifications && message.positionOfModifications.length) {
+                        object.positionOfModifications = [];
+                        for (var j = 0; j < message.positionOfModifications.length; ++j)
+                            object.positionOfModifications[j] = message.positionOfModifications[j];
+                    }
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        object.psmCount = message.psmCount;
+                    if (message.targetProteinIds && message.targetProteinIds.length) {
+                        object.targetProteinIds = [];
+                        for (var j = 0; j < message.targetProteinIds.length; ++j)
+                            object.targetProteinIds[j] = options.bytes === String ? $util.base64.encode(message.targetProteinIds[j], 0, message.targetProteinIds[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.targetProteinIds[j]) : message.targetProteinIds[j];
+                    }
+                    if (message.decoyProteinIds && message.decoyProteinIds.length) {
+                        object.decoyProteinIds = [];
+                        for (var j = 0; j < message.decoyProteinIds.length; ++j)
+                            object.decoyProteinIds[j] = options.bytes === String ? $util.base64.encode(message.decoyProteinIds[j], 0, message.decoyProteinIds[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.decoyProteinIds[j]) : message.decoyProteinIds[j];
+                    }
+                    if (message.allPsmScanNums && message.allPsmScanNums.length) {
+                        object.allPsmScanNums = [];
+                        for (var j = 0; j < message.allPsmScanNums.length; ++j)
+                            object.allPsmScanNums[j] = message.allPsmScanNums[j];
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this Peptide to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.Peptide
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Peptide.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Peptide;
+            })();
+
+            dto.PeptideSample = (function() {
+
+                /**
+                 * Properties of a PeptideSample.
+                 * @memberof com.example.dto
+                 * @interface IPeptideSample
+                 * @property {number|null} [psmCount] PeptideSample psmCount
+                 * @property {number|null} [area] PeptideSample area
+                 * @property {number|null} [maxIntensity] PeptideSample maxIntensity
+                 * @property {Object.<string,com.example.dto.IPeptideSampleFraction>|null} [fractions] PeptideSample fractions
+                 */
+
+                /**
+                 * Constructs a new PeptideSample.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a PeptideSample.
+                 * @implements IPeptideSample
+                 * @constructor
+                 * @param {com.example.dto.IPeptideSample=} [properties] Properties to set
+                 */
+                function PeptideSample(properties) {
+                    this.fractions = {};
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PeptideSample psmCount.
+                 * @member {number} psmCount
+                 * @memberof com.example.dto.PeptideSample
+                 * @instance
+                 */
+                PeptideSample.prototype.psmCount = 0;
+
+                /**
+                 * PeptideSample area.
+                 * @member {number} area
+                 * @memberof com.example.dto.PeptideSample
+                 * @instance
+                 */
+                PeptideSample.prototype.area = 0;
+
+                /**
+                 * PeptideSample maxIntensity.
+                 * @member {number} maxIntensity
+                 * @memberof com.example.dto.PeptideSample
+                 * @instance
+                 */
+                PeptideSample.prototype.maxIntensity = 0;
+
+                /**
+                 * PeptideSample fractions.
+                 * @member {Object.<string,com.example.dto.IPeptideSampleFraction>} fractions
+                 * @memberof com.example.dto.PeptideSample
+                 * @instance
+                 */
+                PeptideSample.prototype.fractions = $util.emptyObject;
+
+                /**
+                 * Creates a new PeptideSample instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {com.example.dto.IPeptideSample=} [properties] Properties to set
+                 * @returns {com.example.dto.PeptideSample} PeptideSample instance
+                 */
+                PeptideSample.create = function create(properties) {
+                    return new PeptideSample(properties);
+                };
+
+                /**
+                 * Encodes the specified PeptideSample message. Does not implicitly {@link com.example.dto.PeptideSample.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {com.example.dto.IPeptideSample} message PeptideSample message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PeptideSample.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.psmCount);
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        writer.uint32(/* id 3, wireType 5 =*/29).float(message.area);
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        writer.uint32(/* id 4, wireType 5 =*/37).float(message.maxIntensity);
+                    if (message.fractions != null && message.hasOwnProperty("fractions"))
+                        for (var keys = Object.keys(message.fractions), i = 0; i < keys.length; ++i) {
+                            writer.uint32(/* id 32, wireType 2 =*/258).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
+                            $root.com.example.dto.PeptideSampleFraction.encode(message.fractions[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                        }
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PeptideSample message, length delimited. Does not implicitly {@link com.example.dto.PeptideSample.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {com.example.dto.IPeptideSample} message PeptideSample message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PeptideSample.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PeptideSample message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.PeptideSample} PeptideSample
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PeptideSample.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.PeptideSample(), key;
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 2:
+                            message.psmCount = reader.uint32();
+                            break;
+                        case 3:
+                            message.area = reader.float();
+                            break;
+                        case 4:
+                            message.maxIntensity = reader.float();
+                            break;
+                        case 32:
+                            reader.skip().pos++;
+                            if (message.fractions === $util.emptyObject)
+                                message.fractions = {};
+                            key = reader.string();
+                            reader.pos++;
+                            message.fractions[key] = $root.com.example.dto.PeptideSampleFraction.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PeptideSample message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.PeptideSample} PeptideSample
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PeptideSample.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PeptideSample message.
+                 * @function verify
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PeptideSample.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        if (!$util.isInteger(message.psmCount))
+                            return "psmCount: integer expected";
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        if (typeof message.area !== "number")
+                            return "area: number expected";
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        if (typeof message.maxIntensity !== "number")
+                            return "maxIntensity: number expected";
+                    if (message.fractions != null && message.hasOwnProperty("fractions")) {
+                        if (!$util.isObject(message.fractions))
+                            return "fractions: object expected";
+                        var key = Object.keys(message.fractions);
+                        for (var i = 0; i < key.length; ++i) {
+                            var error = $root.com.example.dto.PeptideSampleFraction.verify(message.fractions[key[i]]);
+                            if (error)
+                                return "fractions." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a PeptideSample message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.PeptideSample} PeptideSample
+                 */
+                PeptideSample.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.PeptideSample)
+                        return object;
+                    var message = new $root.com.example.dto.PeptideSample();
+                    if (object.psmCount != null)
+                        message.psmCount = object.psmCount >>> 0;
+                    if (object.area != null)
+                        message.area = Number(object.area);
+                    if (object.maxIntensity != null)
+                        message.maxIntensity = Number(object.maxIntensity);
+                    if (object.fractions) {
+                        if (typeof object.fractions !== "object")
+                            throw TypeError(".com.example.dto.PeptideSample.fractions: object expected");
+                        message.fractions = {};
+                        for (var keys = Object.keys(object.fractions), i = 0; i < keys.length; ++i) {
+                            if (typeof object.fractions[keys[i]] !== "object")
+                                throw TypeError(".com.example.dto.PeptideSample.fractions: object expected");
+                            message.fractions[keys[i]] = $root.com.example.dto.PeptideSampleFraction.fromObject(object.fractions[keys[i]]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PeptideSample message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.PeptideSample
+                 * @static
+                 * @param {com.example.dto.PeptideSample} message PeptideSample
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PeptideSample.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.objects || options.defaults)
+                        object.fractions = {};
+                    if (options.defaults) {
+                        object.psmCount = 0;
+                        object.area = 0;
+                        object.maxIntensity = 0;
+                    }
+                    if (message.psmCount != null && message.hasOwnProperty("psmCount"))
+                        object.psmCount = message.psmCount;
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        object.area = options.json && !isFinite(message.area) ? String(message.area) : message.area;
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        object.maxIntensity = options.json && !isFinite(message.maxIntensity) ? String(message.maxIntensity) : message.maxIntensity;
+                    var keys2;
+                    if (message.fractions && (keys2 = Object.keys(message.fractions)).length) {
+                        object.fractions = {};
+                        for (var j = 0; j < keys2.length; ++j)
+                            object.fractions[keys2[j]] = $root.com.example.dto.PeptideSampleFraction.toObject(message.fractions[keys2[j]], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this PeptideSample to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.PeptideSample
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PeptideSample.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PeptideSample;
+            })();
+
+            dto.PeptideSampleFraction = (function() {
+
+                /**
+                 * Properties of a PeptideSampleFraction.
+                 * @memberof com.example.dto
+                 * @interface IPeptideSampleFraction
+                 * @property {Array.<com.example.dto.IPSM>|null} [psms] PeptideSampleFraction psms
+                 */
+
+                /**
+                 * Constructs a new PeptideSampleFraction.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a PeptideSampleFraction.
+                 * @implements IPeptideSampleFraction
+                 * @constructor
+                 * @param {com.example.dto.IPeptideSampleFraction=} [properties] Properties to set
+                 */
+                function PeptideSampleFraction(properties) {
+                    this.psms = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PeptideSampleFraction psms.
+                 * @member {Array.<com.example.dto.IPSM>} psms
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @instance
+                 */
+                PeptideSampleFraction.prototype.psms = $util.emptyArray;
+
+                /**
+                 * Creates a new PeptideSampleFraction instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {com.example.dto.IPeptideSampleFraction=} [properties] Properties to set
+                 * @returns {com.example.dto.PeptideSampleFraction} PeptideSampleFraction instance
+                 */
+                PeptideSampleFraction.create = function create(properties) {
+                    return new PeptideSampleFraction(properties);
+                };
+
+                /**
+                 * Encodes the specified PeptideSampleFraction message. Does not implicitly {@link com.example.dto.PeptideSampleFraction.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {com.example.dto.IPeptideSampleFraction} message PeptideSampleFraction message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PeptideSampleFraction.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.psms != null && message.psms.length)
+                        for (var i = 0; i < message.psms.length; ++i)
+                            $root.com.example.dto.PSM.encode(message.psms[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PeptideSampleFraction message, length delimited. Does not implicitly {@link com.example.dto.PeptideSampleFraction.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {com.example.dto.IPeptideSampleFraction} message PeptideSampleFraction message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PeptideSampleFraction.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PeptideSampleFraction message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.PeptideSampleFraction} PeptideSampleFraction
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PeptideSampleFraction.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.PeptideSampleFraction();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 2:
+                            if (!(message.psms && message.psms.length))
+                                message.psms = [];
+                            message.psms.push($root.com.example.dto.PSM.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PeptideSampleFraction message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.PeptideSampleFraction} PeptideSampleFraction
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PeptideSampleFraction.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PeptideSampleFraction message.
+                 * @function verify
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PeptideSampleFraction.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.psms != null && message.hasOwnProperty("psms")) {
+                        if (!Array.isArray(message.psms))
+                            return "psms: array expected";
+                        for (var i = 0; i < message.psms.length; ++i) {
+                            var error = $root.com.example.dto.PSM.verify(message.psms[i]);
+                            if (error)
+                                return "psms." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a PeptideSampleFraction message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.PeptideSampleFraction} PeptideSampleFraction
+                 */
+                PeptideSampleFraction.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.PeptideSampleFraction)
+                        return object;
+                    var message = new $root.com.example.dto.PeptideSampleFraction();
+                    if (object.psms) {
+                        if (!Array.isArray(object.psms))
+                            throw TypeError(".com.example.dto.PeptideSampleFraction.psms: array expected");
+                        message.psms = [];
+                        for (var i = 0; i < object.psms.length; ++i) {
+                            if (typeof object.psms[i] !== "object")
+                                throw TypeError(".com.example.dto.PeptideSampleFraction.psms: object expected");
+                            message.psms[i] = $root.com.example.dto.PSM.fromObject(object.psms[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PeptideSampleFraction message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @static
+                 * @param {com.example.dto.PeptideSampleFraction} message PeptideSampleFraction
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PeptideSampleFraction.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.psms = [];
+                    if (message.psms && message.psms.length) {
+                        object.psms = [];
+                        for (var j = 0; j < message.psms.length; ++j)
+                            object.psms[j] = $root.com.example.dto.PSM.toObject(message.psms[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this PeptideSampleFraction to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.PeptideSampleFraction
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PeptideSampleFraction.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PeptideSampleFraction;
+            })();
+
+            dto.PSM = (function() {
+
+                /**
+                 * Properties of a PSM.
+                 * @memberof com.example.dto
+                 * @interface IPSM
+                 * @property {number|null} [scannum] PSM scannum
+                 * @property {number|null} [mz] PSM mz
+                 * @property {number|null} [z] PSM z
+                 * @property {number|Long|null} [retentionTime] PSM retentionTime
+                 * @property {number|null} [area] PSM area
+                 * @property {number|null} [pValue] PSM pValue
+                 * @property {number|null} [ppm] PSM ppm
+                 * @property {com.example.dto.Engine|null} [engine] PSM engine
+                 * @property {number|null} [featureId] PSM featureId
+                 * @property {Array.<number>|null} [aScore] PSM aScore
+                 * @property {Array.<string>|null} [accession] PSM accession
+                 * @property {string|null} [psmId] PSM psmId
+                 * @property {number|null} [maxIntensity] PSM maxIntensity
+                 * @property {number|null} [score] PSM score
+                 * @property {boolean|null} [decoy] PSM decoy
+                 */
+
+                /**
+                 * Constructs a new PSM.
+                 * @memberof com.example.dto
+                 * @classdesc Represents a PSM.
+                 * @implements IPSM
+                 * @constructor
+                 * @param {com.example.dto.IPSM=} [properties] Properties to set
+                 */
+                function PSM(properties) {
+                    this.aScore = [];
+                    this.accession = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PSM scannum.
+                 * @member {number} scannum
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.scannum = 0;
+
+                /**
+                 * PSM mz.
+                 * @member {number} mz
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.mz = 0;
+
+                /**
+                 * PSM z.
+                 * @member {number} z
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.z = 0;
+
+                /**
+                 * PSM retentionTime.
+                 * @member {number|Long} retentionTime
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.retentionTime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * PSM area.
+                 * @member {number} area
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.area = 0;
+
+                /**
+                 * PSM pValue.
+                 * @member {number} pValue
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.pValue = 0;
+
+                /**
+                 * PSM ppm.
+                 * @member {number} ppm
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.ppm = 0;
+
+                /**
+                 * PSM engine.
+                 * @member {com.example.dto.Engine} engine
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.engine = 0;
+
+                /**
+                 * PSM featureId.
+                 * @member {number} featureId
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.featureId = 0;
+
+                /**
+                 * PSM aScore.
+                 * @member {Array.<number>} aScore
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.aScore = $util.emptyArray;
+
+                /**
+                 * PSM accession.
+                 * @member {Array.<string>} accession
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.accession = $util.emptyArray;
+
+                /**
+                 * PSM psmId.
+                 * @member {string} psmId
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.psmId = "";
+
+                /**
+                 * PSM maxIntensity.
+                 * @member {number} maxIntensity
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.maxIntensity = 0;
+
+                /**
+                 * PSM score.
+                 * @member {number} score
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.score = 0;
+
+                /**
+                 * PSM decoy.
+                 * @member {boolean} decoy
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 */
+                PSM.prototype.decoy = false;
+
+                /**
+                 * Creates a new PSM instance using the specified properties.
+                 * @function create
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {com.example.dto.IPSM=} [properties] Properties to set
+                 * @returns {com.example.dto.PSM} PSM instance
+                 */
+                PSM.create = function create(properties) {
+                    return new PSM(properties);
+                };
+
+                /**
+                 * Encodes the specified PSM message. Does not implicitly {@link com.example.dto.PSM.verify|verify} messages.
+                 * @function encode
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {com.example.dto.IPSM} message PSM message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PSM.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.scannum);
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        writer.uint32(/* id 2, wireType 5 =*/21).float(message.mz);
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.z);
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.retentionTime);
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        writer.uint32(/* id 5, wireType 5 =*/45).float(message.area);
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        writer.uint32(/* id 6, wireType 5 =*/53).float(message.pValue);
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        writer.uint32(/* id 7, wireType 5 =*/61).float(message.ppm);
+                    if (message.engine != null && message.hasOwnProperty("engine"))
+                        writer.uint32(/* id 8, wireType 0 =*/64).int32(message.engine);
+                    if (message.featureId != null && message.hasOwnProperty("featureId"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.featureId);
+                    if (message.aScore != null && message.aScore.length) {
+                        writer.uint32(/* id 10, wireType 2 =*/82).fork();
+                        for (var i = 0; i < message.aScore.length; ++i)
+                            writer.float(message.aScore[i]);
+                        writer.ldelim();
+                    }
+                    if (message.accession != null && message.accession.length)
+                        for (var i = 0; i < message.accession.length; ++i)
+                            writer.uint32(/* id 11, wireType 2 =*/90).string(message.accession[i]);
+                    if (message.psmId != null && message.hasOwnProperty("psmId"))
+                        writer.uint32(/* id 12, wireType 2 =*/98).string(message.psmId);
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        writer.uint32(/* id 13, wireType 5 =*/109).float(message.maxIntensity);
+                    if (message.score != null && message.hasOwnProperty("score"))
+                        writer.uint32(/* id 14, wireType 5 =*/117).float(message.score);
+                    if (message.decoy != null && message.hasOwnProperty("decoy"))
+                        writer.uint32(/* id 15, wireType 0 =*/120).bool(message.decoy);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PSM message, length delimited. Does not implicitly {@link com.example.dto.PSM.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {com.example.dto.IPSM} message PSM message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PSM.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PSM message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {com.example.dto.PSM} PSM
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PSM.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.example.dto.PSM();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.scannum = reader.uint32();
+                            break;
+                        case 2:
+                            message.mz = reader.float();
+                            break;
+                        case 3:
+                            message.z = reader.uint32();
+                            break;
+                        case 4:
+                            message.retentionTime = reader.uint64();
+                            break;
+                        case 5:
+                            message.area = reader.float();
+                            break;
+                        case 6:
+                            message.pValue = reader.float();
+                            break;
+                        case 7:
+                            message.ppm = reader.float();
+                            break;
+                        case 8:
+                            message.engine = reader.int32();
+                            break;
+                        case 9:
+                            message.featureId = reader.uint32();
+                            break;
+                        case 10:
+                            if (!(message.aScore && message.aScore.length))
+                                message.aScore = [];
+                            if ((tag & 7) === 2) {
+                                var end2 = reader.uint32() + reader.pos;
+                                while (reader.pos < end2)
+                                    message.aScore.push(reader.float());
+                            } else
+                                message.aScore.push(reader.float());
+                            break;
+                        case 11:
+                            if (!(message.accession && message.accession.length))
+                                message.accession = [];
+                            message.accession.push(reader.string());
+                            break;
+                        case 12:
+                            message.psmId = reader.string();
+                            break;
+                        case 13:
+                            message.maxIntensity = reader.float();
+                            break;
+                        case 14:
+                            message.score = reader.float();
+                            break;
+                        case 15:
+                            message.decoy = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PSM message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {com.example.dto.PSM} PSM
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PSM.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PSM message.
+                 * @function verify
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PSM.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        if (!$util.isInteger(message.scannum))
+                            return "scannum: integer expected";
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        if (typeof message.mz !== "number")
+                            return "mz: number expected";
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        if (!$util.isInteger(message.z))
+                            return "z: integer expected";
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (!$util.isInteger(message.retentionTime) && !(message.retentionTime && $util.isInteger(message.retentionTime.low) && $util.isInteger(message.retentionTime.high)))
+                            return "retentionTime: integer|Long expected";
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        if (typeof message.area !== "number")
+                            return "area: number expected";
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        if (typeof message.pValue !== "number")
+                            return "pValue: number expected";
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        if (typeof message.ppm !== "number")
+                            return "ppm: number expected";
+                    if (message.engine != null && message.hasOwnProperty("engine"))
+                        switch (message.engine) {
+                        default:
+                            return "engine: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            break;
+                        }
+                    if (message.featureId != null && message.hasOwnProperty("featureId"))
+                        if (!$util.isInteger(message.featureId))
+                            return "featureId: integer expected";
+                    if (message.aScore != null && message.hasOwnProperty("aScore")) {
+                        if (!Array.isArray(message.aScore))
+                            return "aScore: array expected";
+                        for (var i = 0; i < message.aScore.length; ++i)
+                            if (typeof message.aScore[i] !== "number")
+                                return "aScore: number[] expected";
+                    }
+                    if (message.accession != null && message.hasOwnProperty("accession")) {
+                        if (!Array.isArray(message.accession))
+                            return "accession: array expected";
+                        for (var i = 0; i < message.accession.length; ++i)
+                            if (!$util.isString(message.accession[i]))
+                                return "accession: string[] expected";
+                    }
+                    if (message.psmId != null && message.hasOwnProperty("psmId"))
+                        if (!$util.isString(message.psmId))
+                            return "psmId: string expected";
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        if (typeof message.maxIntensity !== "number")
+                            return "maxIntensity: number expected";
+                    if (message.score != null && message.hasOwnProperty("score"))
+                        if (typeof message.score !== "number")
+                            return "score: number expected";
+                    if (message.decoy != null && message.hasOwnProperty("decoy"))
+                        if (typeof message.decoy !== "boolean")
+                            return "decoy: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a PSM message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {com.example.dto.PSM} PSM
+                 */
+                PSM.fromObject = function fromObject(object) {
+                    if (object instanceof $root.com.example.dto.PSM)
+                        return object;
+                    var message = new $root.com.example.dto.PSM();
+                    if (object.scannum != null)
+                        message.scannum = object.scannum >>> 0;
+                    if (object.mz != null)
+                        message.mz = Number(object.mz);
+                    if (object.z != null)
+                        message.z = object.z >>> 0;
+                    if (object.retentionTime != null)
+                        if ($util.Long)
+                            (message.retentionTime = $util.Long.fromValue(object.retentionTime)).unsigned = true;
+                        else if (typeof object.retentionTime === "string")
+                            message.retentionTime = parseInt(object.retentionTime, 10);
+                        else if (typeof object.retentionTime === "number")
+                            message.retentionTime = object.retentionTime;
+                        else if (typeof object.retentionTime === "object")
+                            message.retentionTime = new $util.LongBits(object.retentionTime.low >>> 0, object.retentionTime.high >>> 0).toNumber(true);
+                    if (object.area != null)
+                        message.area = Number(object.area);
+                    if (object.pValue != null)
+                        message.pValue = Number(object.pValue);
+                    if (object.ppm != null)
+                        message.ppm = Number(object.ppm);
+                    switch (object.engine) {
+                    case "UNKNOWN":
+                    case 0:
+                        message.engine = 0;
+                        break;
+                    case "PEAKS":
+                    case 1:
+                        message.engine = 1;
+                        break;
+                    case "SPIDER":
+                    case 2:
+                        message.engine = 2;
+                        break;
+                    case "PEAKSPTM":
+                    case 3:
+                        message.engine = 3;
+                        break;
+                    }
+                    if (object.featureId != null)
+                        message.featureId = object.featureId >>> 0;
+                    if (object.aScore) {
+                        if (!Array.isArray(object.aScore))
+                            throw TypeError(".com.example.dto.PSM.aScore: array expected");
+                        message.aScore = [];
+                        for (var i = 0; i < object.aScore.length; ++i)
+                            message.aScore[i] = Number(object.aScore[i]);
+                    }
+                    if (object.accession) {
+                        if (!Array.isArray(object.accession))
+                            throw TypeError(".com.example.dto.PSM.accession: array expected");
+                        message.accession = [];
+                        for (var i = 0; i < object.accession.length; ++i)
+                            message.accession[i] = String(object.accession[i]);
+                    }
+                    if (object.psmId != null)
+                        message.psmId = String(object.psmId);
+                    if (object.maxIntensity != null)
+                        message.maxIntensity = Number(object.maxIntensity);
+                    if (object.score != null)
+                        message.score = Number(object.score);
+                    if (object.decoy != null)
+                        message.decoy = Boolean(object.decoy);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PSM message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof com.example.dto.PSM
+                 * @static
+                 * @param {com.example.dto.PSM} message PSM
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PSM.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.aScore = [];
+                        object.accession = [];
+                    }
+                    if (options.defaults) {
+                        object.scannum = 0;
+                        object.mz = 0;
+                        object.z = 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, true);
+                            object.retentionTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.retentionTime = options.longs === String ? "0" : 0;
+                        object.area = 0;
+                        object.pValue = 0;
+                        object.ppm = 0;
+                        object.engine = options.enums === String ? "UNKNOWN" : 0;
+                        object.featureId = 0;
+                        object.psmId = "";
+                        object.maxIntensity = 0;
+                        object.score = 0;
+                        object.decoy = false;
+                    }
+                    if (message.scannum != null && message.hasOwnProperty("scannum"))
+                        object.scannum = message.scannum;
+                    if (message.mz != null && message.hasOwnProperty("mz"))
+                        object.mz = options.json && !isFinite(message.mz) ? String(message.mz) : message.mz;
+                    if (message.z != null && message.hasOwnProperty("z"))
+                        object.z = message.z;
+                    if (message.retentionTime != null && message.hasOwnProperty("retentionTime"))
+                        if (typeof message.retentionTime === "number")
+                            object.retentionTime = options.longs === String ? String(message.retentionTime) : message.retentionTime;
+                        else
+                            object.retentionTime = options.longs === String ? $util.Long.prototype.toString.call(message.retentionTime) : options.longs === Number ? new $util.LongBits(message.retentionTime.low >>> 0, message.retentionTime.high >>> 0).toNumber(true) : message.retentionTime;
+                    if (message.area != null && message.hasOwnProperty("area"))
+                        object.area = options.json && !isFinite(message.area) ? String(message.area) : message.area;
+                    if (message.pValue != null && message.hasOwnProperty("pValue"))
+                        object.pValue = options.json && !isFinite(message.pValue) ? String(message.pValue) : message.pValue;
+                    if (message.ppm != null && message.hasOwnProperty("ppm"))
+                        object.ppm = options.json && !isFinite(message.ppm) ? String(message.ppm) : message.ppm;
+                    if (message.engine != null && message.hasOwnProperty("engine"))
+                        object.engine = options.enums === String ? $root.com.example.dto.Engine[message.engine] : message.engine;
+                    if (message.featureId != null && message.hasOwnProperty("featureId"))
+                        object.featureId = message.featureId;
+                    if (message.aScore && message.aScore.length) {
+                        object.aScore = [];
+                        for (var j = 0; j < message.aScore.length; ++j)
+                            object.aScore[j] = options.json && !isFinite(message.aScore[j]) ? String(message.aScore[j]) : message.aScore[j];
+                    }
+                    if (message.accession && message.accession.length) {
+                        object.accession = [];
+                        for (var j = 0; j < message.accession.length; ++j)
+                            object.accession[j] = message.accession[j];
+                    }
+                    if (message.psmId != null && message.hasOwnProperty("psmId"))
+                        object.psmId = message.psmId;
+                    if (message.maxIntensity != null && message.hasOwnProperty("maxIntensity"))
+                        object.maxIntensity = options.json && !isFinite(message.maxIntensity) ? String(message.maxIntensity) : message.maxIntensity;
+                    if (message.score != null && message.hasOwnProperty("score"))
+                        object.score = options.json && !isFinite(message.score) ? String(message.score) : message.score;
+                    if (message.decoy != null && message.hasOwnProperty("decoy"))
+                        object.decoy = message.decoy;
+                    return object;
+                };
+
+                /**
+                 * Converts this PSM to JSON.
+                 * @function toJSON
+                 * @memberof com.example.dto.PSM
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PSM.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PSM;
+            })();
+
+            /**
+             * Engine enum.
+             * @name com.example.dto.Engine
+             * @enum {string}
+             * @property {number} UNKNOWN=0 UNKNOWN value
+             * @property {number} PEAKS=1 PEAKS value
+             * @property {number} SPIDER=2 SPIDER value
+             * @property {number} PEAKSPTM=3 PEAKSPTM value
+             */
+            dto.Engine = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNKNOWN"] = 0;
+                values[valuesById[1] = "PEAKS"] = 1;
+                values[valuesById[2] = "SPIDER"] = 2;
+                values[valuesById[3] = "PEAKSPTM"] = 3;
+                return values;
+            })();
+
             return dto;
         })();
 
