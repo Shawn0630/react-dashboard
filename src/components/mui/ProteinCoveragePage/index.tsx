@@ -5,9 +5,9 @@ import Divider from "material-ui/Divider";
 import { ModificationHelper } from "../../../../../utilities/modification-helper";
 import Checkbox from "material-ui/Checkbox";
 import { com } from "~models/example";
-import IProteinPeptide = com.bsi.peaks.model.dto.peptide.IProteinPeptide;
-import ISupportPeptide = com.bsi.peaks.model.dto.peptide.ISupportPeptide;
-import IAbbreviatedModification = com.bsi.peaks.model.dto.peptide.IAbbreviatedModification;
+import IProteinPeptide = com.example.dto.IProteinPeptide;
+import ISupportPeptide = com.example.dto.ISupportPeptide;
+import IAbbreviatedModification = com.example.dto.IAbbreviatedModification;
 import * as ReactTooltip from "react-tooltip";
 
 interface ProteinsCoverageProps {

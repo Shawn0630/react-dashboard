@@ -81,17 +81,8 @@ message DenovoCandidate {
     float ppm = 5;
     float alc = 6; // Average positional confidence.
     repeated float positionConfidence = 7;
-    repeated AbbreviateModification modifications = 8;
+    repeated AbbreviatedModification modifications = 8;
     float maxIntensity = 9;
-}
-
-
-message AbbreviateModification {
-    string name = 1;
-    string abbreviation = 2;
-    float monoMass = 3;
-    ModificationType type = 4;
-    string anywhereResidues = 5;
 }
 
 enum ModificationType {
