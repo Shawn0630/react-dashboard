@@ -1,5 +1,6 @@
-import Checkbox from "material-ui/Checkbox";
-import Divider from "material-ui/Divider";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Divider from "@material-ui/core/Divider";
 import * as React from "react";
 import * as ReactTooltip from "react-tooltip";
 import { com } from "~models/example";
@@ -66,11 +67,13 @@ export default class ProteinsCoveragePage extends React.PureComponent<ProteinsCo
         this.props.proteinPeptide.peptides.map((peptide: ISupportPeptide) => {
             const modisPerPeptide: IAbbreviatedModification[] = peptide.peptide.modifications;
 
-            modisPerPeptide.map((modi: IAbbreviatedModification) => {
-                if (!this.checkIsExist(modifications, modi)) {
-                    modifications.push(modi);
-                }
-            });
+            if (modisPerPeptide != null) {
+                modisPerPeptide.map((modi: IAbbreviatedModification) => {
+                    if (!this.checkIsExist(modifications, modi)) {
+                        modifications.push(modi);
+                    }
+                });
+            }
         });
 
         return <div className={styles.coverageContainer}>
@@ -95,9 +98,16 @@ export default class ProteinsCoveragePage extends React.PureComponent<ProteinsCo
                         </span>
                     </div>;
 
-                    return <Checkbox iconStyle={{ marginRight: "5px" }} label={ptm} key={`checkbox.${index}`} style={{ width: "auto" }}
-                        labelStyle={{ lineHeight: "20px", marginRight: "5px", width: "auto" }} value={modi.name}
-                        onCheck={this.handlePTMFilter} checked={this.state.selectedModifications[modi.name]} />;
+                    return <FormControlLabel
+                        control={
+                            <Checkbox
+                                value={modi.name}
+                                onChange={this.handlePTMFilter} checked={this.state.selectedModifications[modi.name]}
+                                color="primary"
+                            />
+                        }
+                        label={ptm}
+                    />;
                 })
             }
         </div>;
@@ -108,7 +118,7 @@ export default class ProteinsCoveragePage extends React.PureComponent<ProteinsCo
             modisMap: this.createModificationData([...nextProp.proteinPeptide.peptides])
         });
     }
-    private handlePTMFilter(event: React.MouseEvent<HTMLInputElement>): void {
+    private handlePTMFilter(event: React.ChangeEvent<HTMLInputElement>): void {
         this.state.selectedModifications[event.currentTarget.value] = !this.state.selectedModifications[event.currentTarget.value];
         this.forceUpdate();
     }
