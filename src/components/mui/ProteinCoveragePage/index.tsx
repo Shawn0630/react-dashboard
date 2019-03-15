@@ -6,7 +6,6 @@ import * as proteinPeptide from "../../../data/ProteinPeptide.json";
 
 export default class ProteinCoveragePage extends React.PureComponent<{}> {
     public render(): JSX.Element {
-        debugger;
         return <React.Fragment>
             <ProteinCoverage proteinPeptide={proteinPeptide as IProteinPeptide} aaPerLine={80} aaPerCol={10}/>
         </React.Fragment>;
