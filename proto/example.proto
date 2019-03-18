@@ -241,7 +241,7 @@ message Peptide {
     string sequence = 1;
     float mass = 2;
     uint32 length = 3;
-    repeated AbbreviatedModification modifications = 5;
+    repeated string modifications = 5;
     repeated PeptideSample samples = 6;
     repeated uint32 positionOfModifications = 8;
     uint32 psmCount = 9;
@@ -285,3 +285,53 @@ enum Engine {
     SPIDER = 2;
     PEAKSPTM = 3;
 }
+
+message PtmModification {
+    string name = 1;
+    string abbreviation = 2;
+    float monoMass = 3;
+    ModificationType type = 4;
+    string position = 5;
+    float pValue = 6;
+    float maxAscore = 7;
+    float maxIntensity = 8;
+    float are = 9;
+    uint32 count = 10;
+}
+
+message SamplePeptideFrequency {
+    string sampleId = 1;
+    repeated uint32 frquences = 2;
+}
+
+message FeatureVectorProfile {
+    OptionalFloat area = 1;
+    OptionalFloat ratio = 2;
+    float colour = 3;
+}
+
+message SupportPeptideFeatureVector {
+    PeptideFeatureVector peptideFeatureVector = 1;
+    uint32 start = 2;
+    uint32 end = 3;
+    bool used = 4;
+    string accession = 5;
+    uint32 proteinGroup = 6;
+}
+
+message PeptideFeatureVector {
+    string peptide = 1;
+    float quality = 2;
+    float significance = 3;
+    float ppm = 4;
+    uint32 vectorCount = 5;
+    repeated FeatureVectorProfile sampleProfiles = 6;
+    repeated FeatureVectorProfile groupProfiles = 7;
+    repeated string accession = 8;
+    repeated string modifications = 9;
+    repeated uint32 positionOfModifications = 10;
+    float averageArea = 11;
+    float maxRatio = 12;
+}
+
+

@@ -929,7 +929,7 @@ export namespace com {
                 positionConfidence?: (number[]|null);
 
                 /** DenovoCandidate modifications */
-                modifications?: (com.example.dto.IAbbreviateModification[]|null);
+                modifications?: (com.example.dto.IAbbreviatedModification[]|null);
 
                 /** DenovoCandidate maxIntensity */
                 maxIntensity?: (number|null);
@@ -966,7 +966,7 @@ export namespace com {
                 public positionConfidence: number[];
 
                 /** DenovoCandidate modifications. */
-                public modifications: com.example.dto.IAbbreviateModification[];
+                public modifications: com.example.dto.IAbbreviatedModification[];
 
                 /** DenovoCandidate maxIntensity. */
                 public maxIntensity: number;
@@ -1037,120 +1037,6 @@ export namespace com {
 
                 /**
                  * Converts this DenovoCandidate to JSON.
-                 * @returns JSON object
-                 */
-                public toJSON(): { [k: string]: any };
-            }
-
-            /** Properties of an AbbreviateModification. */
-            interface IAbbreviateModification {
-
-                /** AbbreviateModification name */
-                name?: (string|null);
-
-                /** AbbreviateModification abbreviation */
-                abbreviation?: (string|null);
-
-                /** AbbreviateModification monoMass */
-                monoMass?: (number|null);
-
-                /** AbbreviateModification type */
-                type?: (com.example.dto.ModificationType|null);
-
-                /** AbbreviateModification anywhereResidues */
-                anywhereResidues?: (string|null);
-            }
-
-            /** Represents an AbbreviateModification. */
-            class AbbreviateModification implements IAbbreviateModification {
-
-                /**
-                 * Constructs a new AbbreviateModification.
-                 * @param [properties] Properties to set
-                 */
-                constructor(properties?: com.example.dto.IAbbreviateModification);
-
-                /** AbbreviateModification name. */
-                public name: string;
-
-                /** AbbreviateModification abbreviation. */
-                public abbreviation: string;
-
-                /** AbbreviateModification monoMass. */
-                public monoMass: number;
-
-                /** AbbreviateModification type. */
-                public type: com.example.dto.ModificationType;
-
-                /** AbbreviateModification anywhereResidues. */
-                public anywhereResidues: string;
-
-                /**
-                 * Creates a new AbbreviateModification instance using the specified properties.
-                 * @param [properties] Properties to set
-                 * @returns AbbreviateModification instance
-                 */
-                public static create(properties?: com.example.dto.IAbbreviateModification): com.example.dto.AbbreviateModification;
-
-                /**
-                 * Encodes the specified AbbreviateModification message. Does not implicitly {@link com.example.dto.AbbreviateModification.verify|verify} messages.
-                 * @param message AbbreviateModification message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encode(message: com.example.dto.IAbbreviateModification, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Encodes the specified AbbreviateModification message, length delimited. Does not implicitly {@link com.example.dto.AbbreviateModification.verify|verify} messages.
-                 * @param message AbbreviateModification message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encodeDelimited(message: com.example.dto.IAbbreviateModification, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Decodes an AbbreviateModification message from the specified reader or buffer.
-                 * @param reader Reader or buffer to decode from
-                 * @param [length] Message length if known beforehand
-                 * @returns AbbreviateModification
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.AbbreviateModification;
-
-                /**
-                 * Decodes an AbbreviateModification message from the specified reader or buffer, length delimited.
-                 * @param reader Reader or buffer to decode from
-                 * @returns AbbreviateModification
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.AbbreviateModification;
-
-                /**
-                 * Verifies an AbbreviateModification message.
-                 * @param message Plain object to verify
-                 * @returns `null` if valid, otherwise the reason why it is not
-                 */
-                public static verify(message: { [k: string]: any }): (string|null);
-
-                /**
-                 * Creates an AbbreviateModification message from a plain object. Also converts values to their respective internal types.
-                 * @param object Plain object
-                 * @returns AbbreviateModification
-                 */
-                public static fromObject(object: { [k: string]: any }): com.example.dto.AbbreviateModification;
-
-                /**
-                 * Creates a plain object from an AbbreviateModification message. Also converts values to other types if specified.
-                 * @param message AbbreviateModification
-                 * @param [options] Conversion options
-                 * @returns Plain object
-                 */
-                public static toObject(message: com.example.dto.AbbreviateModification, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                /**
-                 * Converts this AbbreviateModification to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
@@ -2766,7 +2652,7 @@ export namespace com {
                 length?: (number|null);
 
                 /** Peptide modifications */
-                modifications?: (com.example.dto.IAbbreviatedModification[]|null);
+                modifications?: (string[]|null);
 
                 /** Peptide samples */
                 samples?: (com.example.dto.IPeptideSample[]|null);
@@ -2806,7 +2692,7 @@ export namespace com {
                 public length: number;
 
                 /** Peptide modifications. */
-                public modifications: com.example.dto.IAbbreviatedModification[];
+                public modifications: string[];
 
                 /** Peptide samples. */
                 public samples: com.example.dto.IPeptideSample[];
@@ -3275,6 +3161,624 @@ export namespace com {
                 PEAKS = 1,
                 SPIDER = 2,
                 PEAKSPTM = 3
+            }
+
+            /** Properties of a PtmModification. */
+            interface IPtmModification {
+
+                /** PtmModification name */
+                name?: (string|null);
+
+                /** PtmModification abbreviation */
+                abbreviation?: (string|null);
+
+                /** PtmModification monoMass */
+                monoMass?: (number|null);
+
+                /** PtmModification type */
+                type?: (com.example.dto.ModificationType|null);
+
+                /** PtmModification position */
+                position?: (string|null);
+
+                /** PtmModification pValue */
+                pValue?: (number|null);
+
+                /** PtmModification maxAscore */
+                maxAscore?: (number|null);
+
+                /** PtmModification maxIntensity */
+                maxIntensity?: (number|null);
+
+                /** PtmModification are */
+                are?: (number|null);
+
+                /** PtmModification count */
+                count?: (number|null);
+            }
+
+            /** Represents a PtmModification. */
+            class PtmModification implements IPtmModification {
+
+                /**
+                 * Constructs a new PtmModification.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IPtmModification);
+
+                /** PtmModification name. */
+                public name: string;
+
+                /** PtmModification abbreviation. */
+                public abbreviation: string;
+
+                /** PtmModification monoMass. */
+                public monoMass: number;
+
+                /** PtmModification type. */
+                public type: com.example.dto.ModificationType;
+
+                /** PtmModification position. */
+                public position: string;
+
+                /** PtmModification pValue. */
+                public pValue: number;
+
+                /** PtmModification maxAscore. */
+                public maxAscore: number;
+
+                /** PtmModification maxIntensity. */
+                public maxIntensity: number;
+
+                /** PtmModification are. */
+                public are: number;
+
+                /** PtmModification count. */
+                public count: number;
+
+                /**
+                 * Creates a new PtmModification instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PtmModification instance
+                 */
+                public static create(properties?: com.example.dto.IPtmModification): com.example.dto.PtmModification;
+
+                /**
+                 * Encodes the specified PtmModification message. Does not implicitly {@link com.example.dto.PtmModification.verify|verify} messages.
+                 * @param message PtmModification message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IPtmModification, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PtmModification message, length delimited. Does not implicitly {@link com.example.dto.PtmModification.verify|verify} messages.
+                 * @param message PtmModification message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IPtmModification, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PtmModification message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PtmModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.PtmModification;
+
+                /**
+                 * Decodes a PtmModification message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PtmModification
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.PtmModification;
+
+                /**
+                 * Verifies a PtmModification message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PtmModification message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PtmModification
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.PtmModification;
+
+                /**
+                 * Creates a plain object from a PtmModification message. Also converts values to other types if specified.
+                 * @param message PtmModification
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.PtmModification, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PtmModification to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SamplePeptideFrequency. */
+            interface ISamplePeptideFrequency {
+
+                /** SamplePeptideFrequency sampleId */
+                sampleId?: (string|null);
+
+                /** SamplePeptideFrequency frquences */
+                frquences?: (number[]|null);
+            }
+
+            /** Represents a SamplePeptideFrequency. */
+            class SamplePeptideFrequency implements ISamplePeptideFrequency {
+
+                /**
+                 * Constructs a new SamplePeptideFrequency.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ISamplePeptideFrequency);
+
+                /** SamplePeptideFrequency sampleId. */
+                public sampleId: string;
+
+                /** SamplePeptideFrequency frquences. */
+                public frquences: number[];
+
+                /**
+                 * Creates a new SamplePeptideFrequency instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SamplePeptideFrequency instance
+                 */
+                public static create(properties?: com.example.dto.ISamplePeptideFrequency): com.example.dto.SamplePeptideFrequency;
+
+                /**
+                 * Encodes the specified SamplePeptideFrequency message. Does not implicitly {@link com.example.dto.SamplePeptideFrequency.verify|verify} messages.
+                 * @param message SamplePeptideFrequency message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ISamplePeptideFrequency, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SamplePeptideFrequency message, length delimited. Does not implicitly {@link com.example.dto.SamplePeptideFrequency.verify|verify} messages.
+                 * @param message SamplePeptideFrequency message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ISamplePeptideFrequency, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SamplePeptideFrequency message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SamplePeptideFrequency
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.SamplePeptideFrequency;
+
+                /**
+                 * Decodes a SamplePeptideFrequency message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SamplePeptideFrequency
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.SamplePeptideFrequency;
+
+                /**
+                 * Verifies a SamplePeptideFrequency message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SamplePeptideFrequency message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SamplePeptideFrequency
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.SamplePeptideFrequency;
+
+                /**
+                 * Creates a plain object from a SamplePeptideFrequency message. Also converts values to other types if specified.
+                 * @param message SamplePeptideFrequency
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.SamplePeptideFrequency, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SamplePeptideFrequency to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a FeatureVectorProfile. */
+            interface IFeatureVectorProfile {
+
+                /** FeatureVectorProfile area */
+                area?: (com.example.dto.IOptionalFloat|null);
+
+                /** FeatureVectorProfile ratio */
+                ratio?: (com.example.dto.IOptionalFloat|null);
+
+                /** FeatureVectorProfile colour */
+                colour?: (number|null);
+            }
+
+            /** Represents a FeatureVectorProfile. */
+            class FeatureVectorProfile implements IFeatureVectorProfile {
+
+                /**
+                 * Constructs a new FeatureVectorProfile.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IFeatureVectorProfile);
+
+                /** FeatureVectorProfile area. */
+                public area?: (com.example.dto.IOptionalFloat|null);
+
+                /** FeatureVectorProfile ratio. */
+                public ratio?: (com.example.dto.IOptionalFloat|null);
+
+                /** FeatureVectorProfile colour. */
+                public colour: number;
+
+                /**
+                 * Creates a new FeatureVectorProfile instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns FeatureVectorProfile instance
+                 */
+                public static create(properties?: com.example.dto.IFeatureVectorProfile): com.example.dto.FeatureVectorProfile;
+
+                /**
+                 * Encodes the specified FeatureVectorProfile message. Does not implicitly {@link com.example.dto.FeatureVectorProfile.verify|verify} messages.
+                 * @param message FeatureVectorProfile message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IFeatureVectorProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified FeatureVectorProfile message, length delimited. Does not implicitly {@link com.example.dto.FeatureVectorProfile.verify|verify} messages.
+                 * @param message FeatureVectorProfile message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IFeatureVectorProfile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a FeatureVectorProfile message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns FeatureVectorProfile
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.FeatureVectorProfile;
+
+                /**
+                 * Decodes a FeatureVectorProfile message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns FeatureVectorProfile
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.FeatureVectorProfile;
+
+                /**
+                 * Verifies a FeatureVectorProfile message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a FeatureVectorProfile message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns FeatureVectorProfile
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.FeatureVectorProfile;
+
+                /**
+                 * Creates a plain object from a FeatureVectorProfile message. Also converts values to other types if specified.
+                 * @param message FeatureVectorProfile
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.FeatureVectorProfile, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this FeatureVectorProfile to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SupportPeptideFeatureVector. */
+            interface ISupportPeptideFeatureVector {
+
+                /** SupportPeptideFeatureVector peptideFeatureVector */
+                peptideFeatureVector?: (com.example.dto.IPeptideFeatureVector|null);
+
+                /** SupportPeptideFeatureVector start */
+                start?: (number|null);
+
+                /** SupportPeptideFeatureVector end */
+                end?: (number|null);
+
+                /** SupportPeptideFeatureVector used */
+                used?: (boolean|null);
+
+                /** SupportPeptideFeatureVector accession */
+                accession?: (string|null);
+
+                /** SupportPeptideFeatureVector proteinGroup */
+                proteinGroup?: (number|null);
+            }
+
+            /** Represents a SupportPeptideFeatureVector. */
+            class SupportPeptideFeatureVector implements ISupportPeptideFeatureVector {
+
+                /**
+                 * Constructs a new SupportPeptideFeatureVector.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ISupportPeptideFeatureVector);
+
+                /** SupportPeptideFeatureVector peptideFeatureVector. */
+                public peptideFeatureVector?: (com.example.dto.IPeptideFeatureVector|null);
+
+                /** SupportPeptideFeatureVector start. */
+                public start: number;
+
+                /** SupportPeptideFeatureVector end. */
+                public end: number;
+
+                /** SupportPeptideFeatureVector used. */
+                public used: boolean;
+
+                /** SupportPeptideFeatureVector accession. */
+                public accession: string;
+
+                /** SupportPeptideFeatureVector proteinGroup. */
+                public proteinGroup: number;
+
+                /**
+                 * Creates a new SupportPeptideFeatureVector instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SupportPeptideFeatureVector instance
+                 */
+                public static create(properties?: com.example.dto.ISupportPeptideFeatureVector): com.example.dto.SupportPeptideFeatureVector;
+
+                /**
+                 * Encodes the specified SupportPeptideFeatureVector message. Does not implicitly {@link com.example.dto.SupportPeptideFeatureVector.verify|verify} messages.
+                 * @param message SupportPeptideFeatureVector message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ISupportPeptideFeatureVector, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SupportPeptideFeatureVector message, length delimited. Does not implicitly {@link com.example.dto.SupportPeptideFeatureVector.verify|verify} messages.
+                 * @param message SupportPeptideFeatureVector message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ISupportPeptideFeatureVector, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SupportPeptideFeatureVector message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SupportPeptideFeatureVector
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.SupportPeptideFeatureVector;
+
+                /**
+                 * Decodes a SupportPeptideFeatureVector message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SupportPeptideFeatureVector
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.SupportPeptideFeatureVector;
+
+                /**
+                 * Verifies a SupportPeptideFeatureVector message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SupportPeptideFeatureVector message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SupportPeptideFeatureVector
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.SupportPeptideFeatureVector;
+
+                /**
+                 * Creates a plain object from a SupportPeptideFeatureVector message. Also converts values to other types if specified.
+                 * @param message SupportPeptideFeatureVector
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.SupportPeptideFeatureVector, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SupportPeptideFeatureVector to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a PeptideFeatureVector. */
+            interface IPeptideFeatureVector {
+
+                /** PeptideFeatureVector peptide */
+                peptide?: (string|null);
+
+                /** PeptideFeatureVector quality */
+                quality?: (number|null);
+
+                /** PeptideFeatureVector significance */
+                significance?: (number|null);
+
+                /** PeptideFeatureVector ppm */
+                ppm?: (number|null);
+
+                /** PeptideFeatureVector vectorCount */
+                vectorCount?: (number|null);
+
+                /** PeptideFeatureVector sampleProfiles */
+                sampleProfiles?: (com.example.dto.IFeatureVectorProfile[]|null);
+
+                /** PeptideFeatureVector groupProfiles */
+                groupProfiles?: (com.example.dto.IFeatureVectorProfile[]|null);
+
+                /** PeptideFeatureVector accession */
+                accession?: (string[]|null);
+
+                /** PeptideFeatureVector modifications */
+                modifications?: (string[]|null);
+
+                /** PeptideFeatureVector positionOfModifications */
+                positionOfModifications?: (number[]|null);
+
+                /** PeptideFeatureVector averageArea */
+                averageArea?: (number|null);
+
+                /** PeptideFeatureVector maxRatio */
+                maxRatio?: (number|null);
+            }
+
+            /** Represents a PeptideFeatureVector. */
+            class PeptideFeatureVector implements IPeptideFeatureVector {
+
+                /**
+                 * Constructs a new PeptideFeatureVector.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IPeptideFeatureVector);
+
+                /** PeptideFeatureVector peptide. */
+                public peptide: string;
+
+                /** PeptideFeatureVector quality. */
+                public quality: number;
+
+                /** PeptideFeatureVector significance. */
+                public significance: number;
+
+                /** PeptideFeatureVector ppm. */
+                public ppm: number;
+
+                /** PeptideFeatureVector vectorCount. */
+                public vectorCount: number;
+
+                /** PeptideFeatureVector sampleProfiles. */
+                public sampleProfiles: com.example.dto.IFeatureVectorProfile[];
+
+                /** PeptideFeatureVector groupProfiles. */
+                public groupProfiles: com.example.dto.IFeatureVectorProfile[];
+
+                /** PeptideFeatureVector accession. */
+                public accession: string[];
+
+                /** PeptideFeatureVector modifications. */
+                public modifications: string[];
+
+                /** PeptideFeatureVector positionOfModifications. */
+                public positionOfModifications: number[];
+
+                /** PeptideFeatureVector averageArea. */
+                public averageArea: number;
+
+                /** PeptideFeatureVector maxRatio. */
+                public maxRatio: number;
+
+                /**
+                 * Creates a new PeptideFeatureVector instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PeptideFeatureVector instance
+                 */
+                public static create(properties?: com.example.dto.IPeptideFeatureVector): com.example.dto.PeptideFeatureVector;
+
+                /**
+                 * Encodes the specified PeptideFeatureVector message. Does not implicitly {@link com.example.dto.PeptideFeatureVector.verify|verify} messages.
+                 * @param message PeptideFeatureVector message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IPeptideFeatureVector, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PeptideFeatureVector message, length delimited. Does not implicitly {@link com.example.dto.PeptideFeatureVector.verify|verify} messages.
+                 * @param message PeptideFeatureVector message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IPeptideFeatureVector, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PeptideFeatureVector message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PeptideFeatureVector
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.PeptideFeatureVector;
+
+                /**
+                 * Decodes a PeptideFeatureVector message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PeptideFeatureVector
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.PeptideFeatureVector;
+
+                /**
+                 * Verifies a PeptideFeatureVector message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PeptideFeatureVector message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PeptideFeatureVector
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.PeptideFeatureVector;
+
+                /**
+                 * Creates a plain object from a PeptideFeatureVector message. Also converts values to other types if specified.
+                 * @param message PeptideFeatureVector
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.PeptideFeatureVector, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PeptideFeatureVector to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
             }
         }
     }

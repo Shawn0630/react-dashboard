@@ -26,10 +26,10 @@ import * as styles from "./ProteinCoverage.scss";
 import IProtein = com.example.dto.IProtein;
 import IPtmModification = com.example.dto.IPtmModification;
 import ISupportPeptide = com.example.dto.ISupportPeptide;
-import IFeatureVectorProfile = com.bsi.peaks.model.dto.peptide.IFeatureVectorProfile;
-import ISupportPeptideFeatureVector = com.bsi.peaks.model.dto.peptide.ISupportPeptideFeatureVector;
-import IAbbreviatedModification = com.bsi.peaks.model.dto.peptide.IAbbreviatedModification;
-import SamplePeptideFrequency = com.bsi.peaks.model.dto.peptide.SamplePeptideFrequency;
+import IFeatureVectorProfile = com.example.dto.IFeatureVectorProfile;
+import ISupportPeptideFeatureVector = com.example.dto.ISupportPeptideFeatureVector;
+import IAbbreviatedModification = com.example.dto.IAbbreviatedModification;
+import SamplePeptideFrequency = com.example.dto.SamplePeptideFrequency;
 import IPSM = com.example.dto.IPSM;
 import Sample = com.example.dto.Sample;
 import { ModificationHelper } from "~/utilities/modification-helper";
@@ -1016,7 +1016,7 @@ class ProteinsCoverage extends React.PureComponent<ProteinsCoverageProps, Protei
         const ret: SampleSummaryInfo[] = [];
         const tempResult: number[][] = [];
         for (const sample of sampleInfo) {
-            tempResult.push(sample.fequences);
+            tempResult.push(sample.frquences);
         }
         const limitValue: number = this.calculateLimitValue(tempResult);
         for (const sample of sampleInfo) {
@@ -1025,7 +1025,7 @@ class ProteinsCoverage extends React.PureComponent<ProteinsCoverageProps, Protei
                 sampleData: null
             };
             newSampleSummaryInfo.sampleData =
-                this.generateFrequencyData(sample.fequences, sampleInfo.indexOf(sample), limitValue, peptides);
+                this.generateFrequencyData(sample.frquences, sampleInfo.indexOf(sample), limitValue, peptides);
             ret.push(newSampleSummaryInfo);
         }
         return ret;
