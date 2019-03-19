@@ -334,4 +334,91 @@ message PeptideFeatureVector {
     float maxRatio = 12;
 }
 
+message StatsMissedCleavage {
+    uint32 withZeros = 1;
+    uint32 withOnes = 2;
+    uint32 withTwos = 3;
+    uint32 withThrees = 4;
+    uint32 withMoreThenFours = 5;
+}
+
+
+message SampleProteinStatistics {
+    uint32 proteinTotal = 1;
+    uint32 proteinGroupTotal = 2;
+}
+
+message SamplePeptideStatistics {
+    uint32 ms1scans = 1;
+    uint32 ms2scans = 2;
+    uint32 psmTotal = 3;
+    uint32 peptideTotal = 4;
+    uint32 peptideBackboneTotal = 5;
+    uint32 denovoOnlySpectrumCount = 6;
+    StatsMissedCleavage missedCleavages = 7;
+}
+
+
+message StatisticsOfFilteredResult {
+    uint32 proteinGroupsCount = 1;
+    uint32 proteinDecoyCount = 2;
+    uint32 proteinTargetCount = 3;
+    uint32 proteinCountWithOneUniquePeptide = 4;
+    uint32 proteinCountWithTwoUniquePeptides = 5;
+    uint32 proteinCountWithMoreThanTwoUniquePeptides = 6;
+    uint32 proteinTargetTopCount = 7;
+    PeptideStatistics peptideStats = 8;
+    map<string, SampleProteinStatistics> samples = 9;
+    map<string, PtmModification> modifications = 10;
+}
+
+message PeptideStatistics {
+    uint32 ms1Count = 1;
+    uint32 ms2Count = 2;
+    uint32 denovoOnlySpectrumCount = 3;
+    uint32 peptideTargetSpecturmCount = 4;
+    uint32 peptideDecoySpecturmCount = 5;
+    uint32 peptideTargetSequencesCount = 6;
+    uint32 peptideDecoySequencesCount = 7;
+    uint32 peptideTargetBackboneSequencesCount = 8;
+    uint32 peptideDecoyBackboneSequencesCount = 9;
+    repeated float psmPrecursorPpms = 10;
+    repeated float psmPrecursorMzs= 11;
+    bool precursorOverflow = 12;
+    repeated Bin psmPrecursorPpmBins = 13;
+    map<string, SamplePeptideStatistics> samples = 14;
+    float pValue = 15;
+    repeated Bin psmPrecursorPpmsBinsAfterCalibration = 16;
+}
+
+message Bin {
+    uint32 count = 1;
+    float min = 2;
+    float max = 3;
+}
+
+message LfqStatisticsOfFilteredResult {
+    uint32 featuresCount = 1;
+    uint32 featuresWithIdCount = 2;
+    uint32 featureVectorsCount = 3;
+    uint32 featureVectorsWithIdCount = 4;
+    uint32 proteinGroupsCount = 5;
+    LfqHeatMapDendrogram proteinHeatMap = 6;
+    bool heatMapMaxProteinsReached = 7;
+    map<string, AbbreviatedModification> modificationMap = 8;
+}
+
+message LfqHeatMapDendrogram {
+    LfqHeatMapDendrogram left = 1;
+    LfqHeatMapDendrogram right = 2;
+    LfqHeatMapRow row = 3;
+}
+
+message LfqHeatMapRow {
+    string accession = 1;
+    repeated float sampleAreas = 2;
+    repeated OptionalFloat sampleRatios = 3;
+    repeated float colour = 4;
+}
+
 

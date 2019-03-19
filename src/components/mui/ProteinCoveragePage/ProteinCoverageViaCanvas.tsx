@@ -894,13 +894,15 @@ class ProteinsCoverage extends React.PureComponent<ProteinsCoverageProps, Protei
             (supportPeptide as ISupportPeptide).peptide.positionOfModifications :
             (supportPeptide as ISupportPeptideFeatureVector).peptideFeatureVector.positionOfModifications;
         const abbrModiList: IAbbreviatedModification[] = ModificationHelper.getAbbrModiList(modificationNames, this.props.ptmMap);
-        for (const position of positionOfModifications) {
-            if ((position + supportPeptide.start + 1) <= peptideRow.end &&
-                (position + supportPeptide.start + 1) >= peptideRow.start) {
-                positionOfNumber.push(position);
-                modifications.push(abbrModiList[index]);
+        if (positionOfModifications != null) {
+            for (const position of positionOfModifications) {
+                if ((position + supportPeptide.start + 1) <= peptideRow.end &&
+                    (position + supportPeptide.start + 1) >= peptideRow.start) {
+                    positionOfNumber.push(position);
+                    modifications.push(abbrModiList[index]);
+                }
+                index = index + 1;
             }
-            index = index + 1;
         }
         return {
             ...peptideRow,

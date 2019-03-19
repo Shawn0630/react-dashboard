@@ -169,14 +169,16 @@ namespace ModificationHelper {
     export function getAbbrModiList(
         modiStringList: string[], ptmMap: { [k: string]: IPtmModification }): IAbbreviatedModification[] {
         const ret: IAbbreviatedModification[] = [];
-        for (const modi of modiStringList) {
-            const newModi: IAbbreviatedModification = {
-                name: ptmMap[modi].name,
-                abbreviation: ptmMap[modi].abbreviation,
-                monoMass: ptmMap[modi].monoMass,
-                type: ptmMap[modi].type
-            };
-            ret.push(newModi);
+        if (modiStringList != null) {
+            for (const modi of modiStringList) {
+                const newModi: IAbbreviatedModification = {
+                    name: ptmMap[modi].name,
+                    abbreviation: ptmMap[modi].abbreviation,
+                    monoMass: ptmMap[modi].monoMass,
+                    type: ptmMap[modi].type
+                };
+                ret.push(newModi);
+            }
         }
         return ret;
     }

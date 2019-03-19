@@ -3780,6 +3780,1110 @@ export namespace com {
                  */
                 public toJSON(): { [k: string]: any };
             }
+
+            /** Properties of a StatsMissedCleavage. */
+            interface IStatsMissedCleavage {
+
+                /** StatsMissedCleavage withZeros */
+                withZeros?: (number|null);
+
+                /** StatsMissedCleavage withOnes */
+                withOnes?: (number|null);
+
+                /** StatsMissedCleavage withTwos */
+                withTwos?: (number|null);
+
+                /** StatsMissedCleavage withThrees */
+                withThrees?: (number|null);
+
+                /** StatsMissedCleavage withMoreThenFours */
+                withMoreThenFours?: (number|null);
+            }
+
+            /** Represents a StatsMissedCleavage. */
+            class StatsMissedCleavage implements IStatsMissedCleavage {
+
+                /**
+                 * Constructs a new StatsMissedCleavage.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IStatsMissedCleavage);
+
+                /** StatsMissedCleavage withZeros. */
+                public withZeros: number;
+
+                /** StatsMissedCleavage withOnes. */
+                public withOnes: number;
+
+                /** StatsMissedCleavage withTwos. */
+                public withTwos: number;
+
+                /** StatsMissedCleavage withThrees. */
+                public withThrees: number;
+
+                /** StatsMissedCleavage withMoreThenFours. */
+                public withMoreThenFours: number;
+
+                /**
+                 * Creates a new StatsMissedCleavage instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns StatsMissedCleavage instance
+                 */
+                public static create(properties?: com.example.dto.IStatsMissedCleavage): com.example.dto.StatsMissedCleavage;
+
+                /**
+                 * Encodes the specified StatsMissedCleavage message. Does not implicitly {@link com.example.dto.StatsMissedCleavage.verify|verify} messages.
+                 * @param message StatsMissedCleavage message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IStatsMissedCleavage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified StatsMissedCleavage message, length delimited. Does not implicitly {@link com.example.dto.StatsMissedCleavage.verify|verify} messages.
+                 * @param message StatsMissedCleavage message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IStatsMissedCleavage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a StatsMissedCleavage message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns StatsMissedCleavage
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.StatsMissedCleavage;
+
+                /**
+                 * Decodes a StatsMissedCleavage message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns StatsMissedCleavage
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.StatsMissedCleavage;
+
+                /**
+                 * Verifies a StatsMissedCleavage message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a StatsMissedCleavage message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns StatsMissedCleavage
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.StatsMissedCleavage;
+
+                /**
+                 * Creates a plain object from a StatsMissedCleavage message. Also converts values to other types if specified.
+                 * @param message StatsMissedCleavage
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.StatsMissedCleavage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this StatsMissedCleavage to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SampleProteinStatistics. */
+            interface ISampleProteinStatistics {
+
+                /** SampleProteinStatistics proteinTotal */
+                proteinTotal?: (number|null);
+
+                /** SampleProteinStatistics proteinGroupTotal */
+                proteinGroupTotal?: (number|null);
+            }
+
+            /** Represents a SampleProteinStatistics. */
+            class SampleProteinStatistics implements ISampleProteinStatistics {
+
+                /**
+                 * Constructs a new SampleProteinStatistics.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ISampleProteinStatistics);
+
+                /** SampleProteinStatistics proteinTotal. */
+                public proteinTotal: number;
+
+                /** SampleProteinStatistics proteinGroupTotal. */
+                public proteinGroupTotal: number;
+
+                /**
+                 * Creates a new SampleProteinStatistics instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SampleProteinStatistics instance
+                 */
+                public static create(properties?: com.example.dto.ISampleProteinStatistics): com.example.dto.SampleProteinStatistics;
+
+                /**
+                 * Encodes the specified SampleProteinStatistics message. Does not implicitly {@link com.example.dto.SampleProteinStatistics.verify|verify} messages.
+                 * @param message SampleProteinStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ISampleProteinStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SampleProteinStatistics message, length delimited. Does not implicitly {@link com.example.dto.SampleProteinStatistics.verify|verify} messages.
+                 * @param message SampleProteinStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ISampleProteinStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SampleProteinStatistics message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SampleProteinStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.SampleProteinStatistics;
+
+                /**
+                 * Decodes a SampleProteinStatistics message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SampleProteinStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.SampleProteinStatistics;
+
+                /**
+                 * Verifies a SampleProteinStatistics message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SampleProteinStatistics message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SampleProteinStatistics
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.SampleProteinStatistics;
+
+                /**
+                 * Creates a plain object from a SampleProteinStatistics message. Also converts values to other types if specified.
+                 * @param message SampleProteinStatistics
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.SampleProteinStatistics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SampleProteinStatistics to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SamplePeptideStatistics. */
+            interface ISamplePeptideStatistics {
+
+                /** SamplePeptideStatistics ms1scans */
+                ms1scans?: (number|null);
+
+                /** SamplePeptideStatistics ms2scans */
+                ms2scans?: (number|null);
+
+                /** SamplePeptideStatistics psmTotal */
+                psmTotal?: (number|null);
+
+                /** SamplePeptideStatistics peptideTotal */
+                peptideTotal?: (number|null);
+
+                /** SamplePeptideStatistics peptideBackboneTotal */
+                peptideBackboneTotal?: (number|null);
+
+                /** SamplePeptideStatistics denovoOnlySpectrumCount */
+                denovoOnlySpectrumCount?: (number|null);
+
+                /** SamplePeptideStatistics missedCleavages */
+                missedCleavages?: (com.example.dto.IStatsMissedCleavage|null);
+            }
+
+            /** Represents a SamplePeptideStatistics. */
+            class SamplePeptideStatistics implements ISamplePeptideStatistics {
+
+                /**
+                 * Constructs a new SamplePeptideStatistics.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ISamplePeptideStatistics);
+
+                /** SamplePeptideStatistics ms1scans. */
+                public ms1scans: number;
+
+                /** SamplePeptideStatistics ms2scans. */
+                public ms2scans: number;
+
+                /** SamplePeptideStatistics psmTotal. */
+                public psmTotal: number;
+
+                /** SamplePeptideStatistics peptideTotal. */
+                public peptideTotal: number;
+
+                /** SamplePeptideStatistics peptideBackboneTotal. */
+                public peptideBackboneTotal: number;
+
+                /** SamplePeptideStatistics denovoOnlySpectrumCount. */
+                public denovoOnlySpectrumCount: number;
+
+                /** SamplePeptideStatistics missedCleavages. */
+                public missedCleavages?: (com.example.dto.IStatsMissedCleavage|null);
+
+                /**
+                 * Creates a new SamplePeptideStatistics instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SamplePeptideStatistics instance
+                 */
+                public static create(properties?: com.example.dto.ISamplePeptideStatistics): com.example.dto.SamplePeptideStatistics;
+
+                /**
+                 * Encodes the specified SamplePeptideStatistics message. Does not implicitly {@link com.example.dto.SamplePeptideStatistics.verify|verify} messages.
+                 * @param message SamplePeptideStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ISamplePeptideStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SamplePeptideStatistics message, length delimited. Does not implicitly {@link com.example.dto.SamplePeptideStatistics.verify|verify} messages.
+                 * @param message SamplePeptideStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ISamplePeptideStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SamplePeptideStatistics message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SamplePeptideStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.SamplePeptideStatistics;
+
+                /**
+                 * Decodes a SamplePeptideStatistics message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SamplePeptideStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.SamplePeptideStatistics;
+
+                /**
+                 * Verifies a SamplePeptideStatistics message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SamplePeptideStatistics message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SamplePeptideStatistics
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.SamplePeptideStatistics;
+
+                /**
+                 * Creates a plain object from a SamplePeptideStatistics message. Also converts values to other types if specified.
+                 * @param message SamplePeptideStatistics
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.SamplePeptideStatistics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SamplePeptideStatistics to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a StatisticsOfFilteredResult. */
+            interface IStatisticsOfFilteredResult {
+
+                /** StatisticsOfFilteredResult proteinGroupsCount */
+                proteinGroupsCount?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinDecoyCount */
+                proteinDecoyCount?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinTargetCount */
+                proteinTargetCount?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinCountWithOneUniquePeptide */
+                proteinCountWithOneUniquePeptide?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinCountWithTwoUniquePeptides */
+                proteinCountWithTwoUniquePeptides?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinCountWithMoreThanTwoUniquePeptides */
+                proteinCountWithMoreThanTwoUniquePeptides?: (number|null);
+
+                /** StatisticsOfFilteredResult proteinTargetTopCount */
+                proteinTargetTopCount?: (number|null);
+
+                /** StatisticsOfFilteredResult peptideStats */
+                peptideStats?: (com.example.dto.IPeptideStatistics|null);
+
+                /** StatisticsOfFilteredResult samples */
+                samples?: ({ [k: string]: com.example.dto.ISampleProteinStatistics }|null);
+
+                /** StatisticsOfFilteredResult modifications */
+                modifications?: ({ [k: string]: com.example.dto.IPtmModification }|null);
+            }
+
+            /** Represents a StatisticsOfFilteredResult. */
+            class StatisticsOfFilteredResult implements IStatisticsOfFilteredResult {
+
+                /**
+                 * Constructs a new StatisticsOfFilteredResult.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IStatisticsOfFilteredResult);
+
+                /** StatisticsOfFilteredResult proteinGroupsCount. */
+                public proteinGroupsCount: number;
+
+                /** StatisticsOfFilteredResult proteinDecoyCount. */
+                public proteinDecoyCount: number;
+
+                /** StatisticsOfFilteredResult proteinTargetCount. */
+                public proteinTargetCount: number;
+
+                /** StatisticsOfFilteredResult proteinCountWithOneUniquePeptide. */
+                public proteinCountWithOneUniquePeptide: number;
+
+                /** StatisticsOfFilteredResult proteinCountWithTwoUniquePeptides. */
+                public proteinCountWithTwoUniquePeptides: number;
+
+                /** StatisticsOfFilteredResult proteinCountWithMoreThanTwoUniquePeptides. */
+                public proteinCountWithMoreThanTwoUniquePeptides: number;
+
+                /** StatisticsOfFilteredResult proteinTargetTopCount. */
+                public proteinTargetTopCount: number;
+
+                /** StatisticsOfFilteredResult peptideStats. */
+                public peptideStats?: (com.example.dto.IPeptideStatistics|null);
+
+                /** StatisticsOfFilteredResult samples. */
+                public samples: { [k: string]: com.example.dto.ISampleProteinStatistics };
+
+                /** StatisticsOfFilteredResult modifications. */
+                public modifications: { [k: string]: com.example.dto.IPtmModification };
+
+                /**
+                 * Creates a new StatisticsOfFilteredResult instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns StatisticsOfFilteredResult instance
+                 */
+                public static create(properties?: com.example.dto.IStatisticsOfFilteredResult): com.example.dto.StatisticsOfFilteredResult;
+
+                /**
+                 * Encodes the specified StatisticsOfFilteredResult message. Does not implicitly {@link com.example.dto.StatisticsOfFilteredResult.verify|verify} messages.
+                 * @param message StatisticsOfFilteredResult message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IStatisticsOfFilteredResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified StatisticsOfFilteredResult message, length delimited. Does not implicitly {@link com.example.dto.StatisticsOfFilteredResult.verify|verify} messages.
+                 * @param message StatisticsOfFilteredResult message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IStatisticsOfFilteredResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a StatisticsOfFilteredResult message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns StatisticsOfFilteredResult
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.StatisticsOfFilteredResult;
+
+                /**
+                 * Decodes a StatisticsOfFilteredResult message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns StatisticsOfFilteredResult
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.StatisticsOfFilteredResult;
+
+                /**
+                 * Verifies a StatisticsOfFilteredResult message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a StatisticsOfFilteredResult message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns StatisticsOfFilteredResult
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.StatisticsOfFilteredResult;
+
+                /**
+                 * Creates a plain object from a StatisticsOfFilteredResult message. Also converts values to other types if specified.
+                 * @param message StatisticsOfFilteredResult
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.StatisticsOfFilteredResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this StatisticsOfFilteredResult to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a PeptideStatistics. */
+            interface IPeptideStatistics {
+
+                /** PeptideStatistics ms1Count */
+                ms1Count?: (number|null);
+
+                /** PeptideStatistics ms2Count */
+                ms2Count?: (number|null);
+
+                /** PeptideStatistics denovoOnlySpectrumCount */
+                denovoOnlySpectrumCount?: (number|null);
+
+                /** PeptideStatistics peptideTargetSpecturmCount */
+                peptideTargetSpecturmCount?: (number|null);
+
+                /** PeptideStatistics peptideDecoySpecturmCount */
+                peptideDecoySpecturmCount?: (number|null);
+
+                /** PeptideStatistics peptideTargetSequencesCount */
+                peptideTargetSequencesCount?: (number|null);
+
+                /** PeptideStatistics peptideDecoySequencesCount */
+                peptideDecoySequencesCount?: (number|null);
+
+                /** PeptideStatistics peptideTargetBackboneSequencesCount */
+                peptideTargetBackboneSequencesCount?: (number|null);
+
+                /** PeptideStatistics peptideDecoyBackboneSequencesCount */
+                peptideDecoyBackboneSequencesCount?: (number|null);
+
+                /** PeptideStatistics psmPrecursorPpms */
+                psmPrecursorPpms?: (number[]|null);
+
+                /** PeptideStatistics psmPrecursorMzs */
+                psmPrecursorMzs?: (number[]|null);
+
+                /** PeptideStatistics precursorOverflow */
+                precursorOverflow?: (boolean|null);
+
+                /** PeptideStatistics psmPrecursorPpmBins */
+                psmPrecursorPpmBins?: (com.example.dto.IBin[]|null);
+
+                /** PeptideStatistics samples */
+                samples?: ({ [k: string]: com.example.dto.ISamplePeptideStatistics }|null);
+
+                /** PeptideStatistics pValue */
+                pValue?: (number|null);
+
+                /** PeptideStatistics psmPrecursorPpmsBinsAfterCalibration */
+                psmPrecursorPpmsBinsAfterCalibration?: (com.example.dto.IBin[]|null);
+            }
+
+            /** Represents a PeptideStatistics. */
+            class PeptideStatistics implements IPeptideStatistics {
+
+                /**
+                 * Constructs a new PeptideStatistics.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IPeptideStatistics);
+
+                /** PeptideStatistics ms1Count. */
+                public ms1Count: number;
+
+                /** PeptideStatistics ms2Count. */
+                public ms2Count: number;
+
+                /** PeptideStatistics denovoOnlySpectrumCount. */
+                public denovoOnlySpectrumCount: number;
+
+                /** PeptideStatistics peptideTargetSpecturmCount. */
+                public peptideTargetSpecturmCount: number;
+
+                /** PeptideStatistics peptideDecoySpecturmCount. */
+                public peptideDecoySpecturmCount: number;
+
+                /** PeptideStatistics peptideTargetSequencesCount. */
+                public peptideTargetSequencesCount: number;
+
+                /** PeptideStatistics peptideDecoySequencesCount. */
+                public peptideDecoySequencesCount: number;
+
+                /** PeptideStatistics peptideTargetBackboneSequencesCount. */
+                public peptideTargetBackboneSequencesCount: number;
+
+                /** PeptideStatistics peptideDecoyBackboneSequencesCount. */
+                public peptideDecoyBackboneSequencesCount: number;
+
+                /** PeptideStatistics psmPrecursorPpms. */
+                public psmPrecursorPpms: number[];
+
+                /** PeptideStatistics psmPrecursorMzs. */
+                public psmPrecursorMzs: number[];
+
+                /** PeptideStatistics precursorOverflow. */
+                public precursorOverflow: boolean;
+
+                /** PeptideStatistics psmPrecursorPpmBins. */
+                public psmPrecursorPpmBins: com.example.dto.IBin[];
+
+                /** PeptideStatistics samples. */
+                public samples: { [k: string]: com.example.dto.ISamplePeptideStatistics };
+
+                /** PeptideStatistics pValue. */
+                public pValue: number;
+
+                /** PeptideStatistics psmPrecursorPpmsBinsAfterCalibration. */
+                public psmPrecursorPpmsBinsAfterCalibration: com.example.dto.IBin[];
+
+                /**
+                 * Creates a new PeptideStatistics instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PeptideStatistics instance
+                 */
+                public static create(properties?: com.example.dto.IPeptideStatistics): com.example.dto.PeptideStatistics;
+
+                /**
+                 * Encodes the specified PeptideStatistics message. Does not implicitly {@link com.example.dto.PeptideStatistics.verify|verify} messages.
+                 * @param message PeptideStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IPeptideStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PeptideStatistics message, length delimited. Does not implicitly {@link com.example.dto.PeptideStatistics.verify|verify} messages.
+                 * @param message PeptideStatistics message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IPeptideStatistics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PeptideStatistics message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PeptideStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.PeptideStatistics;
+
+                /**
+                 * Decodes a PeptideStatistics message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PeptideStatistics
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.PeptideStatistics;
+
+                /**
+                 * Verifies a PeptideStatistics message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PeptideStatistics message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PeptideStatistics
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.PeptideStatistics;
+
+                /**
+                 * Creates a plain object from a PeptideStatistics message. Also converts values to other types if specified.
+                 * @param message PeptideStatistics
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.PeptideStatistics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PeptideStatistics to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Bin. */
+            interface IBin {
+
+                /** Bin count */
+                count?: (number|null);
+
+                /** Bin min */
+                min?: (number|null);
+
+                /** Bin max */
+                max?: (number|null);
+            }
+
+            /** Represents a Bin. */
+            class Bin implements IBin {
+
+                /**
+                 * Constructs a new Bin.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.IBin);
+
+                /** Bin count. */
+                public count: number;
+
+                /** Bin min. */
+                public min: number;
+
+                /** Bin max. */
+                public max: number;
+
+                /**
+                 * Creates a new Bin instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Bin instance
+                 */
+                public static create(properties?: com.example.dto.IBin): com.example.dto.Bin;
+
+                /**
+                 * Encodes the specified Bin message. Does not implicitly {@link com.example.dto.Bin.verify|verify} messages.
+                 * @param message Bin message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.IBin, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Bin message, length delimited. Does not implicitly {@link com.example.dto.Bin.verify|verify} messages.
+                 * @param message Bin message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.IBin, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Bin message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Bin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.Bin;
+
+                /**
+                 * Decodes a Bin message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Bin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.Bin;
+
+                /**
+                 * Verifies a Bin message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Bin message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Bin
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.Bin;
+
+                /**
+                 * Creates a plain object from a Bin message. Also converts values to other types if specified.
+                 * @param message Bin
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.Bin, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Bin to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a LfqStatisticsOfFilteredResult. */
+            interface ILfqStatisticsOfFilteredResult {
+
+                /** LfqStatisticsOfFilteredResult featuresCount */
+                featuresCount?: (number|null);
+
+                /** LfqStatisticsOfFilteredResult featuresWithIdCount */
+                featuresWithIdCount?: (number|null);
+
+                /** LfqStatisticsOfFilteredResult featureVectorsCount */
+                featureVectorsCount?: (number|null);
+
+                /** LfqStatisticsOfFilteredResult featureVectorsWithIdCount */
+                featureVectorsWithIdCount?: (number|null);
+
+                /** LfqStatisticsOfFilteredResult proteinGroupsCount */
+                proteinGroupsCount?: (number|null);
+
+                /** LfqStatisticsOfFilteredResult proteinHeatMap */
+                proteinHeatMap?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqStatisticsOfFilteredResult heatMapMaxProteinsReached */
+                heatMapMaxProteinsReached?: (boolean|null);
+
+                /** LfqStatisticsOfFilteredResult modificationMap */
+                modificationMap?: ({ [k: string]: com.example.dto.IAbbreviatedModification }|null);
+            }
+
+            /** Represents a LfqStatisticsOfFilteredResult. */
+            class LfqStatisticsOfFilteredResult implements ILfqStatisticsOfFilteredResult {
+
+                /**
+                 * Constructs a new LfqStatisticsOfFilteredResult.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ILfqStatisticsOfFilteredResult);
+
+                /** LfqStatisticsOfFilteredResult featuresCount. */
+                public featuresCount: number;
+
+                /** LfqStatisticsOfFilteredResult featuresWithIdCount. */
+                public featuresWithIdCount: number;
+
+                /** LfqStatisticsOfFilteredResult featureVectorsCount. */
+                public featureVectorsCount: number;
+
+                /** LfqStatisticsOfFilteredResult featureVectorsWithIdCount. */
+                public featureVectorsWithIdCount: number;
+
+                /** LfqStatisticsOfFilteredResult proteinGroupsCount. */
+                public proteinGroupsCount: number;
+
+                /** LfqStatisticsOfFilteredResult proteinHeatMap. */
+                public proteinHeatMap?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqStatisticsOfFilteredResult heatMapMaxProteinsReached. */
+                public heatMapMaxProteinsReached: boolean;
+
+                /** LfqStatisticsOfFilteredResult modificationMap. */
+                public modificationMap: { [k: string]: com.example.dto.IAbbreviatedModification };
+
+                /**
+                 * Creates a new LfqStatisticsOfFilteredResult instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns LfqStatisticsOfFilteredResult instance
+                 */
+                public static create(properties?: com.example.dto.ILfqStatisticsOfFilteredResult): com.example.dto.LfqStatisticsOfFilteredResult;
+
+                /**
+                 * Encodes the specified LfqStatisticsOfFilteredResult message. Does not implicitly {@link com.example.dto.LfqStatisticsOfFilteredResult.verify|verify} messages.
+                 * @param message LfqStatisticsOfFilteredResult message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ILfqStatisticsOfFilteredResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified LfqStatisticsOfFilteredResult message, length delimited. Does not implicitly {@link com.example.dto.LfqStatisticsOfFilteredResult.verify|verify} messages.
+                 * @param message LfqStatisticsOfFilteredResult message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ILfqStatisticsOfFilteredResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a LfqStatisticsOfFilteredResult message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns LfqStatisticsOfFilteredResult
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.LfqStatisticsOfFilteredResult;
+
+                /**
+                 * Decodes a LfqStatisticsOfFilteredResult message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns LfqStatisticsOfFilteredResult
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.LfqStatisticsOfFilteredResult;
+
+                /**
+                 * Verifies a LfqStatisticsOfFilteredResult message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a LfqStatisticsOfFilteredResult message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns LfqStatisticsOfFilteredResult
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.LfqStatisticsOfFilteredResult;
+
+                /**
+                 * Creates a plain object from a LfqStatisticsOfFilteredResult message. Also converts values to other types if specified.
+                 * @param message LfqStatisticsOfFilteredResult
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.LfqStatisticsOfFilteredResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this LfqStatisticsOfFilteredResult to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a LfqHeatMapDendrogram. */
+            interface ILfqHeatMapDendrogram {
+
+                /** LfqHeatMapDendrogram left */
+                left?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqHeatMapDendrogram right */
+                right?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqHeatMapDendrogram row */
+                row?: (com.example.dto.ILfqHeatMapRow|null);
+            }
+
+            /** Represents a LfqHeatMapDendrogram. */
+            class LfqHeatMapDendrogram implements ILfqHeatMapDendrogram {
+
+                /**
+                 * Constructs a new LfqHeatMapDendrogram.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ILfqHeatMapDendrogram);
+
+                /** LfqHeatMapDendrogram left. */
+                public left?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqHeatMapDendrogram right. */
+                public right?: (com.example.dto.ILfqHeatMapDendrogram|null);
+
+                /** LfqHeatMapDendrogram row. */
+                public row?: (com.example.dto.ILfqHeatMapRow|null);
+
+                /**
+                 * Creates a new LfqHeatMapDendrogram instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns LfqHeatMapDendrogram instance
+                 */
+                public static create(properties?: com.example.dto.ILfqHeatMapDendrogram): com.example.dto.LfqHeatMapDendrogram;
+
+                /**
+                 * Encodes the specified LfqHeatMapDendrogram message. Does not implicitly {@link com.example.dto.LfqHeatMapDendrogram.verify|verify} messages.
+                 * @param message LfqHeatMapDendrogram message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ILfqHeatMapDendrogram, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified LfqHeatMapDendrogram message, length delimited. Does not implicitly {@link com.example.dto.LfqHeatMapDendrogram.verify|verify} messages.
+                 * @param message LfqHeatMapDendrogram message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ILfqHeatMapDendrogram, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a LfqHeatMapDendrogram message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns LfqHeatMapDendrogram
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.LfqHeatMapDendrogram;
+
+                /**
+                 * Decodes a LfqHeatMapDendrogram message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns LfqHeatMapDendrogram
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.LfqHeatMapDendrogram;
+
+                /**
+                 * Verifies a LfqHeatMapDendrogram message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a LfqHeatMapDendrogram message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns LfqHeatMapDendrogram
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.LfqHeatMapDendrogram;
+
+                /**
+                 * Creates a plain object from a LfqHeatMapDendrogram message. Also converts values to other types if specified.
+                 * @param message LfqHeatMapDendrogram
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.LfqHeatMapDendrogram, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this LfqHeatMapDendrogram to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a LfqHeatMapRow. */
+            interface ILfqHeatMapRow {
+
+                /** LfqHeatMapRow accession */
+                accession?: (string|null);
+
+                /** LfqHeatMapRow sampleAreas */
+                sampleAreas?: (number[]|null);
+
+                /** LfqHeatMapRow sampleRatios */
+                sampleRatios?: (com.example.dto.IOptionalFloat[]|null);
+
+                /** LfqHeatMapRow colour */
+                colour?: (number[]|null);
+            }
+
+            /** Represents a LfqHeatMapRow. */
+            class LfqHeatMapRow implements ILfqHeatMapRow {
+
+                /**
+                 * Constructs a new LfqHeatMapRow.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: com.example.dto.ILfqHeatMapRow);
+
+                /** LfqHeatMapRow accession. */
+                public accession: string;
+
+                /** LfqHeatMapRow sampleAreas. */
+                public sampleAreas: number[];
+
+                /** LfqHeatMapRow sampleRatios. */
+                public sampleRatios: com.example.dto.IOptionalFloat[];
+
+                /** LfqHeatMapRow colour. */
+                public colour: number[];
+
+                /**
+                 * Creates a new LfqHeatMapRow instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns LfqHeatMapRow instance
+                 */
+                public static create(properties?: com.example.dto.ILfqHeatMapRow): com.example.dto.LfqHeatMapRow;
+
+                /**
+                 * Encodes the specified LfqHeatMapRow message. Does not implicitly {@link com.example.dto.LfqHeatMapRow.verify|verify} messages.
+                 * @param message LfqHeatMapRow message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: com.example.dto.ILfqHeatMapRow, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified LfqHeatMapRow message, length delimited. Does not implicitly {@link com.example.dto.LfqHeatMapRow.verify|verify} messages.
+                 * @param message LfqHeatMapRow message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: com.example.dto.ILfqHeatMapRow, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a LfqHeatMapRow message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns LfqHeatMapRow
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.example.dto.LfqHeatMapRow;
+
+                /**
+                 * Decodes a LfqHeatMapRow message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns LfqHeatMapRow
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.example.dto.LfqHeatMapRow;
+
+                /**
+                 * Verifies a LfqHeatMapRow message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a LfqHeatMapRow message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns LfqHeatMapRow
+                 */
+                public static fromObject(object: { [k: string]: any }): com.example.dto.LfqHeatMapRow;
+
+                /**
+                 * Creates a plain object from a LfqHeatMapRow message. Also converts values to other types if specified.
+                 * @param message LfqHeatMapRow
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: com.example.dto.LfqHeatMapRow, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this LfqHeatMapRow to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
         }
     }
 }
