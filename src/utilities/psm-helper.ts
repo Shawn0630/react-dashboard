@@ -9,14 +9,16 @@ namespace PsmHelpers {
         let bestPsm: IPSM = null;
         let bestPsmScore: number = -1;
         for (const sample of supportPeptide.peptide.samples) {
-            const key: string = Object.keys(sample.fractions)[0];
-            if (sample.fractions[key] !== undefined) {
-                const castedFrac: IPeptideSampleFraction = sample.fractions[key];
-                if (castedFrac.psms !== null && castedFrac.psms !== undefined) {
-                    for (const psm of castedFrac.psms) {
-                        if (bestPsmScore < psm.pValue) {
-                            bestPsm = psm;
-                            bestPsmScore = bestPsm.pValue;
+            if (sample.fractions != null) {
+                const key: string = Object.keys(sample.fractions)[0];
+                if (sample.fractions[key] !== undefined) {
+                    const castedFrac: IPeptideSampleFraction = sample.fractions[key];
+                    if (castedFrac.psms !== null && castedFrac.psms !== undefined) {
+                        for (const psm of castedFrac.psms) {
+                            if (bestPsmScore < psm.pValue) {
+                                bestPsm = psm;
+                                bestPsmScore = bestPsm.pValue;
+                            }
                         }
                     }
                 }
@@ -31,15 +33,17 @@ namespace PsmHelpers {
         let bestFraction: string;
         let bestPsmScore: number = -1;
         for (const sample of supportPeptide.peptide.samples) {
-            const key: string = Object.keys(sample.fractions)[0];
-            if (sample.fractions[key] !== undefined) {
-                const castedFrac: IPeptideSampleFraction = sample.fractions[key];
-                if (castedFrac.psms !== null && castedFrac.psms !== undefined) {
-                    for (const psm of castedFrac.psms) {
-                        if (bestPsmScore < psm.pValue) {
-                            bestPsm = psm;
-                            bestFraction = key;
-                            bestPsmScore = bestPsm.pValue;
+            if (sample.fractions != null) {
+                const key: string = Object.keys(sample.fractions)[0];
+                if (sample.fractions[key] !== undefined) {
+                    const castedFrac: IPeptideSampleFraction = sample.fractions[key];
+                    if (castedFrac.psms !== null && castedFrac.psms !== undefined) {
+                        for (const psm of castedFrac.psms) {
+                            if (bestPsmScore < psm.pValue) {
+                                bestPsm = psm;
+                                bestFraction = key;
+                                bestPsmScore = bestPsm.pValue;
+                            }
                         }
                     }
                 }

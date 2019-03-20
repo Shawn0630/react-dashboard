@@ -198,6 +198,9 @@ namespace ModificationHelper {
     export function getPeptideAbbrModiList(
         modiStringList: string[], positionList: number[],
         ptmMap: { [k: string]: IPtmModification }): PeptideLineModi[] {
+        if (modiStringList == null) {
+            return [];
+        }
         const ret: PeptideLineModi[] = [];
         const length: number = modiStringList.length;
         for (let sub: number = 0; sub < length; sub += 1) {

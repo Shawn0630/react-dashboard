@@ -136,3 +136,36 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
     z-index: 100;
 }
+
+.legendButton {
+    float: right
+}
+
+.modificationMenu {
+    max-height: 500px;
+    ul {
+        padding-right: 0 !important;
+        margin-right: -15px !important;
+    }
+}
+
+.ptmLabel {
+    display: flex !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    height: 35px !important;
+    outline: none;
+    h3 {
+        margin-top: -2px;
+    }
+}
+
+.ptmCheckbox {
+    width: 25px !important;
+    height: 20px !important;
+}
+
+.proteinTitle {
+    display: inline-flex;
+    width: 80%;
+}

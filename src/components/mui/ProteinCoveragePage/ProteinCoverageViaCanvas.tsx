@@ -839,7 +839,7 @@ class ProteinsCoverage extends React.PureComponent<ProteinsCoverageProps, Protei
                         if (sample.fractions !== undefined) {
                             for (const fraction of Object.keys(sample.fractions)) {
                                 for (const psm of sample.fractions[fraction].psms) {
-                                    area = psm.area === 0 ? "" : psm.area.toExponential(2);
+                                    area = psm.area == null || psm.area === 0 ? "" : psm.area.toExponential(2);
                                 }
                             }
                         }
@@ -1237,9 +1237,11 @@ class ProteinsCoverage extends React.PureComponent<ProteinsCoverageProps, Protei
                 modificationNames, positionOfModifications,
                 this.props.ptmMap);
             const newPositionList: number[] = [];
-            for (const posi of positionOfModifications) {
-                if (newPositionList.indexOf(posi) < 0) {
-                    newPositionList.push(posi);
+            if (positionOfModifications != null) {
+                for (const posi of positionOfModifications) {
+                    if (newPositionList.indexOf(posi) < 0) {
+                        newPositionList.push(posi);
+                    }
                 }
             }
             abbrModiList.map((peptideModi: PeptideLineModi, index: number) => {
