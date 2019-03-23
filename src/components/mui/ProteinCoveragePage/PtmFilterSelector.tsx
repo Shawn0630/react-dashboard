@@ -1,18 +1,17 @@
-import * as React from "react";
-import { com } from "~models/example";
-import * as styles from "./ProteinCoverage.scss";
+import { Typography } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
+import * as React from "react";
+import { MenuButton } from "~/components/shared/MenuButton";
 import { ModificationHelper } from "~/utilities/modification-helper";
+import { com } from "~models/example";
+
+import * as styles from "./ProteinCoverage.scss";
+
 import IAbbreviatedModification = com.example.dto.IAbbreviatedModification;
 import ISupportPeptide = com.example.dto.ISupportPeptide;
 import IPtmModification = com.example.dto.IPtmModification;
 import IProteinPeptide = com.example.dto.IProteinPeptide;
-import { Typography } from "@material-ui/core";
-import { MenuButton } from "~/components/shared/MenuButton";
-
 interface PtmFilterSelectorProps {
     proteinPeptide: IProteinPeptide;
     ptmMap: { [k: string]: IPtmModification };
