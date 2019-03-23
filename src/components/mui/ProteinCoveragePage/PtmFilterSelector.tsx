@@ -48,10 +48,8 @@ export default class PtmFilterSelector extends React.PureComponent<PtmFilterSele
             });
         }
 
-        return <div style={{ display: "inline" }}>
+        return <div className={styles.ptmFilterSelector}>
             <MenuButton id={"ptm-menu"} color="primary" variant="flat" buttonClassName={styles.legendButton}
-                key="ptmModificationBtn" aria-haspopup="true"
-                aria-owns={this.state.modificationAnchorEl != null ? "ptm-menu" : null}
                 button={"PTM Filter"}>
                 {modifications.map((modi: IAbbreviatedModification, index: number) => {
                     const colorStyle: string = ModificationHelper.getColorStyleFromPTMInTable(modi.abbreviation);

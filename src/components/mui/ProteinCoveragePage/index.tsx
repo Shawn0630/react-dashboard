@@ -1,7 +1,17 @@
+import Divider from "@material-ui/core/Divider";
 import * as React from "react";
+import { MenuButton } from "~/components/shared/MenuButton";
 import { com } from "~models/example";
-import * as styles from "./ProteinCoverage.scss";
 import { ModificationHelper } from "~utilities/modification-helper";
+
+import * as stats from "../../../data/DBFilteredStatistics.json";
+import * as proteinPeptide from "../../../data/DBProteinPeptides.json";
+import * as samples from "../../../data/Samples.json";
+import ColorLegend from "./ColorLegend";
+import * as styles from "./ProteinCoverage.scss";
+import { CoverageProteinPeptide, Option, ProteinsCoverage } from "./ProteinCoverageViaCanvas";
+import PtmFilterSelector from "./PtmFilterSelector";
+
 import Sample = com.example.dto.Sample;
 import IFraction = com.example.dto.Sample.IFraction;
 import ISupportPeptide = com.example.dto.ISupportPeptide;
@@ -9,16 +19,6 @@ import IProteinPeptide = com.example.dto.IProteinPeptide;
 import IAbbreviatedModification = com.example.dto.IAbbreviatedModification;
 import StatisticsOfFilteredResult = com.example.dto.StatisticsOfFilteredResult;
 import LfqStatisticsOfFilteredResult = com.example.dto.LfqStatisticsOfFilteredResult;
-
-import * as proteinPeptide from "../../../data/DBProteinPeptides.json";
-import * as samples from "../../../data/Samples.json";
-import * as stats from "../../../data/DBFilteredStatistics.json";
-import { CoverageProteinPeptide, Option, ProteinsCoverage } from "./ProteinCoverageViaCanvas";
-import PtmFilterSelector from "./PtmFilterSelector";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-
 interface ProteinCoverageStates {
     maxPsm: number;
     selectedModifications: { [name: string]: boolean };
@@ -86,23 +86,18 @@ export default class ProteinCoveragePage extends React.PureComponent<{}, Protein
             <h4 id="coverageAccession" className={styles.proteinTitle} key="proteinTitle">{accession} {description}</h4>
         );
         ret.push(
-            <PtmFilterSelector proteinPeptide={proteinPeptide as IProteinPeptide} updatePtm={this.updatePtm} key="ptmFilter"
-                ptmMap={(stats as StatisticsOfFilteredResult).modifications} selectedModifications={this.state.selectedModifications} />
-        );
-        // ret.push(
-        //     <Button color="primary" variant="flat" className={styles.legendButton}
-        //         aria-owns={this.state.legendAnchorEl != null ? "threshold-menu" : null}
-        //         aria-haspopup="true" key="colorLegendButton"
-        //         onClick={this.handleClickColorLegend}>Coverage Legend</Button>
-        // );
-        // ret.push(
-        //     <Menu id="threshold-menu" anchorEl={this.state.legendAnchorEl} disableAutoFocusItem
-        //         open={Boolean(this.state.legendAnchorEl)} onClose={this.handleCloseColorLegend} key="colorLegendMenu">
-        //         <div style={{ width: 80, height: 220 }}>
-        //             <ColorLegend graphId="colorLegend" width={40} height={200} maxPsm={this.state.maxPsm}></ColorLegend>
-        //         </div>
-        //     </Menu>
-        // );
+            <React.Fragment>
+                <PtmFilterSelector proteinPeptide={proteinPeptide as IProteinPeptide} updatePtm={this.updatePtm} key="ptmFilter"
+                    ptmMap={(stats as StatisticsOfFilteredResult).modifications} selectedModifications={this.state.selectedModifications} />
+                <div className={styles.ptmFilterSelector}>
+                    <MenuButton id={"color-legend"} color="primary" variant="flat" buttonClassName={styles.legendButton}
+                        button={"Color Legend"}>
+                        <div style={{ width: 80, height: 220 }}>
+                            <ColorLegend graphId="colorLegend" width={40} height={200} maxPsm={this.state.maxPsm}></ColorLegend>
+                        </div>
+                    </MenuButton>
+                </div>
+            </React.Fragment>);
         return ret;
     }
 }
