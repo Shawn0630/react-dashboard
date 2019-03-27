@@ -102,7 +102,8 @@ export default class DroppableContainer extends React.Component<DroppableContain
     private getListStyle = (isDraggingOver: boolean) => ({
         background: isDraggingOver ? "lightblue" : "lightgrey",
         width: 250,
-        padding: grid
+        padding: grid,
+        display: "inline-block"
     })
     private onDragEnd(result: DropResult): void {
         const { source, destination } = result;

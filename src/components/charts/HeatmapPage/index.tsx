@@ -11,7 +11,7 @@ import ISample = com.example.dto.ISample;
 export default class HeatmapPage extends React.PureComponent<null> {
     public render(): JSX.Element {
         return <Heatmap graphId="heatmap" width={1200} height={1200}
-                maxProteinsReachedBackend={false} data={data as IDendrogram}
-                groups={groups as IGroup[]} samples={samples as ISample[]}/>;
+                    maxProteinsReachedBackend={false} data={data as IDendrogram}
+                    groups={groups as IGroup[]} samples={samples as ISample[]}/>;
     }
 }

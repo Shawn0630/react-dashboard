@@ -21,7 +21,7 @@ import { com } from "~models/example";
 import * as styles from "./SampleDialog.scss";
 import { withDragDropContext } from "~utilities/dnd-helper";
 import { MenuSelectDropDown } from "../../shared/MenuSelectDropDown";
-import { DroppableFileList } from "./DraggableFileContainer";
+import { DroppableFileList } from "../CustomizePage/DraggableFileContainer";
 import * as sharedStyles from "~styles/shared.scss";
 import FileBrowserWrapper from "./FileBrowserWrapper";
 import * as root from "../../../data/FileNode.json";

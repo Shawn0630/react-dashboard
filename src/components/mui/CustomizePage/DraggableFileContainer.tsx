@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as dnd from "react-dnd";
-import * as styles from "./FileBrowser.scss";
+import * as styles from "../FileBrowserPage/FileBrowser.scss";
 
 import List from "@material-ui/core/List";
 
 import { DragDropProps, DraggableFileListItem } from "./DraggableFileListItem";
-import { SelectableFile } from "./SampleSubmissionPanel";
+import { SelectableFile } from "../FileBrowserPage/SampleSubmissionPanel";
 
 interface FileContainerProps {
     fileList: SelectableFile[];
