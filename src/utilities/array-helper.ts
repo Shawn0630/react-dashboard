@@ -11,3 +11,15 @@ export function lastN<T>(array: T[], n?: number): T[] {
     }
     return array.slice(Math.max(array.length - n, 0));
 }
+
+export function groupBy<T>(key: string): (array: T[]) => {[key: string]: T[]} {
+    return (array: T[]) : {[key: string]: T[]} => {
+        return array.reduce(
+            (objectsByKeyValue: {[key: string]: T[]}, obj: any) => { // tslint:disable-line:no-any
+                const value: string = obj[key];
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            },
+            {});
+    };
+}
