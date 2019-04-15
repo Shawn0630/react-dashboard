@@ -38,7 +38,7 @@ interface ApiAction<P = {[key: string]: string}> {
     payload?: P;
     payloadType?: PayloadType;
     handlers?: HandlerMap;
-    userBuffer?: boolean;
+    useBuffer?: boolean;
 }
 
 async function fetch<P, R>(action: ApiAction<P>): Promise<R> {
@@ -48,7 +48,7 @@ async function fetch<P, R>(action: ApiAction<P>): Promise<R> {
 async function agentFetch<P, R>(action: ApiAction<P>): Promise<R> {
     const { endpoint, method, payload, handlers } = action;
     const payloadType: PayloadType = action.payloadType != null ? action.payloadType : PayloadType.JSON;
-    const useBuffer: boolean = action.userBuffer || false;
+    const useBuffer: boolean = action.useBuffer || false;
     const url: string = endpoint.indexOf(config.apiRoot) === -1 ? config.apiRoot + endpoint : endpoint;
     switch (method) {
         case ApiMethod.POST:

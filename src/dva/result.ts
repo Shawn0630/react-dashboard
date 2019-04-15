@@ -1,6 +1,7 @@
 import * as dva from "dva";
 import { SharedType } from "~models/types";
-import { DvaModel } from "./DvaModel";
+import { DvaAction, DvaModel } from "./DvaModel";
+import { IndexedDBService, PageRequest } from "./IndexedDbService";
 
 interface PagedState<T> {
     key: string;
@@ -32,9 +33,9 @@ const resultModel: DvaModel<ResultState> = {
     namespace: "result",
     state: initialState,
     effects: {
-        getResultPage: [function* (action: DvaAction<PageRequest<{}>>, effect: dva.EffectsCommandMap): IterableIterator<void> {
+        getResultPage: [function* (action: DvaAction<PageRequest>, effect: dva.EffectsCommandMap): IterableIterator<void> {
             const { call, put } = effect;
-            const response: PagedState<{}> = yield call(IndexedDBService.getPaga. action.payload);
+            const response: PagedState<{}> = yield call(IndexedDBService.getPage, action.payload);
             if (response != null) {
                 yield put({
                     type: "gotPage",
@@ -46,4 +47,6 @@ const resultModel: DvaModel<ResultState> = {
             }
         }, {type: "takeLatest"}]
     }
-}
+};
+
+export { PagedState };

@@ -24,6 +24,16 @@ export default class ResultDatabase extends dexie {
         this.initialize().catch(err => {throw new Error(err); });
     }
 
+    public async count<T extends DataType>(type: SharedType.ResultType): Promise<number> {
+        let table: dexie.Table<T, string>;
+        try {
+            table = this.getTable<T>(type);
+        } catch (err) {
+            return Promise.reject(err);
+        }
+        return table.count();
+    }
+
     public async saveAll<T extends DataType>(type: ResultType, items: T[]): Promise<Information> {
         let table: dexie.Table<T, string>;
         try {
