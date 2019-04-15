@@ -36,6 +36,7 @@ module.exports = {
         ],
         alias: {
             "~models": srcPath("models"),
+            "~dva": srcPath("dva"),
             "~styles": srcPath("styles"),
             "~components": srcPath("components"),
             "~utilities": srcPath("utilities"),

@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css"; //tslint:disable-line
 import dva, { DvaInstance } from "dva";
 import createBrowserHistory from "history/createBrowserHistory";
 import * as Redux from "redux";
-import { globalModel } from "~models/global";
-import { userModel } from "~models/user";
+import { globalModel } from "~dva/global";
+import { userModel } from "~dva/user";
 
 import router from "./router";
 
