@@ -5,6 +5,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import * as Redux from "redux";
 import { globalModel } from "~dva/global";
 import { userModel } from "~dva/user";
+import { resultModel } from "~dva/result";
 
 import router from "./router";
 
@@ -24,6 +25,7 @@ const app: DvaInstance = dva({
 
 app.model(globalModel);
 app.model(userModel);
+app.model(resultModel);
 app.router(router);
 app.start("#main");
 

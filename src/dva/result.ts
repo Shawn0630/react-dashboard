@@ -35,6 +35,7 @@ const resultModel: DvaModel<ResultState> = {
     effects: {
         getResultPage: [function* (action: DvaAction<PageRequest>, effect: dva.EffectsCommandMap): IterableIterator<void> {
             const { call, put } = effect;
+            debugger;
             const response: PagedState<{}> = yield call(IndexedDBService.getPage, action.payload);
             if (response != null) {
                 yield put({
@@ -49,4 +50,4 @@ const resultModel: DvaModel<ResultState> = {
     }
 };
 
-export { PagedState };
+export { PagedState, resultModel };
