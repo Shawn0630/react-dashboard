@@ -8,7 +8,7 @@ export default class InformationDatabase extends dexie {
     constructor(name: string, expiryDays: number) {
         super(name);
         this.version(1).stores({
-            infos: "dbkey"
+            infos: "dbKey"
         });
         this.expirDays = this.expirDays;
     }

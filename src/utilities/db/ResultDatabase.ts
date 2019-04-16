@@ -20,8 +20,15 @@ export default class ResultDatabase extends dexie {
             denovos: "alc"
         };
 
+        this.version(1).stores({
+            denovos: "++id, alc"
+        });
+
         this.infoDB = infoDB;
-        this.initialize().catch(err => {throw new Error(err); });
+        this.initialize().catch(err => {
+            console.log(`Unable to initialize result database ${hashKey}`); // tslint:disable-line:no-console
+            console.log(err); // tslint:disable-line:no-console
+        });
     }
 
     public async count<T extends DataType>(type: SharedType.ResultType): Promise<number> {
