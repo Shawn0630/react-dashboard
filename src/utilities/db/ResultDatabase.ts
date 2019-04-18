@@ -107,7 +107,7 @@ export default class ResultDatabase extends dexie {
                     const limited: number = page !== totalPages ? pageSize : (totalItems - pageSize * (totalPages - 1));
                     items = await collection.offset(skipped).limit(limited).toArray().then(lst => lst.reverse());
                 }
-
+                
                 return {
                     items: items,
                     totalItems: totalItems

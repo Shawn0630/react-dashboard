@@ -35,7 +35,6 @@ const resultModel: DvaModel<ResultState> = {
     effects: {
         getResultPage: [function* (action: DvaAction<PageRequest>, effect: dva.EffectsCommandMap): IterableIterator<void> {
             const { call, put } = effect;
-            debugger;
             const response: PagedState<{}> = yield call(IndexedDBService.getPage, action.payload);
             if (response != null) {
                 yield put({
@@ -47,6 +46,13 @@ const resultModel: DvaModel<ResultState> = {
                 action.callback();
             }
         }, {type: "takeLatest"}]
+    },
+    reducers: {
+        gotPage: (state: ResultState, action: DvaAction<PagedState<{}>>): ResultState => {
+            const copy: ResultState = { ...state };
+            (copy as any)[action.payload.type] = action.payload; // tslint:disable-line:no-any
+            return copy;
+        }
     }
 };
 
