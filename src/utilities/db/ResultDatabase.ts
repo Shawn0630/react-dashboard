@@ -6,7 +6,7 @@ import DataType = SharedType.DataType;
 import ResultType = SharedType.ResultType;
 import Information = SharedType.Information;
 import FetchedResult = SharedType.FetchedResult;
-import IScanDenovoCandidate = com.example.dto.IScanDenovoCandidate;
+import IDenovoCandidate = com.example.dto.IDenovoCandidate;
 import InformationDatabase from "~utilities/db/InformationDatabase";
 
 export default class ResultDatabase extends dexie {
@@ -107,7 +107,7 @@ export default class ResultDatabase extends dexie {
                     const limited: number = page !== totalPages ? pageSize : (totalItems - pageSize * (totalPages - 1));
                     items = await collection.offset(skipped).limit(limited).toArray().then(lst => lst.reverse());
                 }
-                
+
                 return {
                     items: items,
                     totalItems: totalItems

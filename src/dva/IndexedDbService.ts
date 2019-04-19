@@ -5,7 +5,7 @@ import { decodeArray } from "~/utilities/decode-helper";
 import { com } from "~models/example";
 import { config } from "~/config";
 import { PagedState } from "~dva/result"
-import ScanDenovoCandidate = com.example.dto.ScanDenovoCandidate;
+import DenovoCandidate = com.example.dto.DenovoCandidate;
 
 interface PageRequest {
     page: number;
@@ -52,13 +52,13 @@ namespace IndexedDBService {
         return fetch<{}, ArrayBuffer>({
             endpoint: endpoint, method: ApiMethod.GET, useBuffer: true
         })
-        .then(async ab => decodeArray(ScanDenovoCandidate, ab))
-        .then(async (result: ScanDenovoCandidate[]) => {
+        .then(async ab => decodeArray(DenovoCandidate, ab))
+            .then(async (result: DenovoCandidate[]) => {
             return db.saveResult(key, request.type, result);
         });
     }
 
-    export async function getPage<T>(pr: PageRequest): Promise<PagedState<ScanDenovoCandidate>> {
+    export async function getPage<T>(pr: PageRequest): Promise<PagedState<DenovoCandidate>> {
         const key: string = db.getCachedKey(pr.type);
         return getInformation(pr)
                 .catch(() => null)
