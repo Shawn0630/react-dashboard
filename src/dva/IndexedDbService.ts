@@ -4,7 +4,7 @@ import { ApiMethod, fetch } from "../utilities/request";
 import { decodeArray } from "~/utilities/decode-helper";
 import { com } from "~models/example";
 import { config } from "~/config";
-import { PagedState } from "~dva/result"
+import { PagedState } from "~dva/result";
 import DenovoCandidate = com.example.dto.DenovoCandidate;
 
 interface PageRequest {

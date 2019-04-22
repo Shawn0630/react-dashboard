@@ -9,3 +9,20 @@ export function isSame<T>(a: T, b: T): boolean {
         return false;
     }
 }
+
+export function parseNumber(input: string, defaultValue: any = null): number { //tslint:disable-line:no-any
+    if (input == null) {
+        return defaultValue;
+    }
+    const str: string = input.toString();
+    if (str.trim().length === 0) {
+        return defaultValue;
+    } else {
+        const num: number = Number(str);
+        if (isNaN(num)) {
+            return defaultValue;
+        } else {
+            return num;
+        }
+    }
+}

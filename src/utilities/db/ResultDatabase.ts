@@ -12,7 +12,7 @@ import InformationDatabase from "~utilities/db/InformationDatabase";
 export default class ResultDatabase extends dexie {
     private sortKeys: {[key: string]: string};
     private infoDB: InformationDatabase;
-    private denovos: dexie.Table<IScanDenovoCandidate, string>;
+    private denovos: dexie.Table<IDenovoCandidate, string>;
     constructor(hashKey: string, infoDB: InformationDatabase) {
         super(hashKey);
 

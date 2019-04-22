@@ -56,4 +56,4 @@ const resultModel: DvaModel<ResultState> = {
     }
 };
 
-export { PagedState, resultModel };
+export { PagedState, resultModel, ResultState };
