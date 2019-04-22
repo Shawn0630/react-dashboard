@@ -56,13 +56,14 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
         const columns: ColumnDefinition<IDenovoCandidate>[] = [
             {
                 dataKey: "rowCount", width: 60,
-                flexGrow: 0, flexShrink: 0,
                 headerRenderer: () => "",
                 cellRenderer: (props) => `${(this.state.curPage - 1) * config.resultPageSize + props.rowIndex + 1}`
             },
             {
                 dataKey: "sequence",
                 width: 400,
+                flexGrow: 0,
+                flexShrink: 0,
                 headerRenderer: () => "Peptide",
                 cellRenderer: (props) => props.rowData.sequence
                 // <div data-for="confidence.tooltip"
@@ -91,7 +92,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
                 cellRenderer: (props) => props.rowData.sequence.length
             },
             {
-                dataKey: "mass",
+                dataKey: "mz",
                 width: 100,
                 alignment: "right",
                 flexGrow: 0,
@@ -121,8 +122,6 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
                 dataKey: "ppm",
                 width: 70,
                 alignment: "right",
-                flexGrow: 0,
-                flexShrink: 0,
                 headerRenderer: () => "ppm",
                 cellRenderer: (props) => props.rowData.ppm.toFixed(1)
             },

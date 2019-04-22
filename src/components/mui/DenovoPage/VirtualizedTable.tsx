@@ -56,7 +56,6 @@ interface VirtualizedTableStates {
 
 class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, VirtualizedTableStates> {
     private table: Table;
-    private TOTAL_WIDTH: number = 0;
     constructor(props: VirtualizedTableProps<T>) {
         super(props);
         this.rowGetter = this.rowGetter.bind(this);
@@ -77,7 +76,6 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
 
         this.props.columns.forEach((column: ColumnDefinition<T>) => {
             widths[column.dataKey] = column.width;
-            this.TOTAL_WIDTH += column.width;
             dataKeys.push(column.dataKey);
         });
 
@@ -86,10 +84,10 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
             dataKeys: dataKeys
         };
     }
-    public resizeHeader(node: () => React.ReactNode, dataKey: string): (props: TableHeaderProps) => React.ReactNode {
+    public resizeHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string): (props: TableHeaderProps) => React.ReactNode {
         return (props: TableHeaderProps): React.ReactNode => {
-            return <div key={dataKey} className={styles.Header}>
-                <div className={styles.HeaderTruncatedText}>{node()}</div>
+            return <div key={dataKey} className={styles.Header} id={dataKey}>
+                <div className={styles.HeaderTruncatedText}>{node(props)}</div>
                 <Draggable
                     axis="x"
                     defaultClassName={styles.DragHandle}
@@ -117,8 +115,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         const rowHeight: number = this.props.rowHeight != null ? this.props.rowHeight : 20;
         const headerHeight: number = rowHeight;
         const containerStyle: React.CSSProperties = {
-            height: Math.min(this.props.height, this.props.items.length * rowHeight + rowHeight + 1) + rowHeight,
-            width: 800
+            height: Math.min(this.props.height, this.props.items.length * rowHeight + rowHeight + 1) + rowHeight
         };
 
         const showLoader: boolean = this.props.isLoading != null ? this.props.isLoading : false;
@@ -210,7 +207,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
             this.gotoPage(this.props.currentPage - 1);
         }
     }
-    private selectPage(event: React.ChangeEvent<HTMLInputElement>): void {
+    private selectPage(event: React.ChangeEvent<HTMLSelectElement>): void {
         const value: number = parseNumber(event.target.value);
         this.gotoPage(value);
     }
@@ -278,8 +275,8 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         });
     }
 
-    private onDrag(dataKey: string): (event: React.MouseEvent<HTMLElement>, data: DraggableData) => void {
-        return (event: React.MouseEvent<HTMLElement>, data: DraggableData): void => {
+    private onDrag(dataKey: string): (event: MouseEvent, data: DraggableData) => void {
+        return (event: MouseEvent, data: DraggableData): void => {
             this.resizeRow(dataKey, data.deltaX);
         };
     }
