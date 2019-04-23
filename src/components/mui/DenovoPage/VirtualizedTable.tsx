@@ -89,22 +89,6 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
             dataKeys: dataKeys
         };
     }
-    public resizeHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string): (props: TableHeaderProps) => React.ReactNode {
-        return (props: TableHeaderProps): React.ReactNode => {
-            return <div key={dataKey} className={styles.Header} id={dataKey}>
-                <div className={styles.HeaderTruncatedText}>{node(props)}</div>
-                <Draggable
-                    axis="x"
-                    defaultClassName={styles.DragHandle}
-                    defaultClassNameDragging={styles.DragHandleActive}
-                    onDrag={this.onDrag(dataKey)}
-                    position={{ x: 0, y: null}}
-                >
-                    <span className={styles.DragHandleIcon}>⋮</span>
-                </Draggable>
-            </div>;
-        };
-    }
     public render(): JSX.Element {
         const showPagination: boolean = this.props.showPagination != null ? this.props.showPagination : true;
         // pre computate pages for pagination display
@@ -154,14 +138,15 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                         height={height} rowCount={this.props.items.length}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
                             {
-                                this.props.columns.map(c => (
-                                <Column key={c.dataKey} dataKey={c.dataKey} disableSort={true}
-                                    flexShrink={c.flexShrink != null ? c.flexShrink : 1}
-                                    flexGrow={c.flexGrow != null ? c.flexGrow : 1} headerClassName={c.headerClassName}
-                                    className={`${this.getAlignmentStyle(c.alignment)} ${styles.tableCell} ${c.cellClassName}`}
-                                    width={this.state.widths[c.dataKey] * width}
-                                    headerRenderer={this.resizeHeader(c.headerRenderer, c.dataKey)}
-                                    cellRenderer={c.cellRenderer}/>
+                                this.props.columns.map((c, index) => (
+                                    <Column key={c.dataKey} dataKey={c.dataKey} disableSort={true}
+                                        flexShrink={c.flexShrink != null ? c.flexShrink : 1}
+                                        flexGrow={c.flexGrow != null ? c.flexGrow : 1} headerClassName={c.headerClassName}
+                                        className={`${this.getAlignmentStyle(c.alignment)} ${styles.tableCell} ${c.cellClassName}`}
+                                        width={this.state.widths[c.dataKey] * width}
+                                        headerRenderer={index === this.props.columns.length - 1 ? c.headerRenderer :
+                                                        this.resizeHeader(c.headerRenderer, c.dataKey)}
+                                        cellRenderer={c.cellRenderer}/>
                             ))
                             }
                         </Table>;
@@ -175,6 +160,31 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     }
     private refTable(table: Table): void {
         this.table = table;
+    }
+    private resizeHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
+        (props: TableHeaderProps) => React.ReactNode {
+        return (props: TableHeaderProps): React.ReactNode => {
+            return <div key={dataKey} className={styles.Header} id={dataKey}>
+                <div className={styles.HeaderTruncatedText}>{node(props)}</div>
+                <Draggable
+                    axis="x"
+                    defaultClassName={styles.DragHandle}
+                    defaultClassNameDragging={styles.DragHandleActive}
+                    onDrag={this.onDrag(dataKey)}
+                    position={{ x: 0, y: null }}
+                >
+                    <span className={styles.DragHandleIcon}>⋮</span>
+                </Draggable>
+            </div>;
+        };
+    }
+    private reorderHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
+        (props: TableHeaderProps) => React.ReactNode {
+            return (props: TableHeaderProps): React.ReactNode => {
+                return <Draggable>
+                    {node(props)}
+                </Draggable>;
+            };
     }
     private getAlignmentStyle(type: AlignmentType): string {
         switch (type) {
