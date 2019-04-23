@@ -30,6 +30,7 @@ interface ColumnDefinition<T> {
 }
 
 interface VirtualizedTableProps<T> {
+    id: string;
     items: T[];
     selectedItem?: T;
     pageSize: number;
@@ -56,6 +57,8 @@ interface VirtualizedTableStates {
 
 class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, VirtualizedTableStates> {
     private table: Table;
+    private dividend: number = 0;
+    private width: number = 0;
     constructor(props: VirtualizedTableProps<T>) {
         super(props);
         this.rowGetter = this.rowGetter.bind(this);
@@ -70,12 +73,14 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         this.selectPage = this.selectPage.bind(this);
         this.resizeRow = this.resizeRow.bind(this);
         this.onDrag = this.onDrag.bind(this);
+        this.setWidth = this.setWidth.bind(this);
 
         const widths: {[dataKey: string]: number} = {};
         const dataKeys: string[] = [];
 
+        this.props.columns.map((column: ColumnDefinition<T>) => this.dividend += column.width);
         this.props.columns.forEach((column: ColumnDefinition<T>) => {
-            widths[column.dataKey] = column.width;
+            widths[column.dataKey] = column.width / this.dividend;
             dataKeys.push(column.dataKey);
         });
 
@@ -141,9 +146,10 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                 </div> : null}
             </div>
             <div style={containerStyle}>
-                {showLoader ? <Loader/> : <AutoSizer>
-                    {({height, width}) => (
-                        <Table ref={this.refTable} onRowClick={this.onRowClicked} onRowsRendered={this.rebuildTooltips}
+                {showLoader ? <Loader /> : <AutoSizer>
+                    {({height, width}) => {
+                        this.setWidth(width);
+                        return <Table ref={this.refTable} onRowClick={this.onRowClicked} onRowsRendered={this.rebuildTooltips}
                         width={width} headerHeight={headerHeight} rowHeight={rowHeight} scrollToAlignment="center"
                         height={height} rowCount={this.props.items.length}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
@@ -153,12 +159,13 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                                     flexShrink={c.flexShrink != null ? c.flexShrink : 1}
                                     flexGrow={c.flexGrow != null ? c.flexGrow : 1} headerClassName={c.headerClassName}
                                     className={`${this.getAlignmentStyle(c.alignment)} ${styles.tableCell} ${c.cellClassName}`}
-                                    width={this.state.widths[c.dataKey]}
+                                    width={this.state.widths[c.dataKey] * width}
                                     headerRenderer={this.resizeHeader(c.headerRenderer, c.dataKey)}
                                     cellRenderer={c.cellRenderer}/>
-                            ))}
-                        </Table>
-                    )}
+                            ))
+                            }
+                        </Table>;
+                    }}
                 </AutoSizer>}
             </div>
         </div>;
@@ -261,7 +268,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private resizeRow(dataKey: string, deltaX: number): void {
         this.setState(prevState => {
             const prevWidths: {[dataKey: string]: number} = prevState.widths;
-            const percentDelta: number = deltaX;
+            const percentDelta: number = deltaX / this.width;
 
             const nextDataKey: string = prevState.dataKeys[prevState.dataKeys.indexOf(dataKey) + 1];
 
@@ -279,6 +286,10 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         return (event: MouseEvent, data: DraggableData): void => {
             this.resizeRow(dataKey, data.deltaX);
         };
+    }
+
+    private setWidth(width: number): void {
+        this.width = width;
     }
 }
 

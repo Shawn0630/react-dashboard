@@ -55,13 +55,13 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
         }
         const columns: ColumnDefinition<IDenovoCandidate>[] = [
             {
-                dataKey: "rowCount", width: 60,
+                dataKey: "rowCount", width: 1,
                 headerRenderer: () => "",
                 cellRenderer: (props) => `${(this.state.curPage - 1) * config.resultPageSize + props.rowIndex + 1}`
             },
             {
                 dataKey: "sequence",
-                width: 400,
+                width: 8,
                 flexGrow: 0,
                 flexShrink: 0,
                 headerRenderer: () => "Peptide",
@@ -75,7 +75,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "alc",
-                width: 80,
+                width: 2,
                 alignment: "right",
                 flexGrow: 0,
                 flexShrink: 0,
@@ -84,7 +84,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "length",
-                width: 80,
+                width: 2,
                 alignment: "right",
                 flexGrow: 0,
                 flexShrink: 0,
@@ -93,7 +93,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "mz",
-                width: 100,
+                width: 4,
                 alignment: "right",
                 flexGrow: 0,
                 flexShrink: 0,
@@ -102,7 +102,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "area",
-                width: 100,
+                width: 4,
                 alignment: "right",
                 flexGrow: 0,
                 flexShrink: 0,
@@ -111,7 +111,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "mass",
-                width: 100,
+                width: 4,
                 alignment: "right",
                 flexGrow: 0,
                 flexShrink: 0,
@@ -120,7 +120,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             },
             {
                 dataKey: "ppm",
-                width: 70,
+                width: 3,
                 alignment: "right",
                 headerRenderer: () => "ppm",
                 cellRenderer: (props) => props.rowData.ppm.toFixed(1)
@@ -136,7 +136,7 @@ export default class DenovoPage extends React.PureComponent<DenovoPageProps, Den
             // }
         ];
         return <div style={{flex: 1}}>
-            <VirtualizedTable {...this.props.result.denovos} pageSize={config.resultPageSize}
+            <VirtualizedTable id="denovoTable" {...this.props.result.denovos} pageSize={config.resultPageSize}
                 height={301} columns={columns} getRowClassName={this.getRowClassName}
                 gotoPage={this.getPage} onSelected={null} />
         </div>;
