@@ -72,7 +72,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         this.calculatePages = this.calculatePages.bind(this);
         this.selectPage = this.selectPage.bind(this);
         this.resizeRow = this.resizeRow.bind(this);
-        this.onDrag = this.onDrag.bind(this);
+        this.resize = this.resize.bind(this);
         this.setWidth = this.setWidth.bind(this);
 
         const widths: {[dataKey: string]: number} = {};
@@ -144,8 +144,9 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                                         flexGrow={c.flexGrow != null ? c.flexGrow : 1} headerClassName={c.headerClassName}
                                         className={`${this.getAlignmentStyle(c.alignment)} ${styles.tableCell} ${c.cellClassName}`}
                                         width={this.state.widths[c.dataKey] * width}
-                                        headerRenderer={index === this.props.columns.length - 1 ? c.headerRenderer :
-                                                        this.resizeHeader(c.headerRenderer, c.dataKey)}
+                                        headerRenderer={index === this.props.columns.length - 1 ?
+                                                        this.reorderHeader(c.headerRenderer, c.dataKey) :
+                                                        this.reorderHeader(this.resizeHeader(c.headerRenderer, c.dataKey), c.dataKey)}
                                         cellRenderer={c.cellRenderer}/>
                             ))
                             }
@@ -170,7 +171,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                     axis="x"
                     defaultClassName={styles.DragHandle}
                     defaultClassNameDragging={styles.DragHandleActive}
-                    onDrag={this.onDrag(dataKey)}
+                    onDrag={this.resize(dataKey)}
                     position={{ x: 0, y: null }}
                 >
                     <span className={styles.DragHandleIcon}>⋮</span>
@@ -181,8 +182,14 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private reorderHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
         (props: TableHeaderProps) => React.ReactNode {
             return (props: TableHeaderProps): React.ReactNode => {
-                return <Draggable>
-                    {node(props)}
+                return <Draggable
+                    axis="x"
+                    defaultClassName={styles.DragHandle}
+                    defaultClassNameDragging={styles.DragHandleActive}
+                    onDrag={null}
+                    position={{ x: 0, y: null }}
+                >
+                    <div>{node(props)}</div>
                 </Draggable>;
             };
     }
@@ -292,10 +299,15 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         });
     }
 
-    private onDrag(dataKey: string): (event: MouseEvent, data: DraggableData) => void {
+    private resize(dataKey: string): (event: MouseEvent, data: DraggableData) => void {
         return (event: MouseEvent, data: DraggableData): void => {
             this.resizeRow(dataKey, data.deltaX);
         };
+    }
+
+    private reorder(dataKey: string): (event: mouseEvent, data: DraggableData) => void {
+        return (event: MouseEvent, data: DraggableData): void => {
+        }
     }
 
     private setWidth(width: number): void {
