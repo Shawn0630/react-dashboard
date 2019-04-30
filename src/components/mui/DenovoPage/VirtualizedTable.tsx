@@ -10,8 +10,7 @@ import {AutoSizer, Column, Index, RowMouseEventHandlerParams, Table, TableCellPr
 import { Loader } from "~components/shared//Loader";
 import { parseNumber } from "~utilities/ui-helper";
 import { default as Draggable, DraggableData, DraggableProps } from "react-draggable";
-import { DragDropContext, DraggableLocation, Droppable, DropResult } from "react-beautiful-dnd";
-import { Draggable as DraggableHeader } from "react-beautiful-dnd";
+import { DragDropContext, Draggable as DraggableHeader, DraggableLocation, Droppable, DropResult } from "react-beautiful-dnd";
 
 type AlignmentType = "left" | "right" | "center";
 
@@ -52,8 +51,9 @@ interface VirtualizedTableProps<T> {
     getRowClassName?(item: T): string;
 }
 
-interface VirtualizedTableStates {
+interface VirtualizedTableStates<T> {
     widths: {[dataKey: string]: number};
+    columns: { [dataKey: string]: ColumnDefinition<T>};
     dataKeys: string[];
 }
 
@@ -64,7 +64,7 @@ interface DraggableHeaderProps {
 }
 const grid: number = 8;
 
-class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, VirtualizedTableStates> {
+class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, VirtualizedTableStates<T>> {
     private table: Table;
     private dividend: number = 0;
     private width: number = 0;
@@ -85,17 +85,21 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         this.setWidth = this.setWidth.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
         this.ReorderedHeader = this.ReorderedHeader.bind(this);
+        this.getListStyle = this.getListStyle.bind(this);
 
         const widths: {[dataKey: string]: number} = {};
+        const columns: { [dataKey: string]: ColumnDefinition<T>} = {};
         const dataKeys: string[] = [];
 
         this.props.columns.map((column: ColumnDefinition<T>) => this.dividend += column.width);
         this.props.columns.forEach((column: ColumnDefinition<T>) => {
             widths[column.dataKey] = column.width / this.dividend;
+            columns[column.dataKey] = column;
             dataKeys.push(column.dataKey);
         });
 
         this.state = {
+            columns: columns,
             widths: widths,
             dataKeys: dataKeys
         };
@@ -149,19 +153,21 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                         width={width} headerHeight={headerHeight} rowHeight={rowHeight} scrollToAlignment="center"
                         height={height} rowCount={this.props.items.length}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
-                            {
-                                this.props.columns.map((c, index) => (
-                                    <Column key={c.dataKey} dataKey={c.dataKey} disableSort={true}
-                                        flexShrink={c.flexShrink != null ? c.flexShrink : 1}
-                                        flexGrow={c.flexGrow != null ? c.flexGrow : 1} headerClassName={c.headerClassName}
-                                        className={`${this.getAlignmentStyle(c.alignment)} ${styles.tableCell} ${c.cellClassName}`}
-                                        width={this.state.widths[c.dataKey] * width}
-                                        headerRenderer={index === this.props.columns.length - 1 ?
-                                                        this.reorderHeader(c.headerRenderer, c.dataKey) :
-                                                        this.reorderHeader(this.resizeHeader(c.headerRenderer, c.dataKey), c.dataKey)}
-                                        cellRenderer={c.cellRenderer}/>
-                            ))
-                                }
+                                    {
+                                        this.state.dataKeys.map((key, index) => (
+                                            <Column key={this.state.columns[key].dataKey} dataKey={key} disableSort={true}
+                                                flexShrink={this.state.columns[key].flexShrink != null ?
+                                                                this.state.columns[key].flexShrink : 1}
+                                                flexGrow={this.state.columns[key].flexGrow != null ? this.state.columns[key].flexGrow : 1}
+                                                headerClassName={this.state.columns[key].headerClassName}
+                                                className={`${this.getAlignmentStyle(this.state.columns[key].alignment)} ${styles.tableCell} ${this.state.columns[key].cellClassName}`} //tslint:disable-line
+                                                width={this.state.widths[this.state.columns[key].dataKey] * width}
+                                                headerRenderer={index === this.props.columns.length - 1 ?
+                                                    this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey) ://tslint:disable-line
+                                                    this.resizeHeader(this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey), this.state.columns[key].dataKey)} //tslint:disable-line
+                                                cellRenderer={this.state.columns[key].cellRenderer} />
+                                        ))
+                                    }
                         </Table>
                         </DragDropContext>;
                     }}
@@ -175,6 +181,12 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private refTable(table: Table): void {
         this.table = table;
     }
+    private getListStyle = (isDraggingOver: boolean) => ({
+        background: isDraggingOver ? "lightblue" : "lightgrey",
+        width: "100%",
+        padding: 0,
+        display: "inline-block"
+    })
     private resizeHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
         (props: TableHeaderProps) => React.ReactNode {
         return (props: TableHeaderProps): React.ReactNode => {
@@ -187,7 +199,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                     onDrag={this.resize(dataKey)}
                     position={{ x: 0, y: null }}
                 >
-                    <span className={styles.DragHandleIcon}>⋮</span>
+                <span className={styles.DragHandleIcon}>⋮</span>
                 </Draggable>
             </div>;
         };
@@ -195,11 +207,19 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private reorderHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
         (props: TableHeaderProps) => React.ReactNode {
             return (props: TableHeaderProps): React.ReactNode => {
-                debugger;
-                return <this.ReorderedHeader index={1} dataKey={dataKey}>
-                {node(props)}
-                </this.ReorderedHeader>;
-            };
+                return <Droppable droppableId={dataKey}>
+                    {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            style={this.getListStyle(snapshot.isDraggingOver)}>
+                            <this.ReorderedHeader index={1} dataKey={dataKey}>
+                            {node(props)}
+                            </this.ReorderedHeader>
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>;
+        };
     }
     private getAlignmentStyle(type: AlignmentType): string {
         switch (type) {
@@ -318,10 +338,34 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     }
 
     private onDragEnd(result: DropResult): void {
+        const { source, destination } = result;
+
+        if (!result.destination) {
+            return;
+        }
+
+        const dataKeys: string[] = this.reorder(
+            this.state.dataKeys,
+            source.droppableId,
+            destination.droppableId
+        );
+
+        this.setState({
+            dataKeys: dataKeys
+        });
+    }
+
+    private reorder = (list: string[], start: string, end: string): string[] => {
+        const result: string[] = Array.from(list);
+        const startIndex: number = list.indexOf(start);
+        const endIndex: number = list.indexOf(end);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+
+        return result;
     }
 
     private ReorderedHeader(props: DraggableHeaderProps): JSX.Element { //tslint:disable-line
-        debugger;
         return <DraggableHeader index={props.index} key={props.dataKey} draggableId={props.dataKey}>
             {// tslint:disable-next-line:no-shadowed-variable
                 (provided, snapshot) => (
@@ -346,7 +390,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
             return {
                 userSelect: "none",
                 background: isDragging ? "lightgreen" : "grey",
-                padding: grid * 2,
+                padding: 0,
                 margin: `0 0 ${grid}px 0`,
                 ...draggableStyle
             };
