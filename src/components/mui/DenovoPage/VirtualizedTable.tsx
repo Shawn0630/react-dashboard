@@ -10,6 +10,8 @@ import {AutoSizer, Column, Index, RowMouseEventHandlerParams, Table, TableCellPr
 import { Loader } from "~components/shared//Loader";
 import { parseNumber } from "~utilities/ui-helper";
 import { default as Draggable, DraggableData, DraggableProps } from "react-draggable";
+import { DragDropContext, DraggableLocation, Droppable, DropResult } from "react-beautiful-dnd";
+import { Draggable as DraggableHeader } from "react-beautiful-dnd";
 
 type AlignmentType = "left" | "right" | "center";
 
@@ -55,6 +57,13 @@ interface VirtualizedTableStates {
     dataKeys: string[];
 }
 
+interface DraggableHeaderProps {
+    index: number;
+    dataKey: string;
+    children: React.ReactNode;
+}
+const grid: number = 8;
+
 class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, VirtualizedTableStates> {
     private table: Table;
     private dividend: number = 0;
@@ -74,6 +83,8 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         this.resizeRow = this.resizeRow.bind(this);
         this.resize = this.resize.bind(this);
         this.setWidth = this.setWidth.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
+        this.ReorderedHeader = this.ReorderedHeader.bind(this);
 
         const widths: {[dataKey: string]: number} = {};
         const dataKeys: string[] = [];
@@ -133,7 +144,8 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                 {showLoader ? <Loader /> : <AutoSizer>
                     {({height, width}) => {
                         this.setWidth(width);
-                        return <Table ref={this.refTable} onRowClick={this.onRowClicked} onRowsRendered={this.rebuildTooltips}
+                        return <DragDropContext onDragEnd={this.onDragEnd}>
+                        <Table ref={this.refTable} onRowClick={this.onRowClicked} onRowsRendered={this.rebuildTooltips}
                         width={width} headerHeight={headerHeight} rowHeight={rowHeight} scrollToAlignment="center"
                         height={height} rowCount={this.props.items.length}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
@@ -149,8 +161,9 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                                                         this.reorderHeader(this.resizeHeader(c.headerRenderer, c.dataKey), c.dataKey)}
                                         cellRenderer={c.cellRenderer}/>
                             ))
-                            }
-                        </Table>;
+                                }
+                        </Table>
+                        </DragDropContext>;
                     }}
                 </AutoSizer>}
             </div>
@@ -182,15 +195,10 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private reorderHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
         (props: TableHeaderProps) => React.ReactNode {
             return (props: TableHeaderProps): React.ReactNode => {
-                return <Draggable
-                    axis="x"
-                    defaultClassName={styles.DragHandle}
-                    defaultClassNameDragging={styles.DragHandleActive}
-                    onDrag={null}
-                    position={{ x: 0, y: null }}
-                >
-                    <div>{node(props)}</div>
-                </Draggable>;
+                debugger;
+                return <this.ReorderedHeader index={1} dataKey={dataKey}>
+                {node(props)}
+                </this.ReorderedHeader>;
             };
     }
     private getAlignmentStyle(type: AlignmentType): string {
@@ -305,13 +313,44 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
         };
     }
 
-    private reorder(dataKey: string): (event: mouseEvent, data: DraggableData) => void {
-        return (event: MouseEvent, data: DraggableData): void => {
-        }
-    }
-
     private setWidth(width: number): void {
         this.width = width;
+    }
+
+    private onDragEnd(result: DropResult): void {
+    }
+
+    private ReorderedHeader(props: DraggableHeaderProps): JSX.Element { //tslint:disable-line
+        debugger;
+        return <DraggableHeader index={props.index} key={props.dataKey} draggableId={props.dataKey}>
+            {// tslint:disable-next-line:no-shadowed-variable
+                (provided, snapshot) => (
+                    <div>
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            style={getItemStyle(
+                                provided.draggableProps.style,
+                                snapshot.isDragging
+                            )}
+                            {...provided.dragHandleProps}
+                        >
+                            {props.children}
+                        </div>
+                        {provided.placeholder}
+                    </div>
+                )}
+        </DraggableHeader>;
+
+        function getItemStyle(draggableStyle: any, isDragging: boolean): any { //tslint:disable-line:no-any
+            return {
+                userSelect: "none",
+                background: isDragging ? "lightgreen" : "grey",
+                padding: grid * 2,
+                margin: `0 0 ${grid}px 0`,
+                ...draggableStyle
+            };
+        }
     }
 }
 
