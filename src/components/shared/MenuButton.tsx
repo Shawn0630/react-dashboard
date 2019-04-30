@@ -42,7 +42,7 @@ export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonS
                 color={this.props.color == null ? "primary" : this.props.color}
                 variant={this.props.variant == null ? "fab" : this.props.variant}
                 buttonRef={this.getButtonRef}
-                aria-owns={open ? "button-menu" : undefined}
+                aria-owns={this.state.open ? "button-menu" : undefined}
                 aria-haspopup="true"
                 onClick={this.handleToggle}
             >

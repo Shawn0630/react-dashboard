@@ -153,21 +153,21 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
                         width={width} headerHeight={headerHeight} rowHeight={rowHeight} scrollToAlignment="center"
                         height={height} rowCount={this.props.items.length}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
-                                    {
-                                        this.state.dataKeys.map((key, index) => (
-                                            <Column key={this.state.columns[key].dataKey} dataKey={key} disableSort={true}
-                                                flexShrink={this.state.columns[key].flexShrink != null ?
-                                                                this.state.columns[key].flexShrink : 1}
-                                                flexGrow={this.state.columns[key].flexGrow != null ? this.state.columns[key].flexGrow : 1}
-                                                headerClassName={this.state.columns[key].headerClassName}
-                                                className={`${this.getAlignmentStyle(this.state.columns[key].alignment)} ${styles.tableCell} ${this.state.columns[key].cellClassName}`} //tslint:disable-line
-                                                width={this.state.widths[this.state.columns[key].dataKey] * width}
-                                                headerRenderer={index === this.props.columns.length - 1 ?
-                                                    this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey) ://tslint:disable-line
-                                                    this.resizeHeader(this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey), this.state.columns[key].dataKey)} //tslint:disable-line
-                                                cellRenderer={this.state.columns[key].cellRenderer} />
-                                        ))
-                                    }
+                        {
+                            this.state.dataKeys.map((key, index) => (
+                                <Column key={this.state.columns[key].dataKey} dataKey={key} disableSort={true}
+                                    flexShrink={this.state.columns[key].flexShrink != null ?
+                                                    this.state.columns[key].flexShrink : 1}
+                                    flexGrow={this.state.columns[key].flexGrow != null ? this.state.columns[key].flexGrow : 1}
+                                    headerClassName={this.state.columns[key].headerClassName}
+                                    className={`${this.getAlignmentStyle(this.state.columns[key].alignment)} ${styles.tableCell} ${this.state.columns[key].cellClassName}`} //tslint:disable-line
+                                    width={this.state.widths[this.state.columns[key].dataKey] * width}
+                                    headerRenderer={index === this.props.columns.length - 1 ?
+                                        this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey) ://tslint:disable-line
+                                        this.resizeHeader(this.reorderHeader(this.state.columns[key].headerRenderer, this.state.columns[key].dataKey), this.state.columns[key].dataKey)} //tslint:disable-line
+                                    cellRenderer={this.state.columns[key].cellRenderer} />
+                            ))
+                        }
                         </Table>
                         </DragDropContext>;
                     }}
@@ -190,16 +190,16 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private resizeHeader(node: (props: TableHeaderProps) => React.ReactNode, dataKey: string):
         (props: TableHeaderProps) => React.ReactNode {
         return (props: TableHeaderProps): React.ReactNode => {
-            return <div key={dataKey} className={styles.Header} id={dataKey}>
-                <div className={styles.HeaderTruncatedText}>{node(props)}</div>
+            return <div key={dataKey} className={styles.header} id={dataKey}>
+                <div className={styles.headerTruncatedText}>{node(props)}</div>
                 <Draggable
                     axis="x"
-                    defaultClassName={styles.DragHandle}
-                    defaultClassNameDragging={styles.DragHandleActive}
+                    defaultClassName={styles.dragHandle}
+                    defaultClassNameDragging={styles.dragHandleActive}
                     onDrag={this.resize(dataKey)}
                     position={{ x: 0, y: null }}
                 >
-                <span className={styles.DragHandleIcon}>⋮</span>
+                <span className={styles.dragHandleIcon}>⋮</span>
                 </Draggable>
             </div>;
         };
@@ -340,7 +340,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>, 
     private onDragEnd(result: DropResult): void {
         const { source, destination } = result;
 
-        if (!result.destination) {
+        if (result.destination == null) {
             return;
         }
 

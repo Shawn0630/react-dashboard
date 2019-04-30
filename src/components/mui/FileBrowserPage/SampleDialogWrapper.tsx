@@ -12,7 +12,7 @@ import * as enzymes from "../../../data/Enzyme.json";
 import * as instruments from "../../../data/Instrument.json";
 import * as existedSample from "../../../data/Samples.json";
 
-interface SampleDialogProps {}
+interface SampleDialogProps {} //tslint:disable-line
 
 interface SampleDialogState {
     open: boolean;

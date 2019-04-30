@@ -77,23 +77,23 @@
     text-align: left;
 }
 
-.DragHandle {
+.dragHandle {
   flex: 0 0 16px;
   z-index: 2;
   cursor: col-resize;
   color: #0085ff;
 }
-.DragHandle:hover {
+.dragHandle:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.DragHandleActive,
-.DragHandleActive:hover {
+.dragHandleActive,
+.dragHandleActive:hover {
   color: #0b6fcc;
   z-index: 3;
 }
 
-.DragHandleIcon {
+.dragHandleIcon {
   flex: 0 0 12px;
   display: flex;
   flex-direction: column;
@@ -101,10 +101,10 @@
   align-items: center;
 }
 
-.HeaderTruncatedText {
+.headerTruncatedText {
   flex: auto;
 }
 
-.Header {
+.header {
     display: flex;
 }
