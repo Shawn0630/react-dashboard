@@ -13,9 +13,11 @@ import {
     Table,
     TableCellProps,
     TableHeaderProps,
+    TableHeaderRowProps
 } from "react-virtualized";
 import { Loader } from "~components/shared/Loader";
 import * as styles from "./VirtualizedTable.scss";
+import { SortableContainer, SortEnd, SortEvent, SortableElement, SortableElementProps, SortableContainerProps } from "react-sortable-hoc";
 
 type AlignmentType = "left" | "right" | "center";
 
@@ -55,8 +57,22 @@ interface VirtualizedTableProps<T> {
     getRowClassName?(item: T): string;
 }
 
+interface SortableHeaderProps extends SortableElementProps {
+    index: number;
+    children: React.ReactNode;
+}
+
 class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>> {
     private table: Table;
+    private SortableHeader: React.ComponentClass<SortableHeaderProps> = SortableElement((props: SortableHeaderProps) => React.cloneElement(props.children, props)); //tslint:disable-line
+    private SortableHeaderRowRenderer: React.ComponentClass<TableHeaderRowProps & SortableContainerProps> = SortableContainer(
+        (props: TableHeaderRowProps) => (
+            <div className={props.className} role="row" style={props.style}>
+                {React.Children.map(props.columns, (column, index) => (
+                    <this.SortableHeader index={index}>{column}</this.SortableHeader>
+                ))}
+            </div>
+        ));
     constructor(props: VirtualizedTableProps<T>) {
         super(props);
         this.rowGetter = this.rowGetter.bind(this);
@@ -68,6 +84,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>> 
         this.getRowClassName = this.getRowClassName.bind(this);
         this.rebuildTooltips = this.rebuildTooltips.bind(this);
         this.refTable = this.refTable.bind(this);
+        this.headerRowRender = this.headerRowRender.bind(this);
     }
     public render(): JSX.Element {
         const showPagination: boolean = this.props.showPagination != null ? this.props.showPagination : true;
@@ -113,6 +130,7 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>> 
                         <Table ref={this.refTable} onRowClick={this.onRowClicked} onRowsRendered={this.rebuildTooltips}
                         width={width} headerHeight={rowHeight} rowHeight={rowHeight} scrollToAlignment="center"
                         height={height} rowCount={this.props.items.length}
+                        headerRowRenderer={this.headerRowRender}
                         rowGetter={this.rowGetter} rowClassName={this.getRowClassName}>
                             {this.props.columns.map(c => (
                                 <Column key={c.dataKey} dataKey={c.dataKey} disableSort={true}
@@ -179,6 +197,13 @@ class VirtualizedTable<T> extends React.PureComponent<VirtualizedTableProps<T>> 
     }
     private toPage(event: React.ChangeEvent<HTMLInputElement>): void {
         this.gotoPage(parseInt(event.currentTarget.value, 10));
+    }
+    private headerRowRender(props: TableHeaderRowProps): React.ReactNode {
+        return  <this.SortableHeaderRowRenderer {...props} axis="x" lockAxis="x" onSortEnd={this.onSortEnd} />;
+    }
+
+    private onSortEnd(sort: SortEnd, event: SortEvent): void {
+
     }
 }
 
