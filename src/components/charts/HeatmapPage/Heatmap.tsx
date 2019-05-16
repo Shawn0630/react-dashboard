@@ -109,7 +109,6 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         } else {
             return <span>No proteins available under the filter.</span>;
         }
-
     }
 
     public componentDidMount(): void {
@@ -476,7 +475,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             document.getElementById("tooltip").style.display = "inline-block";
             document.getElementById("tooltip").style.position = "absolute";
             document.getElementById("tooltip").style.left = (x - 20).toString().concat("px");
-            document.getElementById("tooltip").style.top = (y + 150).toString().concat("px");
+            document.getElementById("tooltip").style.top = (y + 120).toString().concat("px");
             const tooltip: HTMLDivElement = document.createElement("div");
             const accession: HTMLDivElement = document.createElement("div");
             accession.innerHTML = this.tooltips.get(hovered[0]) //tslint:disable-line
