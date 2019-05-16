@@ -86,6 +86,15 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 Server exceeded the protein number limit, protein heatmap is hidden.
             </span>;
         } else if (this.props.data != null) {
+            if (this.props.samples.length <= 50) {
+                this.ceilWidth = 65;
+            } else if (this.props.samples.length <= 75) {
+                this.ceilWidth = 45;
+            } else if (this.props.samples.length <= 100) {
+                this.ceilWidth = 35;
+            } else {
+                this.ceilWidth = 25;
+            }
             const graphSize: Size = this.calculateGraphSize();
             return <div id={this.props.graphId} style={{position: "relative"}}>
                 <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
@@ -93,7 +102,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                     height={graphSize.width + this.margin.top + this.margin.bottom < minSize.height ?
                             minSize.height : graphSize.width + this.margin.top + this.margin.bottom}
                     style={{position: "absolute", left: 0, right: 0}}        />
-                <canvas id={this.canvasId} onMouseMove={this.onHover} />
+                <canvas id={this.canvasId} onMouseMove={this.onHover} role="img"/>
                 <div className={styles.tooltip} id="tooltip">
                 </div>
             </div>;
@@ -181,7 +190,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             svg.append("text")
                 .attr("transform",
                       `translate(${leaves[0].depth * this.depthWidth + this.margin.left +
-                                    xPos + index * this.ceilWidth + 30}, 60) rotate(-45)`)
+                                    xPos + index * this.ceilWidth + this.ceilWidth / 2}, 60) rotate(-45)`)
                 .text(`${sample.name}`);
             svg.append("rect")
                 .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * this.ceilWidth},65)`)
@@ -457,7 +466,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         const x: number = e.clientX - r.left;
         const y: number = e.clientY - r.top;
         const hovered: Location[] = this.tooltips.keySeq().toArray()
-            .filter((location: Location) => (location.x <= x && x <= location.x + this.ceilWidth * 2) &&
+            .filter((location: Location) => (location.x <= x && x <= location.x + this.ceilWidth * 5) &&
                         (location.y - this.childrenWidth / 2 <= y && y <= location.y + this.childrenWidth - this.childrenWidth / 2));
         if (hovered.length === 1) {
             const node: HTMLElement = document.getElementById("tooltip");
@@ -465,14 +474,15 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 node.removeChild(node.firstChild);
             }
             document.getElementById("tooltip").style.display = "inline-block";
-            document.getElementById("tooltip").style.position = "relative";
-            document.getElementById("tooltip").style.left = (x - this.canvas.width + this.margin.left).toString().concat("px");
-            document.getElementById("tooltip").style.top = (y - this.canvas.height + this.margin.top + 50).toString().concat("px");
+            document.getElementById("tooltip").style.position = "absolute";
+            document.getElementById("tooltip").style.left = (x - 20).toString().concat("px");
+            document.getElementById("tooltip").style.top = (y + 150).toString().concat("px");
             const tooltip: HTMLDivElement = document.createElement("div");
             const accession: HTMLDivElement = document.createElement("div");
             accession.innerHTML = this.tooltips.get(hovered[0]) //tslint:disable-line
             tooltip.appendChild(accession);
             document.getElementById("tooltip").appendChild(tooltip);
+            console.log(`x = ${x - this.canvas.width + this.margin.left} y = ${y - this.canvas.height + this.margin.top + 50}`);
         } else {
             document.getElementById("tooltip").style.display = "none";
         }
