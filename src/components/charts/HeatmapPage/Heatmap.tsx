@@ -481,7 +481,6 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
             accession.innerHTML = this.tooltips.get(hovered[0]) //tslint:disable-line
             tooltip.appendChild(accession);
             document.getElementById("tooltip").appendChild(tooltip);
-            console.log(`x = ${x - this.canvas.width + this.margin.left} y = ${y - this.canvas.height + this.margin.top + 50}`);
         } else {
             document.getElementById("tooltip").style.display = "none";
         }
