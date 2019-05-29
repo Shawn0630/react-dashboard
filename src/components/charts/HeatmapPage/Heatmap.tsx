@@ -1,17 +1,15 @@
 import * as d3 from "d3";
+import { Map } from "immutable";
 import * as React from "react";
 
-import { Color } from "../../../models/Color";
 import { com } from "../../../models/example";
-import * as styles from "./Heatmap.scss";
 import { HeatmapHelper } from "./heatmap-helper";
+import * as styles from "./Heatmap.scss";
 
 import ISample = com.example.dto.ISample;
 import IGroup = com.example.dto.IGroup;
 import IDendrogram = com.example.dto.IDendrogram;
 import IHeatMapRow = com.example.dto.IHeatMapRow;
-import { Map } from "immutable";
-
 //tslint:disable-next-line
 interface HeatmapProps {
     graphId: string;
