@@ -12,7 +12,7 @@ interface Item {
     content: string;
 }
 
-interface DroppableContainerProps {}
+interface DroppableContainerProps {} //tslint:disable-line
 
 interface DroppableContainerStates {
     lists: List[];
@@ -108,7 +108,7 @@ export default class DroppableContainer extends React.Component<DroppableContain
     private onDragEnd(result: DropResult): void {
         const { source, destination } = result;
 
-        if (!result.destination) {
+        if (result.destination == null) {
             return;
         }
 

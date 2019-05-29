@@ -4,13 +4,13 @@ import { SharedType } from "~models/types";
 
 export default class InformationDatabase extends dexie {
     public infos: dexie.Table<SharedType.Information, string>;
-    private expirDays: number;
+    private expiryDays: number;
     constructor(name: string, expiryDays: number) {
         super(name);
         this.version(1).stores({
-            infos: "dbkey"
+            infos: "dbKey"
         });
-        this.expirDays = this.expirDays;
+        this.expiryDays = expiryDays;
     }
     public async loadInfo(db: string): Promise<SharedType.Information> {
         return this.infos.where("dbKey").equals(db).first();
@@ -21,7 +21,7 @@ export default class InformationDatabase extends dexie {
             let newInfo: SharedType.Information;
             if (oldInfo == null) {
                 newInfo = {
-                    ...oldInfo,
+                    ...info,
                     lastUpdated: moment.now()
                 };
             } else {
@@ -36,7 +36,7 @@ export default class InformationDatabase extends dexie {
         });
     }
     public async cleanup(cleanupDate: string = null): Promise<void> {
-        let threshold: moment.Moment = moment().subtract(this.expirDays, "days");
+        let threshold: moment.Moment = moment().subtract(this.expiryDays, "days");
         if (cleanupDate != null && moment(cleanupDate) > threshold) {
             threshold = moment(cleanupDate);
         }

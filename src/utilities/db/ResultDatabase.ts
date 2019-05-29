@@ -6,13 +6,13 @@ import DataType = SharedType.DataType;
 import ResultType = SharedType.ResultType;
 import Information = SharedType.Information;
 import FetchedResult = SharedType.FetchedResult;
-import IScanDenovoCandidate = com.example.dto.IScanDenovoCandidate;
+import IDenovoCandidate = com.example.dto.IDenovoCandidate;
 import InformationDatabase from "~utilities/db/InformationDatabase";
 
 export default class ResultDatabase extends dexie {
     private sortKeys: {[key: string]: string};
     private infoDB: InformationDatabase;
-    private denovos: dexie.Table<IScanDenovoCandidate, string>;
+    private denovos: dexie.Table<IDenovoCandidate, string>;
     constructor(hashKey: string, infoDB: InformationDatabase) {
         super(hashKey);
 
@@ -20,8 +20,25 @@ export default class ResultDatabase extends dexie {
             denovos: "alc"
         };
 
+        this.version(1).stores({
+            denovos: "++id, alc"
+        });
+
         this.infoDB = infoDB;
-        this.initialize().catch(err => {throw new Error(err); });
+        this.initialize().catch(err => {
+            console.log(`Unable to initialize result database ${hashKey}`); // tslint:disable-line:no-console
+            console.log(err); // tslint:disable-line:no-console
+        });
+    }
+
+    public async count<T extends DataType>(type: SharedType.ResultType): Promise<number> {
+        let table: dexie.Table<T, string>;
+        try {
+            table = this.getTable<T>(type);
+        } catch (err) {
+            return Promise.reject(err);
+        }
+        return table.count();
     }
 
     public async saveAll<T extends DataType>(type: ResultType, items: T[]): Promise<Information> {

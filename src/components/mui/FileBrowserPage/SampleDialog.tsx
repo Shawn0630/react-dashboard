@@ -13,7 +13,7 @@ import { DraggableSampleSubmissionPanel, SampleSubmissionPanel } from "./SampleS
 
 import ISample = com.example.dto.ISample;
 import IFraction = com.example.dto.Sample.IFraction;
-interface SampleDialogProps extends WithStyles<typeof style> {
+interface SampleDialogProps extends WithStyles {
     open: boolean;
     files: Map<string, File>;
     enzymeOptions: string[];

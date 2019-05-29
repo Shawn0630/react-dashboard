@@ -17,7 +17,7 @@ export function groupBy<T>(key: string): (array: T[]) => {[key: string]: T[]} {
         return array.reduce(
             (objectsByKeyValue: {[key: string]: T[]}, obj: any) => { // tslint:disable-line:no-any
                 const value: string = obj[key];
-                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                objectsByKeyValue[value] = (objectsByKeyValue[value] == null ? [] : objectsByKeyValue[value]).concat(obj);
                 return objectsByKeyValue;
             },
             {});
