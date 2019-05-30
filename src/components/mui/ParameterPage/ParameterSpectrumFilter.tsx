@@ -67,8 +67,6 @@ export default class SpectrumFilter extends React.PureComponent<SpectrumFilterPr
     }
 
     public render(): JSX.Element {
-        console.log(this.props.disabled === true ||
-            this.state.option !== ThresholdOption.FDR);
         return <Paper>
             <Typography variant="h5">
                 <b>Spectrum Filter</b>

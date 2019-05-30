@@ -51,6 +51,11 @@ const muiThemeCore: Theme = createMuiTheme({
                 }
             }
         },
+        MuiDialog: {
+            paperWidthMd: {
+                maxWidth: 1280
+            }
+        },
         MuiInputBase: {
             root: {
                 fontSize: 16

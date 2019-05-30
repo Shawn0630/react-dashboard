@@ -50,7 +50,6 @@ class DropdownSelector extends React.PureComponent<DropdownSelectorProps, Dropdo
             return null;
         }
 
-        console.log(this.props.disabled);
         return <div className={`${this.props.className} ${styles.dropdownWrapper}`}>
             <FormControl disabled={this.props.disabled} className={`${styles.newDropdownSelector}`}>
                 <InputLabel disabled={this.props.disabled} shrink={true}

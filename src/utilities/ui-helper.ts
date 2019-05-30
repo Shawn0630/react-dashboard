@@ -27,6 +27,12 @@ export function parseNumber(input: string, defaultValue: any = null): number { /
     }
 }
 
+export function parseNumbers(input: string[], defaultValue: number = null): number[] {
+    return input.map((val: string) => {
+        return parseNumber(val, defaultValue);
+    });
+}
+
 export function renderOptions(start: number, end: number): { [key: string]: number } {
     if (start == null || end == null) {
         return {};

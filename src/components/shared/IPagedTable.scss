@@ -1,0 +1,76 @@
+.tableContainer {
+    overflow-y: auto !important;
+}
+
+.pagedTable {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+
+    th {
+        border: 1px solid black;
+        position: relative;
+        z-index: 10;
+        text-align: center !important;
+        background: rgb(207, 211, 216);
+
+        div {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    td {
+        border: 1px solid black;
+        text-align: right;
+        white-space: nowrap;
+
+        div {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+    }
+}
+
+.actionBar {
+    position: relative;
+    margin-bottom: 5px;
+    min-height: 48px
+}
+
+.pager {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    height: 56px;
+    display: inline-block
+}
+
+.nextPrevButton {
+    height: 36px !important;
+    width: 36px !important;
+    vertical-align: top;
+    margin-top: 15px;
+    svg {
+        height: 30px !important;
+    }
+}
+
+.selectDropDown {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.viewFilterSpan {
+    color: red;
+    padding-left: 2em;
+}
+
+.sortIcon {
+    position: absolute !important;
+    top: -3px;
+}
