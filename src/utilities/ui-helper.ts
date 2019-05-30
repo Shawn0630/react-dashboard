@@ -26,3 +26,24 @@ export function parseNumber(input: string, defaultValue: any = null): number { /
         }
     }
 }
+
+export function renderOptions(start: number, end: number): { [key: string]: number } {
+    if (start == null || end == null) {
+        return {};
+    }
+
+    const options: { [key: string]: number } = {};
+    for (let i: number = start; i < end; i = i + 1) {
+        options[i.toString()] = i;
+    }
+
+    return options;
+}
+
+export function getOrDefault<P>(prop: P, defaultValue: P | string = ""): P | string {
+    if (prop == null) {
+        return defaultValue;
+    } else {
+        return prop;
+    }
+}

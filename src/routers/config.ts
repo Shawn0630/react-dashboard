@@ -24,7 +24,8 @@ const routesConfig: {[key: string]: RoutesConfig[]} = {
                 { key: "/app/material/file-browser", title: "File Browser", icon: "F", component: "FileBrowserPage"},
                 { key: "/app/material/protein-coverage", title: "Protein Coverage",
                   icon: "format_align_left", component: "ProteinCoveragePage"},
-                { key: "/app/material/denovo", title: "De Novo", icon: "De Novo", component: "DenovoPage"}
+                { key: "/app/material/denovo", title: "De Novo", icon: "De Novo", component: "DenovoPage"},
+                { key: "/app/material/parameter", title: "Parameter", icon: "Parameter", component: "ParameterPage"}
             ]}
     ],
     others: [
