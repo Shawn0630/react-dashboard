@@ -61,9 +61,17 @@ const muiThemeCore: Theme = createMuiTheme({
                 fontSize: 16
             }
         },
+        MuiButton: {
+           root: {
+               fontSize: 14
+           }
+        },
         MuiTypography: {
             subheading: {
                 fontSize: 14
+            },
+            body1: {
+                fontSize: 16
             }
         }
     }
