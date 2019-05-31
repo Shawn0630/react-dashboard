@@ -47,7 +47,6 @@ class LfqFilterNormalizationDialog extends React.PureComponent<QFilterNormalizat
             proteinFilterFunction: this.noFilter
         };
 
-        this.changeExpectedRatio = this.changeExpectedRatio.bind(this);
         this.changeNormalization = this.changeNormalization.bind(this);
         this.updateSpikedProteinIds = this.updateSpikedProteinIds.bind(this);
         this.sortTable = this.sortTable.bind(this);
@@ -89,10 +88,7 @@ class LfqFilterNormalizationDialog extends React.PureComponent<QFilterNormalizat
                         autoSize={true} useCSSTransforms={true}
                         style={{ maxWidth: widthGridLayout, width: widthGridLayout, minWidth: widthGridLayout }}>
                         <div key="methods">
-                            <RadioGroup name={"type"} onChange={this.changeNormalization}
-                                value={NormalizationMethod.toString(this.state.normalizationMethod)}>
                                {this.renderOptions()}
-                            </RadioGroup>
                         </div>
                         <div key="expected-ratios">
                             {this.renderExpectedNormalizationPage()}
@@ -112,15 +108,20 @@ class LfqFilterNormalizationDialog extends React.PureComponent<QFilterNormalizat
             </DialogActions>
         </Dialog>;
     }
-    private renderOptions(): JSX.Element[] {
-        return Object.keys(NormalizationMethod.normalizationMethods).map((type: string) => {
-            let isDisable: boolean = false;
-            if (type === "Use Internal Standard Proteins" && !this.renderSpikedIds()) {
-                isDisable = true;
+    private renderOptions(): JSX.Element {
+        return <RadioGroup name={"type"} onChange={this.changeNormalization}
+            value={NormalizationMethod.toString(this.state.normalizationMethod)}>
+            {
+            Object.keys(NormalizationMethod.normalizationMethods).map((type: string) => {
+                let isDisable: boolean = false;
+                if (type === "Use Internal Standard Proteins" && !this.renderSpikedIds()) {
+                    isDisable = true;
+                }
+                return <FormControlLabel key={type} label={type} value={type} disabled={isDisable}
+                    control={<Radio color="primary" disableRipple style={{ height: 30 }} />} />;
+            })
             }
-            return <FormControlLabel key={type} label={type} value={type} disabled={isDisable}
-                control={<Radio color="primary" disableRipple style={{ height: 30 }} />} />;
-        });
+        </RadioGroup>;
     }
     private renderSpikedIds(): boolean {
         return !(this.state.normalizationMethod !== NormalizationMethodType.SPIKE_NORMALIZATION || this.props.allProteinList === undefined);
@@ -185,27 +186,6 @@ class LfqFilterNormalizationDialog extends React.PureComponent<QFilterNormalizat
         this.setState({
             proteinFilterFunction: fn
         });
-    }
-    private changeExpectedRatio(value: string, index: number): void {
-        const methodType: NormalizationMethodType = this.state.normalizationMethod;
-        let expectedRatios: string[] = [];
-        if (methodType === NormalizationMethodType.SPIKE_NORMALIZATION) {
-            expectedRatios = this.state.spikedExpectedRatios;
-        }
-        if (methodType === NormalizationMethodType.MANUAL_NORMALIZATION) {
-            expectedRatios = this.state.manualExpectedRatios;
-        }
-        expectedRatios[index] = value;
-
-        if (methodType === NormalizationMethodType.SPIKE_NORMALIZATION) {
-            this.setState({
-                spikedExpectedRatios: expectedRatios
-            });
-        } else if (methodType === NormalizationMethodType.MANUAL_NORMALIZATION) {
-            this.setState({
-                manualExpectedRatios: expectedRatios
-            });
-        }
     }
     private changeNormalization(event: object, value: string): void {
         this.setState({

@@ -4,6 +4,7 @@ import { SpectrumFilterParameters } from "~/models/Parameters";
 import * as samples from "../../../data/Samples.json";
 import { com } from "../../../models/example";
 import { QFilterNormalizationDialog } from "./NormalizationDialog";
+import LFQNormalizationDialog from "./LFQNormalizationDialog";
 import SpectrumFilter from "./ParameterSpectrumFilter"; //tslint:disable-line
 import Button from "@material-ui/core/Button";
 
@@ -40,7 +41,7 @@ export default class ParameterPage extends React.PureComponent<{}, ParameterPage
 
     public render(): JSX.Element {
         return <React.Fragment>
-            <QFilterNormalizationDialog open={this.state.openDialog} samples={this.sampleNames} allProteinList={[]}
+            <LFQNormalizationDialog open={this.state.openDialog} samples={this.sampleNames} allProteinList={[]}
                                         closeDialog={this.closeDialog} />
             <SpectrumFilter parameters={this.state.parameter} onChange={this.updateSpectrumFilter} maxChannelCount={4}/>
             <Button color="primary" onClick={this.openDialog}>
