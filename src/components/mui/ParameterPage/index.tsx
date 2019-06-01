@@ -1,15 +1,16 @@
+import Button from "@material-ui/core/Button";
 import * as React from "react";
-import { SpectrumFilterParameters } from "~/models/Parameters";
+import { ExperimentAlias, SpectrumFilterParameters } from "~/models/Parameters"
 
+import * as experiments from "../../../data/ExperimentAlias.json";
+import * as normalizationParams from "../../../data/NormalizationParams.json";
 import * as samples from "../../../data/Samples.json";
 import { com } from "../../../models/example";
-import { QFilterNormalizationDialog } from "./NormalizationDialog";
 import LFQNormalizationDialog from "./LFQNormalizationDialog";
-import SpectrumFilter from "./ParameterSpectrumFilter"; //tslint:disable-line
-import Button from "@material-ui/core/Button";
+import SpectrumFilter from "./ParameterSpectrumFilter";
+import ReporterIonQIntraSampleNormalization from "./ReporterIonQIntraSampleNormalization";
 
 import ISample = com.example.dto.ISample;
-
 interface ParameterPageStates {
     parameter: SpectrumFilterParameters;
     openDialog: boolean;
@@ -33,6 +34,26 @@ export default class ParameterPage extends React.PureComponent<{}, ParameterPage
             this.sampleNames.push(sample.name);
         }
 
+        const manualExpectedRatios: IExpectedRatios[] = [];
+        const spikedExpectedRatios: IExpectedRatios[] = [];
+
+        for (const sample of (samples as ISample[])) {
+            manualExpectedRatios.push({
+                sampleName: sample.sampleName,
+                sampleId: sample.sampleId,
+                spikedChannelName: sample.spikedChannelName,
+                channelAlias: sample.channelAlias,
+                ratio: 1
+            });
+            spikedExpectedRatios.push({
+                sampleName: sample.sampleName,
+                sampleId: sample.sampleId,
+                spikedChannelName: sample.spikedChannelName,
+                channelAlias: sample.channelAlias,
+                ratio: 1
+            });
+        }
+
         this.updateSpectrumFilter = this.updateSpectrumFilter.bind(this);
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
@@ -47,6 +68,11 @@ export default class ParameterPage extends React.PureComponent<{}, ParameterPage
             <Button color="primary" onClick={this.openDialog}>
                 Primary
             </Button>
+            <ReporterIonQIntraSampleNormalization enableInterExperimentNormalization={true}
+                                                  normalizationParams={}
+                                                  samples={samples as ISample[]}
+                                                  experimentAlias={experiments as ExperimentAlias[]}
+                                                  save={null}/>
         </React.Fragment>;
     }
 

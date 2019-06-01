@@ -16,12 +16,33 @@ export enum NormalizationMethodType {
 
 export interface ReporterIonQNormalization {
     normalizationMethod: NormalizationMethodType;
-    manualExpectedRatios?: number[];
-    spikedExpectedRatios?: number[];
+    manualExpectedRatios?: ExpectedRatios[];
+    spikedExpectedRatios?: ExpectedRatios[];
     spikedProteinHitIdList?: string[];
 }
 
 export interface LfqSimpleProtein {
     accession?: string;
     id?: string;
+}
+
+export interface SampleSelection {
+    name: string;
+    id: string;
+}
+
+export interface ExperimentAlias {
+    sampleName: string;
+    sampleId: string;
+    spikedChannelName: string;
+    channelAlias: string;
+    index: string;
+}
+
+export interface ExpectedRatios {
+    sampleId: string;
+    sampleName: string;
+    spikedChannelName: string;
+    channelAlias: string;
+    ratio: number;
 }

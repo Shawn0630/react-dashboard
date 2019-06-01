@@ -10,16 +10,16 @@ import Typography from "@material-ui/core/Typography";
 const ReactGridLayout: React.ComponentClass<RGL.ReactGridLayoutProps & RGL.WidthProviderProps> = RGL.WidthProvider(RGL); // tslint:disable-line
 
 interface BaseNormalizationDialogProps<T> {
-    normlaizationParams: T;
+    normalizationParams: T;
     open: boolean;
     invalidInputError: string;
     renderOptions(): React.ReactNode;
     renderExpectedNormalizationPage(): React.ReactNode;
     renderAllProteins(): React.ReactNode;
     renderSpikedIds(): boolean;
-    validate(normlaizationParams: T): boolean;
+    validate(normalizationParams: T): boolean;
     handleClose(): void;
-    handleSave(normlaizationParams: T): void;
+    handleSave(normalizationParams: T): void;
 }
 
 interface BaseNormalizationDialogStates {}
@@ -54,7 +54,7 @@ export default class BaseNormalizationDialog<T> extends React.PureComponent<Base
                 <div style={{ width: widthDialog }}>
                     <ReactGridLayout layout={layout} cols={11} rowHeight={45} margin={[2, 2]}
                         autoSize={true} useCSSTransforms={true}
-                        style={{ maxWidth: widthGridLayout, width: widthGridLayout, minWidth: widthGridLayout }}>
+                        style={{ maxWidth: widthGridLayout, width: widthGridLayout, minWidth: widthGridLayout, position: "relative" }}>
                         <div key="methods">
                             {this.props.renderOptions()}
                         </div>
@@ -78,8 +78,8 @@ export default class BaseNormalizationDialog<T> extends React.PureComponent<Base
     }
 
     private handleSave(): void {
-        if (this.props.validate(this.props.normlaizationParams)) {
-            this.props.handleSave(this.props.normlaizationParams);
+        if (this.props.validate(this.props.normalizationParams)) {
+            this.props.handleSave(this.props.normalizationParams);
         }
     }
 }

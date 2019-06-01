@@ -39,8 +39,8 @@ export default class LFQNormalizationDialog extends React.PureComponent<LFQNorma
             params: {
                 normalizationMethod: NormalizationMethodType.NO_NORMALIZATION,
                 spikedProteinHitIdList: [],
-                manualExpectedRatios: [],
-                spikedExpectedRatios: [],
+                manualExpectedRatios: ["1", "1"],
+                spikedExpectedRatios: ["1", "1"],
             },
             proteinFilterFunction: this.noFilter,
             invalidInputError: ""
@@ -59,8 +59,7 @@ export default class LFQNormalizationDialog extends React.PureComponent<LFQNorma
     }
 
     public render(): JSX.Element {
-        debugger;
-        return <BaseNormalizationDialog normlaizationParams={this.state.params}
+        return <BaseNormalizationDialog normalizationParams={this.state.params}
                                         renderExpectedNormalizationPage={this.renderExpectedNormalizationPage}
                                         renderSpikedIds={this.renderSpikedIds}
                                         renderAllProteins={this.renderAllProteins}
@@ -68,7 +67,7 @@ export default class LFQNormalizationDialog extends React.PureComponent<LFQNorma
                                         invalidInputError={this.state.invalidInputError}
                                         validate={this.valid}
                                         handleClose={this.props.closeDialog}
-                                        handleSave={null}
+                                        handleSave={this.props.closeDialog}
                                         open={this.props.open}/>;
     }
 
@@ -187,10 +186,12 @@ export default class LFQNormalizationDialog extends React.PureComponent<LFQNorma
             return n === null || n < 0;
         };
 
-        if (manualExpectedRatios.filter(nullOrNegativeOnlyFilter).length !== 0) {
+        if (this.state.params.normalizationMethod === NormalizationMethodType.MANUAL_NORMALIZATION &&
+            manualExpectedRatios.filter(nullOrNegativeOnlyFilter).length !== 0) {
             this.setState({ invalidInputError: "Error: Invalid Expected Ratio(s)" });
             valid = false;
-        } else if (spikedExpectedRatios.filter(nullOrNegativeOnlyFilter).length !== 0) {
+        } else if (this.state.params.normalizationMethod === NormalizationMethodType.SPIKE_NORMALIZATION &&
+            spikedExpectedRatios.filter(nullOrNegativeOnlyFilter).length !== 0) {
             this.setState({ invalidInputError: "Error: Invalid Expected Ratio(s)" });
             valid = false;
         } else if (this.state.params.normalizationMethod === NormalizationMethodType.SPIKE_NORMALIZATION
