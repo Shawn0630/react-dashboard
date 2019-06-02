@@ -109,6 +109,7 @@
   },
   "scripts": {
     "test": "node_modules/.bin/jest --coverage --coverageDirectory=test_results/coverage",
+    "snapshot": "node_modules/.bin/jest -u",
     "count": "node_modules/.bin/cloc --exclude-dir=node_modules,target --include-lang=TypeScript,Sass .",
     "start": "npm run-script dev",
     "build": "npm run-script lint && npm run-script test && npm run-script prod",
