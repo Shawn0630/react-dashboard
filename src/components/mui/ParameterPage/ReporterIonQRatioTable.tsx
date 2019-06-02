@@ -1,15 +1,16 @@
 import * as React from "react";
-import * as Styles from "./NormalizationSampleRatio.scss";
+import * as styles from "./NormalizationSampleRatio.scss";
 import { PagedTable, PagedTableProps, PagedTableState } from "~components/shared/IPagedTable";
 import { InputField } from "~components/shared/InputField";
 import { ExpectedRatios } from "~/models/Parameters";
+import { getOrDefault } from "~utilities/ui-helper";
 
 interface LfqSampleRatioTableProps {
     expectedRatios: ExpectedRatios[];
     updateExpectedRatio(data: string, index: number): void;
 }
 
-export default class ReporterIonQNormalizationSampleRatio extends PagedTable<number, LfqSampleRatioTableProps, PagedTableState<number>> {
+export default class ReporterIonQRatioTable extends PagedTable<number, LfqSampleRatioTableProps, PagedTableState<number>> {
     constructor(props: PagedTableProps<number> & LfqSampleRatioTableProps) {
         super(props);
 
@@ -29,13 +30,13 @@ export default class ReporterIonQNormalizationSampleRatio extends PagedTable<num
     }
     protected renderRow(item: number, index: number): JSX.Element {
         return <tr key={index.toString()}>
-            <td className={Styles.samplesCell}>{this.props.expectedRatios[item].spikedChannelName}</td>
-            <td className={Styles.samplesCell}>
+            <td className={styles.samplesCell}>{this.props.expectedRatios[item].spikedChannelName}</td>
+            <td className={styles.samplesCell}>
                 {`${this.props.expectedRatios[item].sampleName}:${this.props.expectedRatios[item].spikedChannelName}`}
             </td>
-            <td className={Styles.samplesCell}>1</td>
-            <td className={Styles.expectedRatioCell}>
-                <InputField value={this.props.expectedRatios[item].ratio.toString()} index={item}
+            <td className={styles.samplesCell}>1</td>
+            <td className={styles.expectedRatioCell}>
+                <InputField value={getOrDefault(this.props.expectedRatios[item].ratio, "").toString()} index={item}
                     onChange={this.props.updateExpectedRatio} type="number" />
             </td>
         </tr>;

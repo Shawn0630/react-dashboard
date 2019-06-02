@@ -59,7 +59,7 @@ export default class LFQNormalizationDialog extends React.PureComponent<LFQNorma
     }
 
     public render(): JSX.Element {
-        return <BaseNormalizationDialog normalizationParams={this.state.params}
+         return <BaseNormalizationDialog normalizationParams={this.state.params}
                                         renderExpectedNormalizationPage={this.renderExpectedNormalizationPage}
                                         renderSpikedIds={this.renderSpikedIds}
                                         renderAllProteins={this.renderAllProteins}

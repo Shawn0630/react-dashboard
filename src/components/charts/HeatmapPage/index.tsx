@@ -13,6 +13,6 @@ export default class HeatmapPage extends React.PureComponent<null> {
     public render(): JSX.Element {
         return <Heatmap graphId="heatmap" width={1200} height={1200}
                     maxProteinsReachedBackend={false} data={data as IDendrogram}
-                    groups={groups as IGroup[]} samples={largeSamples as ISample[]}/>;
+                    groups={groups as IGroup[]} samples={samples as ISample[]}/>;
     }
 }
