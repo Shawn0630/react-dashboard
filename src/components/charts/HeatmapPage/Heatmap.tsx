@@ -1,16 +1,15 @@
 import * as d3 from "d3";
+import { Map } from "immutable";
 import * as React from "react";
 
-import { Color } from "../../../models/Color";
 import { com } from "../../../models/example";
-import * as styles from "./Heatmap.scss";
 import { HeatmapHelper } from "./heatmap-helper";
+import * as styles from "./Heatmap.scss";
 
 import ISample = com.example.dto.ISample;
 import IGroup = com.example.dto.IGroup;
 import IDendrogram = com.example.dto.IDendrogram;
 import IHeatMapRow = com.example.dto.IHeatMapRow;
-
 //tslint:disable-next-line
 interface HeatmapProps {
     graphId: string;
@@ -42,6 +41,11 @@ type Size = {
     height: number;
 };
 
+type Location = {
+    x: number;
+    y: number;
+};
+
 class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
 
     private margin: MarginType = {
@@ -54,7 +58,9 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
     private maxTreeHeight: number = 100;
     private depthWidth: number = 5;
     private childrenWidth: number = 15;
+    private ceilWidth: number = 65;
     private alignedTreeData: d3.HierarchyNode<Node>;
+    private tooltips: Map<Location, string> = Map<Location, string>();
 
     private canvasId: string = "heatmap-canvas";
     private canvas: HTMLCanvasElement;
@@ -65,6 +71,7 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         this.drawChart = this.drawChart.bind(this);
         this.constructTree = this.constructTree.bind(this);
         this.alignedTree = this.alignedTree.bind(this);
+        this.onHover = this.onHover.bind(this);
     }
 
     public render(): JSX.Element {
@@ -77,19 +84,29 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 Server exceeded the protein number limit, protein heatmap is hidden.
             </span>;
         } else if (this.props.data != null) {
+            if (this.props.samples.length <= 50) {
+                this.ceilWidth = 65;
+            } else if (this.props.samples.length <= 75) {
+                this.ceilWidth = 45;
+            } else if (this.props.samples.length <= 100) {
+                this.ceilWidth = 35;
+            } else {
+                this.ceilWidth = 25;
+            }
             const graphSize: Size = this.calculateGraphSize();
             return <div id={this.props.graphId} style={{position: "relative"}}>
-                <canvas id={this.canvasId} />
                 <svg width={graphSize.height + this.margin.left + this.margin.right < minSize.width ?
                             minSize.width : graphSize.height + this.margin.left + this.margin.right}
                     height={graphSize.width + this.margin.top + this.margin.bottom < minSize.height ?
                             minSize.height : graphSize.width + this.margin.top + this.margin.bottom}
                     style={{position: "absolute", left: 0, right: 0}}        />
+                <canvas id={this.canvasId} onMouseMove={this.onHover} role="img"/>
+                <div className={styles.tooltip} id="tooltip">
+                </div>
             </div>;
         } else {
             return <span>No proteins available under the filter.</span>;
         }
-
     }
 
     public componentDidMount(): void {
@@ -100,7 +117,6 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
 
     private calculateGraphSize(): Size {
         const xPos: number = 140;
-        const ceilWidth: number = 65;
         const data: Node = this.constructTree(this.props.data);
         const treeData: d3.HierarchyNode<Node> = d3.hierarchy(data);
         const alignedData: Node = this.alignedTree(data, 0, treeData.height);
@@ -108,17 +124,18 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
 
         return {
             width: this.alignedTreeData.leaves().length * this.childrenWidth,
-            height: this.alignedTreeData.depth * this.depthWidth + this.margin.left + xPos + this.props.samples.length * ceilWidth + 800
+            height: this.alignedTreeData.depth * this.depthWidth + this.margin.left +
+                    xPos + this.props.samples.length * this.ceilWidth + 800
         };
     }
     //tslint:disable-next-line
     private drawChart(): void {
         const xPos: number = 140;
-        const ceilWidth: number = 65;
 
         const graphSize: Size = {
             width: this.alignedTreeData.leaves().length * this.childrenWidth,
-            height: this.alignedTreeData.depth * this.depthWidth + this.margin.left + xPos + this.props.samples.length * ceilWidth + 800
+            height: this.alignedTreeData.depth * this.depthWidth + this.margin.left + xPos +
+                    this.props.samples.length * this.ceilWidth + 800
         };
 
         const treemap: d3.TreeLayout<Node> = d3.tree<Node>().size([graphSize.width, graphSize.height]);
@@ -144,11 +161,14 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
 
         const ctx: CanvasRenderingContext2D = this.canvas.getContext("2d");
         leaves.forEach((leaf: d3.HierarchyPointNode<Node>) => {
+            const accession: string = leaf.data.row.accession.substring(0, 20)
+                                        .concat(leaf.data.row.accession.length > 20 ? "..." : "");
+            this.tooltips = this.tooltips.set({x: leaf.y + 10, y: leaf.x}, leaf.data.row.accession);
             ctx.beginPath();
             ctx.arc(leaf.y, leaf.x, 2, 0, Math.PI * 2);
             ctx.stroke();
             ctx.font = "10px";
-            ctx.fillText(leaf.data.row == null ? "" : leaf.data.row.accession, leaf.y + 10, leaf.x);
+            ctx.fillText(leaf.data.row == null ? "" : accession, leaf.y + 10, leaf.x);
         });
         links.forEach((link: d3.HierarchyPointLink<Node>) => {
             ctx.beginPath();
@@ -159,86 +179,36 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
         });
         this.props.samples.forEach((sample: ISample, index: number) => {
             ctx.beginPath();
-            ctx.fillText(sample.name, leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth + 30, 0);
+            ctx.fillText(sample.name, leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * this.ceilWidth + 30, 0);
             leaves.forEach((leaf: d3.HierarchyPointNode<Node>) => {
                 ctx.fillStyle = HeatmapHelper.getColorFromLevel(1 / 16, leaf.data.row.colour[index], 16).toString();
-                ctx.fillRect(leaf.y + xPos + index * ceilWidth, leaf.x - 10, ceilWidth, this.childrenWidth);
+                ctx.fillRect(leaf.y + xPos + index * this.ceilWidth, leaf.x - 10, this.ceilWidth, this.childrenWidth);
             });
             svg.append("text")
                 .attr("transform",
-                      `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth + 30}, 60) rotate(-45)`)
+                      `translate(${leaves[0].depth * this.depthWidth + this.margin.left +
+                                    xPos + index * this.ceilWidth + this.ceilWidth / 2}, 60) rotate(-45)`)
                 .text(`${sample.name}`);
             svg.append("rect")
-                .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * ceilWidth},65)`)
-                .attr("width", ceilWidth)
+                .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + index * this.ceilWidth},65)`)
+                .attr("width", this.ceilWidth)
                 .attr("height", 20)
                 .attr("style", `fill:${this.getSampleColor(sample.id, this.props.groups)}`);
         });
 
-        /**
-         * Legacy, slow rendering issues, keep it for comparison
-         */
-        // const leaf: d3.Selection<d3.BaseType, d3.HierarchyPointNode<Node>, d3.BaseType, {}> = graph.selectAll("leaf");
-        // leaf.data(leaves).enter().append("circle")
-        //     .attr("cx", (n: d3.HierarchyPointNode<Node>) => n.y)
-        //     .attr("cy", (n: d3.HierarchyPointNode<Node>) => n.x)
-        //     .attr("r", 2);
-        // leaf.data(leaves).enter().append("text")
-        //     .attr("dy", ".25em")
-        //     .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + 10)
-        //     .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x)
-        //     .attr("text-anchor", "start")
-        //     .attr("font-size", "10px")
-        //     .text((n: d3.HierarchyPointNode<Node>) => {
-        //         return n.data.row == null ? "" : n.data.row.accession;
-        //     });
-        // for (let i: number = 0; i < this.props.samples.length; i += 1) {
-        //     svg.append("text")
-        //         .attr("transform",
-        //               `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth + 30},60) rotate(-45)`)
-        //         .text(`${this.props.samples[i].name}`);
-        //     svg.append("rect")
-        //         .attr("transform", `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + i * ceilWidth},65)`)
-        //         .attr("width", ceilWidth)
-        //         .attr("height", 20)
-        //         .attr("style", `fill:${this.getSampleColor(this.props.samples[i].id, this.props.groups)}`);
-
-        //     leaf.data(leaves).enter().append("rect")
-        //         .attr("dy", ".25em")
-        //         .attr("x", (n: d3.HierarchyPointNode<Node>) => n.y + xPos + i * ceilWidth)
-        //         .attr("y", (n: d3.HierarchyPointNode<Node>) => n.x - 10)
-        //         .attr("width", ceilWidth)
-        //         .attr("height", this.childrenWidth)
-        //         .attr("style", (n: d3.HierarchyPointNode<Node>) => {
-        //             if (n.data.row == null) {
-        //                 return null;
-        //             }
-        //             const color: Color = HeatmapHelper.getColorFromLevel(1 / 16, n.data.row.colour[i], 16);
-
-        //             return `fill:${color}`;
-        //         });
-        // }
-        // // Update the links...
-        // graph.selectAll("path.link")
-        //     .data(links).enter()
-        //     .insert("path", "g")
-        //     .attr("class", styles.treeLine)
-        //     .attr("d", (d: d3.HierarchyPointLink<{}>) => {
-        //         return this.diagonal(d);
-        //     });
-
         const colorbar: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
             .attr("transform",
-                  `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos + this.props.samples.length * ceilWidth},25)`);
+                  `translate(${leaves[0].depth * this.depthWidth + this.margin.left + xPos +
+                                this.props.samples.length * this.ceilWidth},25)`);
 
         this.drawColorBar(colorbar);
 
         const legend: d3.Selection<d3.BaseType, {}, HTMLElement, {}> = svg.append("g")
         .attr("transform",
-              `translate(${leaves[0].depth * this.depthWidth + this.margin.left * 2 + xPos + this.props.samples.length * ceilWidth}, 300)`);
+              `translate(${leaves[0].depth * this.depthWidth + this.margin.left * 2 + xPos +
+                            this.props.samples.length * this.ceilWidth}, 300)`);
 
         this.drawLengend(legend);
-
     }
 
     private referenceChartId(): string {
@@ -485,6 +455,32 @@ class Heatmap extends React.PureComponent<HeatmapProps, HeatmapState> {
                 .attr("y", index * ceilHeight + ceilHeight / 2)
                 .text(`${group.groupName}`);
             index = index + 2;
+        }
+    }
+
+    private onHover(e: React.MouseEvent<HTMLCanvasElement>): void {
+        const r: ClientRect = this.canvas.getBoundingClientRect();
+        const x: number = e.clientX - r.left;
+        const y: number = e.clientY - r.top;
+        const hovered: Location[] = this.tooltips.keySeq().toArray()
+            .filter((location: Location) => (location.x <= x && x <= location.x + this.ceilWidth * 5) &&
+                        (location.y - this.childrenWidth / 2 <= y && y <= location.y + this.childrenWidth - this.childrenWidth / 2));
+        if (hovered.length === 1) {
+            const node: HTMLElement = document.getElementById("tooltip");
+            while (node.firstChild != null) {
+                node.removeChild(node.firstChild);
+            }
+            document.getElementById("tooltip").style.display = "inline-block";
+            document.getElementById("tooltip").style.position = "absolute";
+            document.getElementById("tooltip").style.left = (x - 20).toString().concat("px");
+            document.getElementById("tooltip").style.top = (y + 120).toString().concat("px");
+            const tooltip: HTMLDivElement = document.createElement("div");
+            const accession: HTMLDivElement = document.createElement("div");
+            accession.innerHTML = this.tooltips.get(hovered[0]) //tslint:disable-line
+            tooltip.appendChild(accession);
+            document.getElementById("tooltip").appendChild(tooltip);
+        } else {
+            document.getElementById("tooltip").style.display = "none";
         }
     }
 }

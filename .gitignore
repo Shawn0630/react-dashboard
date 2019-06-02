@@ -8,6 +8,6 @@ test_results/coverage/*
 package-lock.json
 src/override.json
 src/_override.json
-
+coverage
 **/.DS_Store
 .vscode

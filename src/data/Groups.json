@@ -1,12 +1,12 @@
 [
     {
     "groupName": "Group 1",
-    "sampleIds": ["7863dd2a-09e5-4a2d-bc98-024c57e4722f"],
+    "sampleIds": ["24ab790a-0f03-442c-8c72-a2f704472149"],
     "sampleNames": ["Sample 1"],
     "hexColour": "#B80000"
     },{
     "groupName": "Group 2",
-    "sampleIds": ["2bb56666-458e-4ddc-8f28-9bb253913a9e"],
+    "sampleIds": ["0c75edbc-8b16-46ea-8d45-fa36b4d18158"],
     "sampleNames": ["Sample 2"],
     "hexColour": "#FFFF00"
     }

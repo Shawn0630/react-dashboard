@@ -8,7 +8,7 @@ import { Redirect, RouteComponentProps, withRouter } from "dva/router";
 import TextField from "@material-ui/core/TextField";
 import { UserState } from "~models/user";
 
-interface LoginProps extends RouteComponentProps<{}>, SubscriptionAPI {
+interface LoginProps extends RouteComponentProps, SubscriptionAPI {
     user: UserState;
 }
 

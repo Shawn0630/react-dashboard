@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as styles from "./SpectrumView.scss"
+import * as styles from "./SpectrumView.scss";
 import * as d3 from "d3";
 import { config } from "~/config";
 import { BoundBoxHelpers, ChartingHelpers, IonLabelHelper, ToolTipHelper } from "./charting-helpers";

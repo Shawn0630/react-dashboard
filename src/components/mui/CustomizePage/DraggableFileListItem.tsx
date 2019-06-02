@@ -8,7 +8,7 @@ import * as React from "react";
 import * as dnd from "react-dnd";
 import { findDOMNode } from "react-dom";
 
-import * as styles from "./SampleDialog.scss";
+import * as styles from "../FileBrowserPage/SampleDialog.scss";
 import { DropProps } from "./DraggableFileContainer";
 
 interface DragDropProps {

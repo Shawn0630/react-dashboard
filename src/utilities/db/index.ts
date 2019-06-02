@@ -39,6 +39,14 @@ export default {
         const db: ResultDatabase = new ResultDatabase(cachedKey, infoDB);
         return db.saveAll(type, items);
     },
+    async count<T extends DataType>(cacheKey: string, type: ResultType): Promise<number> {
+        const db: ResultDatabase = new ResultDatabase(cacheKey, infoDB);
+        return db.count<T>(type);
+    },
+    async saveResult<T extends DataType>(cacheKey: string, type: ResultType, items: T[]): Promise<Information> {
+        const db: ResultDatabase = new ResultDatabase(cacheKey, infoDB);
+        return db.saveAll<T>(type, items);
+    },
     async cleanup(cleanupDate: string = null): Promise<void> {
         return infoDB.cleanup(cleanupDate);
     }

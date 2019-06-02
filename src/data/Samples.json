@@ -1,24 +1,42 @@
 [
     {
-        "id":"7863dd2a-09e5-4a2d-bc98-024c57e4722f",
-        "name":"Sample 1",
-        "instrument":"Orbitrap (Orbi-Trap)",
-        "enzyme":"Trypsin",
-        "activationMethod":"CID",
-        "fractions":[{
-            "id":"e8245dcc-75cc-4494-8fab-2bd23baa6873",
-            "sourceFile":"Severe_SMA_1.raw"
-        }]
+        "id": "24ab790a-0f03-442c-8c72-a2f704472149",
+        "name": "Sample 1",
+        "instrument": "Orbitrap (Orbi-Orbi)",
+        "enzyme": "Glu C (bicarbonate)",
+        "activationMethod": "CID",
+        "fractions": [
+            {
+                "id": "7e39a231-e3de-4083-8fac-abc4c239a5e4",
+                "sourceFile": "BSA-GluC-1.RAW"
+            }
+        ],
+        "featureDetectionStep": {
+            "conserveredParameters": {
+                "areaCalculationMethod": "AREA"
+            },
+            "id": "fdad82fe-cf4d-4532-8b91-319ecfcb32e2"
+        },
+        "hasIonMobility": false
     },
     {
-        "id":"2bb56666-458e-4ddc-8f28-9bb253913a9e",
-        "name":"Sample 2",
-        "instrument":"Orbitrap (Orbi-Trap)",
-        "enzyme":"Trypsin",
-        "activationMethod":"CID",
-        "fractions":[{
-            "id":"1719e4ae-6e93-453e-9383-1b6bc9372536",
-            "sourceFile":"Wild_Type_1.raw"
-        }]
+        "id": "0c75edbc-8b16-46ea-8d45-fa36b4d18158",
+        "name": "Sample 2",
+        "instrument": "Orbitrap (Orbi-Orbi)",
+        "enzyme": "Trypsin",
+        "activationMethod": "CID",
+        "fractions": [
+            {
+                "id": "f44d1969-6471-407e-9c92-09d90fd470d5",
+                "sourceFile": "BSA-LysC-1.RAW"
+            }
+        ],
+        "featureDetectionStep": {
+            "conserveredParameters": {
+                "areaCalculationMethod": "AREA"
+            },
+            "id": "7523d968-fc88-4e57-91a5-56acfae052a8"
+        },
+        "hasIonMobility": false
     }
 ]

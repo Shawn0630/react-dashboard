@@ -21,7 +21,7 @@ import { com } from "~models/example";
 import * as styles from "./SampleDialog.scss";
 import { withDragDropContext } from "~utilities/dnd-helper";
 import { MenuSelectDropDown } from "../../shared/MenuSelectDropDown";
-import { DroppableFileList } from "./DraggableFileContainer";
+import { DroppableFileList } from "../CustomizePage/DraggableFileContainer";
 import * as sharedStyles from "~styles/shared.scss";
 import FileBrowserWrapper from "./FileBrowserWrapper";
 import * as root from "../../../data/FileNode.json";
@@ -515,7 +515,7 @@ class SampleSubmissionPanel extends React.PureComponent<SampleSubmissionPanelPro
     private onRemove(filename: string, listIndex: number): void {
         const updatedSampleList: SampleData[] = [...this.state.sampleList];
         const updatedFractions: SelectableFile[] = [...updatedSampleList[listIndex].fractions];
-        let updatedExistingFiles: OrderedMap<string, File> = this.state.existingFiles;
+        const updatedExistingFiles: OrderedMap<string, File> = this.state.existingFiles;
         for (let i: number = 0; i < updatedFractions.length; i += 1) {
             if (updatedFractions[i].name === filename) {
                 updatedFractions.splice(i, 1);
