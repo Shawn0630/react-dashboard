@@ -1,0 +1,140 @@
+<testsuites name="jest tests" tests="6" failures="1" time="6.1739999999999995">
+  <testsuite name="/__tests__/utilities/array-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-02T16:15:06" time="1.944" tests="3">
+    <testcase classname="utilities/array-helper - should flatten the array in pure Array" name="utilities/array-helper - should flatten the array in pure Array" time="0.007">
+    </testcase>
+    <testcase classname="utilities/array-helper - should flatten the array" name="utilities/array-helper - should flatten the array" time="0.001">
+    </testcase>
+    <testcase classname="utilities/array-helper - should group the array by key" name="utilities/array-helper - should group the array by key" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="/__tests__/utilities/ui-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-02T16:15:06" time="1.957" tests="2">
+    <testcase classname="utilities/ui-helper - getOrDefault" name="utilities/ui-helper - getOrDefault" time="0.008">
+    </testcase>
+    <testcase classname="utilities/ui-helper - renderOptions" name="utilities/ui-helper - renderOptions" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="/__tests__/components/shared/ActionButton.test.tsx" errors="0" failures="1" skipped="0" timestamp="2019-06-02T16:15:06" time="2.273" tests="1">
+    <testcase classname="components/shared/ActionButton - shoule match snapshot when enabled" name="components/shared/ActionButton - shoule match snapshot when enabled" time="0.016">
+      <failure>Error: expect(received).toMatchSnapshot()
+
+Snapshot name: `components/shared/ActionButton shoule match snapshot when enabled 1`
+
+- Snapshot
++ Received
+
+- ShallowWrapper {
+-   Symbol(enzyme.__root__): [Circular],
+-   Symbol(enzyme.__unrendered__): &lt;ActionButton
+-     data=&quot;test data&quot;
+-     disabled={false}
+-     icon=&quot;mode_edit&quot;
+-     onClick={[MockFunction]}
+-     title=&quot;test title&quot;
+-   /&gt;,
+-   Symbol(enzyme.__renderer__): Object {
+-     &quot;batchedUpdates&quot;: [Function],
+-     &quot;getNode&quot;: [Function],
+-     &quot;render&quot;: [Function],
+-     &quot;simulateError&quot;: [Function],
+-     &quot;simulateEvent&quot;: [Function],
+-     &quot;unmount&quot;: [Function],
+-   },
+-   Symbol(enzyme.__node__): Object {
+-     &quot;instance&quot;: null,
+-     &quot;key&quot;: undefined,
+-     &quot;nodeType&quot;: &quot;class&quot;,
+-     &quot;props&quot;: Object {
+-       &quot;children&quot;: Array [
+-         undefined,
+-         &lt;WithStyles(Icon)&gt;
+-           mode_edit
+-         &lt;/WithStyles(Icon)&gt;,
+-       ],
+-       &quot;className&quot;: &quot;actionButton&quot;,
+-       &quot;disabled&quot;: false,
+-       &quot;onClick&quot;: [Function],
+-       &quot;style&quot;: Object {},
+-       &quot;title&quot;: &quot;test title&quot;,
+-     },
+-     &quot;ref&quot;: null,
+-     &quot;rendered&quot;: Array [
+-       undefined,
+-       Object {
+-         &quot;instance&quot;: null,
+-         &quot;key&quot;: undefined,
+-         &quot;nodeType&quot;: &quot;class&quot;,
+-         &quot;props&quot;: Object {
+-           &quot;children&quot;: &quot;mode_edit&quot;,
+-         },
+-         &quot;ref&quot;: null,
+-         &quot;rendered&quot;: &quot;mode_edit&quot;,
+-         &quot;type&quot;: [Function],
+-       },
+-     ],
+-     &quot;type&quot;: [Function],
+-   },
+-   Symbol(enzyme.__nodes__): Array [
+-     Object {
+-       &quot;instance&quot;: null,
+-       &quot;key&quot;: undefined,
+-       &quot;nodeType&quot;: &quot;class&quot;,
+-       &quot;props&quot;: Object {
+-         &quot;children&quot;: Array [
+-           undefined,
+-           &lt;WithStyles(Icon)&gt;
+-             mode_edit
+-           &lt;/WithStyles(Icon)&gt;,
+-         ],
+-         &quot;className&quot;: &quot;actionButton&quot;,
+-         &quot;disabled&quot;: false,
+-         &quot;onClick&quot;: [Function],
+-         &quot;style&quot;: Object {},
+-         &quot;title&quot;: &quot;test title&quot;,
+-       },
+-       &quot;ref&quot;: null,
+-       &quot;rendered&quot;: Array [
+-         undefined,
+-         Object {
+-           &quot;instance&quot;: null,
+-           &quot;key&quot;: undefined,
+-           &quot;nodeType&quot;: &quot;class&quot;,
+-           &quot;props&quot;: Object {
+-             &quot;children&quot;: &quot;mode_edit&quot;,
+-           },
+-           &quot;ref&quot;: null,
+-           &quot;rendered&quot;: &quot;mode_edit&quot;,
+-           &quot;type&quot;: [Function],
+-         },
+-       ],
+-       &quot;type&quot;: [Function],
+-     },
+-   ],
+-   Symbol(enzyme.__options__): Object {
+-     &quot;adapter&quot;: ReactSixteenAdapter {
+-       &quot;options&quot;: Object {
+-         &quot;enableComponentDidUpdateOnSetState&quot;: true,
+-         &quot;lifecycles&quot;: Object {
+-           &quot;componentDidUpdate&quot;: Object {
+-             &quot;onSetState&quot;: true,
+-           },
+-           &quot;getDerivedStateFromProps&quot;: true,
+-           &quot;getSnapshotBeforeUpdate&quot;: true,
+-           &quot;setState&quot;: Object {
+-             &quot;skipsComponentDidUpdateOnNullish&quot;: true,
+-           },
+-         },
+-       },
+-     },
+-   },
+- }
++ ShallowWrapper {}
+    at Object.&lt;anonymous&gt; (/Users/shawn/Files/Project/react-dashboard/__tests__/components/shared/ActionButton.test.tsx:14:25)
+    at Object.asyncJestTest (/Users/shawn/Files/Project/react-dashboard/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
+    at resolve (/Users/shawn/Files/Project/react-dashboard/node_modules/jest-jasmine2/build/queueRunner.js:43:12)
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (/Users/shawn/Files/Project/react-dashboard/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
+    at promise.then (/Users/shawn/Files/Project/react-dashboard/node_modules/jest-jasmine2/build/queueRunner.js:73:41)
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

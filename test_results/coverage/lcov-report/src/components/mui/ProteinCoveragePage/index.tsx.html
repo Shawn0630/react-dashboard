@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/mui/ProteinCoveragePage/index.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">src/components/mui/ProteinCoveragePage</a> index.tsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/65</span>
+      </div>
+    </div>
+    <p class="quiet">
+      Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+    </p>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Divider from "@material-ui/core/Divider";
+import * as Reac<span class="cstat-no" title="statement not covered" >t from "react";<span class="fstat-no" title="function not covered" ></span></span>
+import { MenuButton } fr<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >om</span> "~/components/shared/MenuButton";</span>
+import {<span class="cstat-no" title="statement not covered" > com } from "~models/example";</span>
+import { ModificationHelper } from "~utilities/modi<span class="fstat-no" title="function not covered" >fi</span>cation-helper";<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+import *<span class="cstat-no" title="statement not covered" > as stats from "../../../dat</span>a/DBFilteredStatistics.json";
+import * as proteinPeptide from "../../../data/DBProteinPeptides.json";
+impo<span class="cstat-no" title="statement not covered" >rt * as<span class="fstat-no" title="function not covered" > s</span>amples from "../../../data/Samples.json";</span>
+import C<span class="cstat-no" title="statement not covered" >olorLegend from "./Co</span>lorLegend";
+import * as style<span class="fstat-no" title="function not covered" >s f</span>rom <span class="cstat-no" title="statement not covered" >"./ProteinCoverage.scs</span>s";
+import {<span class="cstat-no" title="statement not covered" > CoverageProteinPeptide, Option, ProteinsCoverage } from "./ProteinCoverageViaCanvas";</span>
+import PtmFilterSelector from "./PtmFilterSelector";
+&nbsp;
+import Sample =<span class="cstat-no" title="statement not covered" > com.example.dto.Sample;<span class="fstat-no" title="function not covered" ></span></span>
+import IFrac<span class="cstat-no" title="statement not covered" >tion = com.example.dto.Sample.IFraction;<span class="cstat-no" title="statement not covered" ></span></span>
+impo<span class="cstat-no" title="statement not covered" >rt ISup<span class="cstat-no" title="statement not covered" >portPeptide = com.</span></span>example.dto.ISupportPeptide;
+impo<span class="cstat-no" title="statement not covered" >rt IProteinPeptide = com.example.dto.IProteinPeptide;</span>
+import IAbbrev<span class="fstat-no" title="function not covered" >ia</span>tedModification = com.example.dto.IAbbreviatedModification;
+import Stati<span class="cstat-no" title="statement not covered" >sticsOfFilteredResult = <span class="cstat-no" title="statement not covered" >com.example.</span></span>dto.StatisticsOfFilteredResult;
+import LfqSt<span class="cstat-no" title="statement not covered" >atisticsOfFilteredResult = com.example.dt</span>o.LfqStatisticsOfFilteredResult;
+interface ProteinCoverageStates {
+    maxPsm: number;
+    selectedModifications: { [name: string]: boolean };
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+export defau<span class="cstat-no" title="statement not covered" >lt class ProteinC</span>overagePage extends React.PureComponent&lt;{}, ProteinCoverageStates&gt; {
+    public construc<span class="cstat-no" title="statement not covered" >tor() {</span>
+        super({});<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+        this.state = <span class="cstat-no" title="statement not covered" >{</span>
+            ma<span class="cstat-no" title="statement not covered" >xPsm: 0,</span>
+            selected<span class="cstat-no" title="statement not covered" >Modifications: this.creat</span>ePreSelectedModificationData((proteinPeptide as CoverageProteinPeptide).peptides)
+        };<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+        this.updateMaxValu<span class="cstat-no" title="statement not covered" >e = this.updateMaxValue.bind(th</span>is);
+        this.createPreSelec<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >te</span>dModificationData = this.createPreSelectedModificationData.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="fstat-no" title="function not covered" ></span>
+    public render():<span class="cstat-no" title="statement not covered" > JSX.Element {</span>
+<span class="cstat-no" title="statement not covered" >        const fractions: { [key: string]: string } = {};</span>
+        (samples as Sample[]).forEach((sample: Sample) =&gt; {
+            sample.fractions.forEach((fraction: IFraction) =&gt; {
+                fractions[fraction.id] = fraction.sourceFile;
+<span class="cstat-no" title="statement not covered" >            });</span>
+<span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" >        const accessio</span>n: string = proteinPeptide != null
+            ? (proteinPeptide as CoverageProteinPeptide).protein.accession : "Invalid protein";
+<span class="cstat-no" title="statement not covered" >        const description: string = protein<span class="fstat-no" title="function not covered" >Pe</span>ptide != null</span>
+            ? (proteinPe<span class="cstat-no" title="statement not covered" >pti</span>de as CoverageProteinPeptide).protein.description : " No description available";
+<span class="cstat-no" title="statement not covered" >        return &lt;div&gt;<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >            {this.renderProteinHeader<span class="fstat-no" title="function not covered" >(a</span>ccession, description)}</span>
+            &lt;Div<span class="cstat-no" title="statement not covered" >ider /&gt;</span>
+            &lt;canvas id="proteinCoverage" width={1800} height={100}&gt;&lt;/canvas&gt;
+            &lt;ProteinsCoverage key="coverage" proteinPeptide={proteinPeptide as CoverageProteinPeptide}
+                sampleFr<span class="cstat-no" title="statement not covered" >equency={null} samples={samples as Sample[]} updateMaxValue={this.updateMaxValue}</span>
+                fractions={fractions} tooltipHeight={0} sampleId={null} aaPerLine={110} aaPerCol={10}
+                selectedMo<span class="cstat-no" title="statement not covered" >difications={this.state.selectedModifications} ptmMap={(stats as StatisticsOfFilteredResult).modifications}</span>
+                peptideSelected={null} selectedPeptide={null}
+<span class="cstat-no" title="statement not covered" >                option={Option.PROTEIN_COVERAGE} /&gt;</span>
+        &lt;/div&gt;;
+    }
+&nbsp;
+    private updateMaxValue(value: number): void {
+        this.setState({
+<span class="cstat-no" title="statement not covered" >            maxPsm: value<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >        });</span>
+    }
+&nbsp;
+    private createPreSelectedModificationData(supportPeptides: ISupportPeptide[]): { [name: string]: boolean } {
+<span class="cstat-no" title="statement not covered" >        const selectedModifications: { [name: string]: boolean } = {};<span class="fstat-no" title="function not covered" ></span></span>
+        for (const peptide of supportPeptides) {
+            const abbrModiList: IAbb<span class="cstat-no" title="statement not covered" >rev</span>iatedModification[] = ModificationHelper.getAbbrModiList(
+<span class="cstat-no" title="statement not covered" >                peptide.peptide.modifications,</span>
+<span class="cstat-no" title="statement not covered" >                (stats as StatisticsOfFil<span class="cstat-no" title="statement not covered" >teredResult).modifications</span>);<span class="cstat-no" title="statement not covered" ></span></span>
+            abbrModiList.map((<span class="cstat-no" title="statement not covered" >modi: IAbbreviatedModifica</span>tion, index: number) =&gt; {
+                selectedModificatio<span class="cstat-no" title="statement not covered" >ns[modi.name] = true;</span>
+            });<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+        }<span class="cstat-no" title="statement not covered" ></span>
+        return selectedModifications;
+    }
+&nbsp;
+    private renderProtei<span class="cstat-no" title="statement not covered" >nHeader(accession: strin</span>g, description: string): JSX.Element[] {
+        const ret: JSX.Element[] = [];
+        ret.<span class="cstat-no" title="statement not covered" >push(</span>
+            &lt;h4 <span class="cstat-no" title="statement not covered" >id="coverageAccession" className={styles.proteinTitle} key="proteinTitle"&gt;{accession} {de<span class="cstat-no" title="statement not covered" >scription}&lt;/h4&gt;</span></span>
+        );
+        ret.push(<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
+            &lt;React.Fragment&gt;
+<span class="cstat-no" title="statement not covered" >                &lt;PtmFilterSelector pro</span>teinPeptide={proteinPeptide as IProteinPeptide} updatePtm={this.updatePtm} key="ptmFilter"
+                    ptmMap={(stats as StatisticsOfFilteredResult).modifications} selectedModifications={this.state.selectedModifications} /&gt;
+<span class="cstat-no" title="statement not covered" >                &lt;div className={styles.ptmFilterSelector<span class="fstat-no" title="function not covered" >}&gt;</span></span>
+<span class="cstat-no" title="statement not covered" >                    &lt;</span>MenuButton id={"color-legend"} color="primary" variant="flat" buttonClassName={styles.legendButton}
+<span class="cstat-no" title="statement not covered" >                        button={"Color Legend"}&gt;</span>
+                        &lt;div style={{ width: 80, height: 220 }}&gt;
+                            &lt;ColorLegend graphId="colorLegend" width={40} height={200} maxPsm={this.state.maxPsm}&gt;&lt;/ColorLegend&gt;
+                        &lt;/div&gt;
+<span class="cstat-no" title="statement not covered" >                    &lt;/MenuButton&gt;</span>
+                &lt;/div&gt;
+            &lt;/React.Fragment&gt;);
+        return ret;
+    }
+}
+<span class="cstat-no" title="statement not covered" ></span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jun 02 2019 12:15:25 GMT-0400 (Eastern Daylight Time)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+<script src="../../../../block-navigation.js"></script>
+</body>
+</html>
