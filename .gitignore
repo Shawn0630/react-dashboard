@@ -3,6 +3,7 @@ target
 stats.json
 *.scss.d.ts
 __tests__/**/*.js
+package-lock.json
 src/override.json
 src/_override.json
 
