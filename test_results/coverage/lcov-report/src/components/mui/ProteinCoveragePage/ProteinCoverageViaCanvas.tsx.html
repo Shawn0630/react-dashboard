@@ -2158,8 +2158,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -2926,13 +2926,13 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
                 }<span class="cstat-no" title="statement not covered" ></span>
             } else if (this.props.opt<span class="cstat-no" title="statement not covered" >ion</span> === Option.SAMPLE_FREQUENCY) {
 <span class="cstat-no" title="statement not covered" >                const positionOfSeqs: SequencePosition[] =</span>
-<span class="cstat-no" title="statement not covered" >                    drawProteinSequen<span class="cstat-no" title="statement not covered" >ce(<span class="cstat-no" title="statement not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >                    drawProteinSequenc<span class="cstat-no" title="statement not covered" >e(<span class="cstat-no" title="statement not covered" ></span></span></span>
                         ctx, this.<span class="cstat-no" title="statement not covered" >state.peptides</span>, startX, startY, this.state.aaPerLine,
 <span class="cstat-no" title="statement not covered" >                        this.state.aa<span class="cstat-no" title="statement not covered" >PerCol, se</span>quence, lineSpace, this.props.sampleFrequency.length,</span>
                         this<span class="cstat-no" title="statement not covered" >.props.selectedModifications, this.state.modisPositionMap);</span>
 <span class="cstat-no" title="statement not covered" ></span>
                 const sampleSumm<span class="cstat-no" title="statement not covered" >aryInfos: SampleSummaryInfo[] =</span>
-                    this.generateSam<span class="cstat-no" title="statement not covered" >pleSummaryData<span class="cstat-no" title="statement not covered" >(this.props.sampleFreq</span>uency,<span class="cstat-no" title="statement not covered" > this.stat</span>e.peptides);</span>
+                    this.generateSam<span class="cstat-no" title="statement not covered" >pleSummaryData(<span class="cstat-no" title="statement not covered" >this.props.sampleFrequency, this.sta</span>te.pept<span class="cstat-no" title="statement not covered" >ides);</span></span>
                 drawSampleFrequencyPosition(<span class="cstat-no" title="statement not covered" ></span>
                     ctx, this.state.pept<span class="cstat-no" title="statement not covered" >ides, startY, lineSpace, this.state.aaPerLine, this.state.aaPerCol,</span>
                     startX, sampleSummaryInf<span class="cstat-no" title="statement not covered" >os);</span>
@@ -2964,7 +2964,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
         const cols: <span class="cstat-no" title="statement not covered" >StartEnds[] = this.spl</span>itSeqIntoRowAndCols(sequence);
         // create modification map
         //split <span class="cstat-no" title="statement not covered" >cols into coloured StartEnds</span>
-        const colour<span class="cstat-no" title="statement not covered" >edCols: StartEnds<span class="cstat-no" title="statement not covered" >[] = this.colo</span>urCols(cols<span class="cstat-no" title="statement not covered" >, supportPept</span>ides);</span>
+        const colour<span class="cstat-no" title="statement not covered" >edCols: StartEnds[<span class="cstat-no" title="statement not covered" >] = this.colourCols(cols, su</span>pportPeptide<span class="cstat-no" title="statement not covered" >s);</span></span>
         //combine cols into row co<span class="cstat-no" title="statement not covered" >lumns</span>
         const numRows: n<span class="cstat-no" title="statement not covered" >umber = Math.ceil(sequence.length / aaPerLine);</span>
         const rowCols: StartEnds[][] = this.combineColsIntoRowCols(colouredCols, numRows);
@@ -3040,7 +3040,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
                 for (const peptideLine of <span class="cstat-no" title="statement not covered" >peptideNewLines) {</span>
                     const selectedPeptideLine: Pep<span class="cstat-no" title="statement not covered" >tideLine | LFQPeptideLine </span>= { ...peptideLine };
                     for <span class="cstat-no" title="statement not covered" >(const peptideRow of peptideLine.peptideRows) {</span>
-                        for <span class="cstat-no" title="statement not covered" >(let k: number<span class="cstat-no" title="statement not covered" > = peptideRow.start - 1; k &lt; pepti</span>deRow.<span class="cstat-no" title="statement not covered" >end; k += </span>1) {</span>
+                        for <span class="cstat-no" title="statement not covered" >(let k: number <span class="cstat-no" title="statement not covered" >= peptideRow.start - 1; k &lt; peptideRow.end; k +=</span> 1) {<span class="cstat-no" title="statement not covered" ></span></span>
                             if (modisPositionMap[<span class="cstat-no" title="statement not covered" >k] != nul</span>l) {
 <span class="cstat-no" title="statement not covered" >                                for (const mo<span class="cstat-no" title="statement not covered" >disPosition of modisP</span>ositionMap[k].peptideLineModis) {</span>
 <span class="cstat-no" title="statement not covered" >                                    if (!hover &amp;&amp; x &gt; modisPosition.startX &amp;&amp; x &lt; modisPosition.startX + modisPosition.width &amp;&amp;</span>
@@ -3177,7 +3177,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
                     .abbrevi<span class="cstat-no" title="statement not covered" >ation);</span>
                 spanModiAbb.inne<span class="cstat-no" title="statement not covered" >rHTML</span> = modis.modifications.length &gt; 1 ? //tslint:disable-line
 <span class="cstat-no" title="statement not covered" >                    "*" : modis.modifications[0].abbreviation != null ?</span>
-<span class="cstat-no" title="statement not covered" >                        modis.modi<span class="cstat-no" title="statement not covered" >fications[0].abbreviation.char</span>At(0) <span class="cstat-no" title="statement not covered" >: "";</span></span>
+<span class="cstat-no" title="statement not covered" >                        modis.modif<span class="cstat-no" title="statement not covered" >ications[0].abbreviation.charAt(0) : "";<span class="cstat-no" title="statement not covered" ></span></span></span>
                 divSpan.appendChild<span class="cstat-no" title="statement not covered" >(spanModi</span>Abb);
                 const sp<span class="cstat-no" title="statement not covered" >anModiDescription: HTMLSpanElement = document.createElement("span");</span>
                 let monoMass<span class="cstat-no" title="statement not covered" >Name: string = "";</span>
@@ -3205,7 +3205,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
     private drawProteinCoverageTooltip(selecte<span class="cstat-no" title="statement not covered" >dPeptideLine: PeptideLine, pept</span>ideLine: PeptideLine, divTotal: HTMLDivElement): void {
         const divSymbol: HTMLDivElement<span class="cstat-no" title="statement not covered" > = </span>document.createElement("div");
         const divPsm<span class="cstat-no" title="statement not covered" >Count: HTMLDivElement = document.createElement("div");</span>
-        const divArea: H<span class="cstat-no" title="statement not covered" >TMLDivElement <span class="cstat-no" title="statement not covered" >= document.createElement("div"</span>);<span class="cstat-no" title="statement not covered" ></span></span>
+        const divArea: H<span class="cstat-no" title="statement not covered" >TMLDivElement =<span class="cstat-no" title="statement not covered" > document.createElement("div");<span class="cstat-no" title="statement not covered" ></span></span></span>
         const divScan: HTMLDivElement = docume<span class="cstat-no" title="statement not covered" >nt.create</span>Element("div");
         const divRT: HTMLDivElement = document.<span class="cstat-no" title="statement not covered" >createElement("div");</span>
         const divPValue: HTMLDivElement = document.createElement("div");
@@ -3425,7 +3425,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
         supportP<span class="cstat-no" title="statement not covered" >eptides.sort((a: ISupportPeptide, b: ISupportPeptide) =&gt; {</span>
             return a.start - b.start;
         });<span class="cstat-no" title="statement not covered" ></span>
-        for (con<span class="cstat-no" title="statement not covered" >st peptide of su<span class="cstat-no" title="statement not covered" >pportPeptides</span>) {<span class="cstat-no" title="statement not covered" ></span></span>
+        for (con<span class="cstat-no" title="statement not covered" >st peptide of sup<span class="cstat-no" title="statement not covered" >portPeptides) {<span class="cstat-no" title="statement not covered" ></span></span></span>
             const peptideRow<span class="cstat-no" title="statement not covered" >s: PeptideInR</span>ow[] = [];
             let fini<span class="cstat-no" title="statement not covered" >shedPeptideNumber: number = 0;</span>
             while (finis<span class="cstat-no" title="statement not covered" >hedPeptideNum</span>ber &lt;= peptide.end) {
@@ -3456,8 +3456,8 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
 <span class="cstat-no" title="statement not covered" >                    M</span>ath.floor((peptide.start + finishedPeptideNumber) / this.props.aaPerLine)) {
                     let tempFinished: number = 0;
 <span class="cstat-no" title="statement not covered" >                    tempFinished = 110 - (peptide.start <span class="fstat-no" title="function not covered" >+ </span>finishedPeptideNumber) % this.props.aaPerLine;</span>
-<span class="cstat-no" title="statement not covered" >                    if ((</span>peptide.start + tempFinished) &gt; peptide.end) {
-                        peptideRow.end = peptide.end + 1;
+                    if ((peptide.start + tempFinished) &gt; peptide.end) {
+<span class="cstat-no" title="statement not covered" >                        p</span>eptideRow.end = peptide.end + 1;
 <span class="cstat-no" title="statement not covered" >                        pe</span>ptideRow = this.addModification(peptideRow, peptide);
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span>                        peptideRows.push(peptideRow);</span>
                         break;<span class="cstat-no" title="statement not covered" ></span>
@@ -3560,7 +3560,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
         for (const peptideLine <span class="cstat-no" title="statement not covered" >of </span>peptideLines) {
             const pe<span class="cstat-no" title="statement not covered" >ptideNewRows: PeptideInRow[] = [];</span>
             for (const p<span class="cstat-no" title="statement not covered" >eptideRow of peptideLine.peptideRows) {</span>
-                const peptid<span class="cstat-no" title="statement not covered" >eNewRow: Pepti<span class="cstat-no" title="statement not covered" >deInRow = { ...peptideRow };<span class="cstat-no" title="statement not covered" ></span></span></span>
+                const peptid<span class="cstat-no" title="statement not covered" >eNewRow: Peptid<span class="cstat-no" title="statement not covered" >eInRow = { ...peptideRow };<span class="cstat-no" title="statement not covered" ></span></span></span>
                 peptideNewRows.push(peptideNe<span class="cstat-no" title="statement not covered" >wRow);</span>
             }<span class="cstat-no" title="statement not covered" ></span>
             peptideNewLines.push({<span class="cstat-no" title="statement not covered" ></span>
@@ -3688,7 +3688,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
                 }<span class="cstat-no" title="statement not covered" ></span>
             }<span class="cstat-no" title="statement not covered" ></span>
         }<span class="cstat-no" title="statement not covered" ></span>
-        this.props.u<span class="cstat-no" title="statement not covered" >pdateMaxValue(<span class="cstat-no" title="statement not covered" >max);<span class="cstat-no" title="statement not covered" ></span></span></span>
+        this.props.u<span class="cstat-no" title="statement not covered" >pdateMaxValue(m<span class="cstat-no" title="statement not covered" >ax);<span class="cstat-no" title="statement not covered" ></span></span></span>
         return max;<span class="cstat-no" title="statement not covered" ></span>
     }<span class="cstat-no" title="statement not covered" ></span>
     private generateFreq<span class="cstat-no" title="statement not covered" >uencyData(sampleData: number[], inde</span>x: number, limit: number, peptides: PeptidesStartEnds[][]):
@@ -3878,7 +3878,7 @@ class ProteinsCovera<span class="cstat-no" title="statement not covered" >ge ext
 <span class="cstat-no" title="statement not covered" >                (peptide as ISupportPepti<span class="cstat-no" title="statement not covered" >de).peptide.positionOfModi</span>fications :<span class="cstat-no" title="statement not covered" ></span></span>
                 (peptide as I<span class="cstat-no" title="statement not covered" >SupportPeptideFeatureVecto</span>r).peptideFeatureVector.positionOfModifications;
             cons<span class="cstat-no" title="statement not covered" >t abbrModiList: PeptideLineModi[] = ModificationHelper.getPeptideAbbrModiList(</span>
-                modi<span class="cstat-no" title="statement not covered" >ficationNames, posit<span class="cstat-no" title="statement not covered" >ionOfModification</span>s,<span class="cstat-no" title="statement not covered" ></span></span>
+                modi<span class="cstat-no" title="statement not covered" >ficationNames, positi<span class="cstat-no" title="statement not covered" >onOfModifications,<span class="cstat-no" title="statement not covered" ></span></span></span>
                 this.props.ptmMap);<span class="cstat-no" title="statement not covered" ></span>
             const newPos<span class="cstat-no" title="statement not covered" >itionList: number[] = [];</span>
             if (positionOfMo<span class="cstat-no" title="statement not covered" >difications != nu</span>ll) {
@@ -3946,7 +3946,7 @@ export { Cov<span class="cstat-no" title="statement not covered" >erageProteinPe
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jun 02 2019 12:15:25 GMT-0400 (Eastern Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jun 02 2019 15:43:43 GMT-0400 (Eastern Daylight Time)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

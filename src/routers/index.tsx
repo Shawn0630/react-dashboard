@@ -6,14 +6,14 @@ import {default as Components} from "../components";
 import { UserState } from "~models/user";
 import MenuRoutes from "./MenuRoutes";
 
-interface RoutersProps extends RouteComponentProps<{}>, SubscriptionAPI {
+interface RoutersProps extends RouteComponentProps, SubscriptionAPI {
     user: UserState;
 }
 interface RoutersStates {
     pathName: string;
 }
 
-export default withRouter<RouteComponentProps<{}>>(connect(({ user }: { user: UserState }) => ({
+export default withRouter<RouteComponentProps>(connect(({ user }: { user: UserState }) => ({
     user
 }))(class Routers extends React.PureComponent<RoutersProps, RoutersStates> {
 
