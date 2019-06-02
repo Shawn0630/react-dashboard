@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"; //tslint:disable-line
 
 import dva, { DvaInstance } from "dva";
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory as createHistory } from "history"
 import * as Redux from "redux";
 import { globalModel } from "~dva/global";
 import { userModel } from "~dva/user";
@@ -10,7 +10,7 @@ import { resultModel } from "~dva/result";
 import router from "./router";
 
 const app: DvaInstance = dva({
-  history: createBrowserHistory(),
+  history: createHistory(),
   onError: ((err, dispatch) => {
     (err as any).preventDefault(); // tslint:disable-line:no-any
     dispatch({
