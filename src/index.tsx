@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"; //tslint:disable-line
 
 import dva, { DvaInstance } from "dva";
-import { createBrowserHistory as createHistory } from "history"
+import { createBrowserHistory as createHistory } from "history";
 import * as Redux from "redux";
 import { globalModel } from "~dva/global";
 import { userModel } from "~dva/user";

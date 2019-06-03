@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="13778" lines-covered="50" line-rate="0.0036" branches-valid="10740" branches-covered="27" branch-rate="0.0025" timestamp="1559504624439" complexity="0" version="0.1">
+<coverage lines-valid="13778" lines-covered="50" line-rate="0.0036" branches-valid="10740" branches-covered="27" branch-rate="0.0025" timestamp="1559530456344" complexity="0" version="0.1">
   <sources>
     <source>/Users/shawn/Files/Project/react-dashboard</source>
   </sources>

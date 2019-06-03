@@ -1,20 +1,20 @@
-<testsuites name="jest tests" tests="6" failures="0" time="5.416">
-  <testsuite name="/__tests__/utilities/ui-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-02T19:43:25" time="1.724" tests="2">
-    <testcase classname="utilities/ui-helper - getOrDefault" name="utilities/ui-helper - getOrDefault" time="0.008">
+<testsuites name="jest tests" tests="6" failures="0" time="3.7089999999999996">
+  <testsuite name="/__tests__/utilities/ui-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-03T02:54:05" time="1.15" tests="2">
+    <testcase classname="utilities/ui-helper - getOrDefault" name="utilities/ui-helper - getOrDefault" time="0.007">
     </testcase>
     <testcase classname="utilities/ui-helper - renderOptions" name="utilities/ui-helper - renderOptions" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="/__tests__/utilities/array-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-02T19:43:25" time="1.741" tests="3">
+  <testsuite name="/__tests__/utilities/array-helper.test.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-03T02:54:05" time="1.155" tests="3">
     <testcase classname="utilities/array-helper - should flatten the array in pure Array" name="utilities/array-helper - should flatten the array in pure Array" time="0.007">
     </testcase>
-    <testcase classname="utilities/array-helper - should flatten the array" name="utilities/array-helper - should flatten the array" time="0">
+    <testcase classname="utilities/array-helper - should flatten the array" name="utilities/array-helper - should flatten the array" time="0.001">
     </testcase>
     <testcase classname="utilities/array-helper - should group the array by key" name="utilities/array-helper - should group the array by key" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="/__tests__/components/shared/ActionButton.test.tsx" errors="0" failures="0" skipped="0" timestamp="2019-06-02T19:43:25" time="1.951" tests="1">
-    <testcase classname="components/shared/ActionButton - shoule match snapshot when enabled" name="components/shared/ActionButton - shoule match snapshot when enabled" time="0.03">
+  <testsuite name="/__tests__/components/shared/ActionButton.test.tsx" errors="0" failures="0" skipped="0" timestamp="2019-06-03T02:54:05" time="1.404" tests="1">
+    <testcase classname="components/shared/ActionButton - shoule match snapshot when enabled" name="components/shared/ActionButton - shoule match snapshot when enabled" time="0.023">
     </testcase>
   </testsuite>
 </testsuites>
