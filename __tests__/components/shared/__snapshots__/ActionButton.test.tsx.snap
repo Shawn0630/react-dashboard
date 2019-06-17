@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`components/shared/ActionButton shoule match snapshot when enabled 1`] = `ShallowWrapper {}`;
